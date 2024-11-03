@@ -1,0 +1,24 @@
+
+@defer () {
+
+  <div class="dashboard">
+    <app-custom-alert/>
+    <header class="dashboard__header" >
+      <app-header/>
+    </header>
+
+    <div class="dashboard__content">
+      <nav [ngClass]="activeMenu() ? 'active':'inactive'" class="dashboard__content-navbar">
+        <app-navbar/>
+      </nav>
+
+      <main class="dashboard__content-main">
+        <app-summary/>
+        <router-outlet/>
+      </main>
+    </div>
+
+  </div>
+}
+
+

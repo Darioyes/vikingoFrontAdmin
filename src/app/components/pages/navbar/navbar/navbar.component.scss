@@ -1,0 +1,69 @@
+@import "../../../../../styles/variables/mediaq";
+@import "../../../../../styles/variables/variables";
+
+
+.conteiner-nav{
+  width: 100%;
+  height: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  gap:10px;
+  text-transform: capitalize;
+  padding-bottom: 2 20px;
+  padding-right: 10px;
+
+  a{
+    width: 95%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: $primary;
+    margin:10px;
+    padding-left: 30px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    cursor: pointer;
+    &:hover{
+      background-color: $gray-400;
+      //colocamos un linea en la parte izquierda para que no afecte el tamaño determinado pero no con con border ya que afecta el tamaño
+      position: relative;
+      &::before{
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 100%;
+        background-color: $info;
+        left: 0;
+      }
+    }
+  }
+  &__logout{
+    text-align: center;
+    padding: 0 !important;
+    font-size: 26px;
+    i{
+      width: 100%;
+    }
+  }
+}
+
+.active-nav{
+  background-color: $primary;
+  color: $white !important;
+  &:hover{
+    background-color: $primary !important;
+    //colocamos un linea en la parte izquierda para que no afecte el tamaño determinado pero no con con border ya que afecta el tamaño
+    position: relative;
+    &::before{
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      background-color: $primary !important;
+      left: 0;
+    }
+  }
+}

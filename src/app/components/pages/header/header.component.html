@@ -1,0 +1,35 @@
+<div class="container-header">
+  <button class="container-header__menu" (click)="toggleMenu()">
+    <div class="container-header__menu--hamburger"></div>
+    <div class="container-header__menu--hamburger"></div>
+    <div class="container-header__menu--hamburger"></div>
+    <img class="container-header__menu--img" src="../../../../assets/images/vikingoTech1.jpg" alt="">
+  </button>
+
+  <div class="container-header__title">
+    <h1><span>V</span>IKINGO<span>T</span>ECH</h1>
+  </div>
+
+  <div class="container-header__user">
+
+    <div class="container-user">
+      <div class="container-user__notification">
+        <a class="fa-solid fa-bell"></a>
+      </div>
+      <div class="container-user__avatar">
+        @if(avatar()){
+          <img src="../../../../assets/images/avatar.jpg" alt="avatar">
+
+        }@else{
+          <img [src]="urlImage + avatar().replace('public','storage')" alt="avatar">
+        }
+      </div>
+      <div class="container-user__name">
+        <p>Admin</p>
+        <p>{{name() + ' ' + lastname()}}</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

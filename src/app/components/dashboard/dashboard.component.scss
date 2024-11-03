@@ -1,0 +1,91 @@
+@import '../../../styles/variables/variables';
+@import '../../../styles/variables/mediaq';
+.dashboard{
+  max-width: 100%;
+  height: 100vh;
+  background: $primary;
+  &__header{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background:$primary;
+    app-header{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__content{
+    width: 100%;
+    height: calc(100% - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include tablets{
+      position: relative;
+    }
+
+    &-navbar{
+      width: 250px;
+      height: 100%;
+      background-color: $gray-300;
+      border-top-right-radius: 30px;
+      @include tablets{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      app-navbar{
+        width: 100%;
+        height: 100%;
+      }
+
+    }
+    &-main{
+      width: calc(100% - 250px);
+      height: 100%;
+      background-color: $white;
+      @include tablets{
+        width: 100%;
+      }
+
+    }
+  }
+
+  .active{
+    display: flex;
+    animation: apearMenu .3s  both;
+  }
+  .inactive{
+    animation: desactiveMenu .3s both;
+  }
+
+  @keyframes apearMenu {
+    from{
+      opacity: .2;
+      translate: -500px 0;
+    }
+    to{
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+
+  @keyframes desactiveMenu {
+    from{
+      opacity: 1;
+      translate: 0 0;
+      opacity: .2;
+    }
+    to{
+      translate: -500px 0;
+    }
+  }
+
+}

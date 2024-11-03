@@ -1,0 +1,50 @@
+@defer () {
+  <main class="main-login">
+    <app-custom-alert/>
+    <div class="main-login__conteiner ">
+      <form [formGroup]="loginForm" class="form-login" (submit)="loginUser()">
+        <div class="form-login__logo">
+          <img  src="../../../../../assets/images/vikingoTech1.jpg"/>
+        </div>
+        <div class="form-login__user">
+          <div class="form-login__user--email">
+            <i class="fa-regular fa-envelope"></i>
+            <input [ngClass]="{'input-error': email?.errors?.['required'] && email?.touched || email?.errors?.['email']}" formControlName="email" type="email" placeholder="Correo" name="email" id="email" autocomplete="email">
+
+          </div>
+          <div>
+            @if (email?.errors?.['required'] && email?.touched) {
+              <p class="alert text-danger " >El correo es obligatorio</p>
+            }
+            @if (email?.errors?.['email']) {
+              <p class="alert text-danger">Debe ser un correo valido</p>
+            }
+          </div>
+          <div class="form-login__user--password">
+            <i (click)="padlockToggle()" [class.fa-solid]="true" [class.fa-lock]="padlock" [class.fa-unlock]="!padlock"></i>
+            <input [ngClass]="{'input-error': password?.errors?.['required'] && password?.touched}" formControlName="password" type="{{padlock ? 'password':'text'}}" placeholder="Contraseña" name="password" id="password" autocomplete="current-password">
+          </div>
+          <div>
+            @if (password?.errors?.['required'] && password?.touched) {
+              <p class="alert text-danger">La contraseña es obligatoria</p>
+            }
+          </div>
+          <div class="form-login__btn">
+            @if(!loadingButton){
+              <button class="btn btn-primary" [disabled]="loginForm.invalid">Ingresar</button>
+            }@else{
+              <button class="btn btn-primary"><app-spiner-button/>Ingresar</button>
+            }
+          </div>
+          @if(invalidform()){
+            <p class="text-danger">Todos los campos son obligatorios</p>
+          }
+
+        </div>
+      </form>
+    </div>
+    <div class="main-login__conteinertitle">
+      <span class="text-primary"><span class="size" >V</span>IKINGO<span class="size">T</span>ECH</span>
+    </div>
+  </main>
+}

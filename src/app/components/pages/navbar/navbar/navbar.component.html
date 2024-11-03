@@ -1,0 +1,18 @@
+<div class="conteiner-nav">
+
+  @for( item of menuItems; track $index ){
+   <!-- <div class="conteiner-nav__item" > -->
+          <a class="conteiner-nav__item"
+              [routerLink]="item.path"
+              routerLinkActive="active-nav"
+          >
+           {{item.title}}
+          </a>
+
+      <!-- </div> -->
+  }
+  <a  class="conteiner-nav__logout" (click)="logout()" >
+    <i class="fa-solid fa-right-from-bracket" ></i>
+  </a>
+
+</div>

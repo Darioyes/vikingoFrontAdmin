@@ -1,0 +1,30 @@
+//color de texto
+//va a al archivo de variables.scc y name es el nombre de la variable y color es el valor de la variable del mapa de colores
+@each $name, $color in $colores {
+    //quedaria la clase como .text-primary
+    .text-#{$name} {
+        color: $color;
+    }
+
+    //hacer hover pero colores mas oscuros
+    //la clase quedaria como .text-primary:hover
+    .text-hover#{$name}:hover {
+        //darken es para oscurecer el color en un 20%
+        color: darken($color, 20%);
+    }
+}
+
+//escala de grises
+@each $name, $color in $gray {
+    //la clase quedaria como .text-gray-100
+    .text-gray-#{$name} {
+        color: $color;
+    }
+
+    //hacer hover pero colores mas oscuros
+    //la clase quedaria como .text-gray-100:hover
+    .text-gray-#{$name}:hover {
+        //darken es para oscurecer el color en un 20%
+        color: darken($color, 20%);
+    }
+}
