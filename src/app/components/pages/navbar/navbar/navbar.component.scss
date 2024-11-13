@@ -27,7 +27,7 @@
     border-bottom-right-radius: 7px;
     cursor: pointer;
     &:hover{
-      background-color: $gray-400;
+      background-color: $gray-500;
       //colocamos un linea en la parte izquierda para que no afecte el tamaño determinado pero no con con border ya que afecta el tamaño
       position: relative;
       &::before{

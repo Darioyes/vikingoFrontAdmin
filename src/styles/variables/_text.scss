@@ -8,7 +8,7 @@
 
     //hacer hover pero colores mas oscuros
     //la clase quedaria como .text-primary:hover
-    .text-hover#{$name}:hover {
+    .text-hover-#{$name}:hover {
         //darken es para oscurecer el color en un 20%
         color: darken($color, 20%);
     }

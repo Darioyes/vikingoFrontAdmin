@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Alert } from '@interfaces/alerts/alert';
 import { Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AlertsService {
 
   //instanciamos un observable de tipo Subject para poder emitir y escuchar eventos

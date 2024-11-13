@@ -1,0 +1,75 @@
+@import '../../../../../styles/variables/variables';
+@import '../../../../../styles/variables/mediaq';
+
+.conteinaer-userslist{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &__search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    &--new{
+      cursor: pointer;
+      i{
+        font-size: 30px;
+        color: $success;
+          &:hover{
+              color: lighten($success, 20%);
+          }
+        }
+      }
+
+    &--item{
+      background-color: aqua;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      input{
+        width: 350px;
+        height: 30px;
+        border: none;
+        outline: none;
+        padding: 0 5px;
+        @include phone{
+          width: 270px;
+        }
+      }
+      label{
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: $primary;
+        i{
+          color:$white
+        }
+      }
+    }
+  }
+  &__description{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    gap: 10px;
+
+    app-user-card{
+      max-width: 350px;
+      flex:1 0 350px;
+      //background-color: red;
+      @include phone{
+        width: 100%!important;
+      }
+    }
+  }
+
+}

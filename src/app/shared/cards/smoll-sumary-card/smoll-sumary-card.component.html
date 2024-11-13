@@ -1,0 +1,12 @@
+<div class="conteiner-minicard">
+  <div class="conteiner-minicard__icon"
+  [ngStyle]="{'background': 'linear-gradient(145deg,#ffffff 0%, '+gradient()+' 100%)',
+    'border': '2px solid '+color()
+  }" >
+    <i class="fa-regular fa-circle-check" [ngStyle]="{'color':color()}" ></i>
+  </div>
+  <div class="conteiner-minicard__info">
+    <p class="conteiner-minicard__info--item">{{amount()}}</p>
+    <p class="conteiner-minicard__info--item">{{name()}}</p>
+  </div>
+</div>

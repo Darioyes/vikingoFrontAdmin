@@ -5,9 +5,7 @@ import { LoginResponse } from '@interfaces/user/ILoginResponse';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ValidTokenService {
   #url = environment.domain;
 
@@ -24,7 +22,7 @@ export class ValidTokenService {
       'Authorization': `Bearer ${token}`,
 
     });
-    return this.#http.get<LoginResponse>(`${this.#url}verifytoken/${idUser}/${token}`, {headers: headers});
+    return this.#http.get<LoginResponse>(`${this.#url}verifytoken/${idUser}`, {headers: headers});
 
 
   }

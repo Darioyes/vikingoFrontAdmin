@@ -1,1 +1,25 @@
-<p>maintenances works!</p>
+<div class="conteiner-maintenance">
+  <div class="conteiner-maintenance__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div>
+  <div class="conteiner-maintenance__cards">
+    <app-smoll-sumary-card [name]="'Recibidos'" [amount]="joined()" [color]="'#00264d'" [gradient]="'#9accff'" />
+    <app-smoll-sumary-card [name]="'En progreso'" [amount]="inProgress()" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
+    <app-smoll-sumary-card [name]="'Autorización'" [amount]="authorization()" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
+    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="finalized()" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+  </div>
+  <div class="conteiner-maintenance__links">
+    <a class="text-success " [routerLink]="'lista-mantenimientos'" routerLinkActive = "selected" >Mantenimientos</a>
+    <a class="text-success" [routerLink]="'estadisticas-mantenimiento'" routerLinkActive = "selected" >Estadisticas</a>
+  </div>
+  <div class="conteiner-maintenance__principal">
+    <router-outlet/>
+  </div>
+</div>

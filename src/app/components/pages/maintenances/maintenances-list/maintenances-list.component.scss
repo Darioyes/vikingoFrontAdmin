@@ -1,0 +1,103 @@
+@import '../../../../../styles/variables/variables';
+@import '../../../../../styles/variables/mediaq';
+
+.conteinaer-mttolist{
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 0;
+  &__search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    input{
+      width: 350px;
+      height: 30px;
+      border: none;
+      outline: none;
+      padding: 0 5px;
+      @include phone{
+        width: 270px;
+      }
+    }
+    label{
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      background-color: $primary;
+      i{
+        color:$white
+      }
+    }
+  }
+  &__description{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 10px 0;
+    gap: 10px;
+    app-card-maintenance{
+      min-width: 300px;
+      flex:1 0 300px;
+    }
+  }
+  &__new{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    i{
+      z-index: 800;
+      font-size: 30px;
+      color: $success;
+        &:hover{
+            color: lighten($success, 20%);
+      }
+    }
+  }
+
+  &__pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    &--links{
+      display: flex;
+      gap: 5px;
+      color: $primary;
+      font-weight: 600;
+      a{
+        cursor: pointer;
+        font-size: 17px;
+        &:hover{
+          color: $success;
+        }
+        i{
+          font-size: 22px;
+          font-weight: 900
+        };
+
+      }
+      .active{
+        color: $success;
+        border-bottom: 1px solid $success;
+      }
+    }
+    &--page{
+      p{
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary;
+      }
+    }
+  }
+}

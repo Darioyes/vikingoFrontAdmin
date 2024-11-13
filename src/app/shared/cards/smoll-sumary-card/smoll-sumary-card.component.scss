@@ -1,0 +1,40 @@
+@import '../../../../styles/variables/variables';
+
+
+.conteiner-minicard{
+  //background-color: $white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  &__icon{
+    width: 60px;
+    height: 60px;
+    //border: 2px solid $primary;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //background: linear-gradient(145deg,$white 0%, lighten($warning,40%) 100%);
+    i{
+      font-size: 25px;
+      color:$danger;
+      font-weight: 100;
+    }
+  }
+  &__info{
+    min-width: 100px;
+    :first-child{
+      font-size: 20px;
+      font-weight: 800;
+    }
+    :last-child{
+      font-size: 15px;
+      color: $gray-500;
+      font-weight: 200;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+    }
+  }
+}

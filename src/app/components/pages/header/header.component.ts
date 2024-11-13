@@ -42,11 +42,11 @@ export class HeaderComponent implements OnInit {
 
   // Método para actualizar activeMenu basado en el ancho de la ventana
   private updateActiveMenu(width: number): void {
-    this.activeMenu = width > 800;
+    this.activeMenu = width > 1000;
   }
  //animacion de menu hamburguesa
  toggleMenu():void {
-  if(window.innerWidth <= 800){
+  if(window.innerWidth <= 1000){
     this.activeMenu = !this.activeMenu;
   }else{
     this.activeMenu = true;

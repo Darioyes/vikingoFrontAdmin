@@ -1,1 +1,25 @@
-<p>sales works!</p>
+<div class="conteiner-sales">
+  <div class="conteiner-sales__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div>
+  <div class="conteiner-sales__cards">
+    <app-smoll-sumary-card [name]="'Ventas'" [amount]="'1200000'" [color]="'#00264d'" [gradient]="'#9accff'" />
+    <app-smoll-sumary-card [name]="'Costo'" [amount]="'800000'" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
+    <app-smoll-sumary-card [name]="'Cantidad'" [amount]="'80'" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
+    <app-smoll-sumary-card [name]="'Por Confirmar'" [amount]="'5'" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+  </div>
+  <div class="conteiner-sales__links">
+    <a class="text-success " [routerLink]="'lista-mantenimientos'" routerLinkActive = "selected" >Mantenimientos</a>
+    <a class="text-success" [routerLink]="'estadisticas-mantenimiento'" routerLinkActive = "selected" >Estadisticas</a>
+  </div>
+  <div class="conteiner-sales__principal">
+    <router-outlet/>
+  </div>
+</div>

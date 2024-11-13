@@ -86,7 +86,6 @@ export class LoginPageComponent implements OnInit {
         //llamamos al servicio de login
         this.#unsubscribe = this.#loginService.login(loginData).subscribe({
           next:(data:any)=>{
-            console.log(data);
             //calcular la fecha de expiración del token en 30 días
             const expiresDate = new Date();
             expiresDate.setDate(expiresDate.getDate() + 30);

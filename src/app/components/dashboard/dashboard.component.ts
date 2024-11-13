@@ -6,6 +6,7 @@ import { NavbarComponent } from '@components/pages/navbar/navbar/navbar.componen
 import { SummaryComponent } from '@components/pages/summary/summary.component';
 import { NavbarMenuService } from '@services/menu/navbar-menu.service';
 import { CustomAlertComponent } from '@shared/alert/custom-alert/custom-alert.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { CustomAlertComponent } from '@shared/alert/custom-alert/custom-alert.co
     HeaderComponent,
     SummaryComponent,
     CustomAlertComponent,
-    NgClass
+    NgClass,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
@@ -28,6 +29,10 @@ export class DashboardComponent implements OnInit {
 
   public activeMenu = signal<boolean>(false);
 
+  // Inyectamos el servicio de tocken
+
+  #cookieService = inject(CookieService);
+
   ngOnInit(): void {
     this.#navbarMenu.getSubmenuActive().subscribe((value) => {
       this.activeMenu.set(value);
@@ -37,5 +42,7 @@ export class DashboardComponent implements OnInit {
   closeMenu(): void {
     this.#navbarMenu.setSubmenuActive(false);
   }
+
+
 
 }

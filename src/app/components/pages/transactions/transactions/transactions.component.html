@@ -1,1 +1,25 @@
-<p>transactions works!</p>
+<div class="conteiner-transactions">
+  <div class="conteiner-transactions__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div>
+  <div class="conteiner-transactions__cards">
+    <app-smoll-sumary-card [name]="'C.Clientes'" [amount]="'120'" [color]="'#00264d'" [gradient]="'#9accff'" />
+    <app-smoll-sumary-card [name]="'Mujeres'" [amount]="'80'" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
+    <app-smoll-sumary-card [name]="'Hombre'" [amount]="'40'" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
+    <app-smoll-sumary-card [name]="'Promedio ins'" [amount]="'20'" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+  </div>
+  <div class="conteiner-transactions__links">
+    <a class="text-success " [routerLink]="'lista-mantenimientos'" routerLinkActive = "selected" >Mantenimientos</a>
+    <a class="text-success" [routerLink]="'estadisticas-mantenimiento'" routerLinkActive = "selected" >Estadisticas</a>
+  </div>
+  <div class="conteiner-transactions__principal">
+    <router-outlet/>
+  </div>
+</div>

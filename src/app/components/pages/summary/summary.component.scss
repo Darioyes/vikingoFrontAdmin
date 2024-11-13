@@ -3,13 +3,20 @@
 @import '../../../../styles/variables/mediaq';
 
 .container-summary{
-    width: 100%;
+    position: fixed;
+    right: 0;
+    width: calc(100% - 250px);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background: $primary;
     padding: 20px 10px;
+    z-index: 900;
+    @include tablets{
+      position: static;
+      width: 100%;
+    }
     &__filters{
       width: 100%;
       display: flex;
@@ -29,6 +36,10 @@
         color: $primary;
         font-weight: 900;
       }
+      .active-filter{
+        background-color: $gray-300;
+        color: $primary;
+      }
     }
     &__summarycards{
       width: 100%;
@@ -37,15 +48,21 @@
       justify-content: space-around;
       flex-direction: row;
       //que los contenedores se desplacen hacia abajo cuando la pantalla sea pequeña
-      flex-wrap: wrap;
       gap: 5px;
       align-items: center;
-      app-summary-card{
+      @include tablets{
         min-width: 250px;
+        flex-wrap: wrap;
+      }
+      app-summary-card{
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 1 0 250px;
+        flex-basis: 1;
+        @include tablets{
+          flex: 1 0 250px;
+        }
       }
     }
   }

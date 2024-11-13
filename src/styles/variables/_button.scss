@@ -17,6 +17,22 @@
   }
 }
 
+.btn-summary{
+  //@extend .btn;
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 0;
+  background: $white;
+  border:1px solid $info;
+  color: $info;
+  font-weight: 900;
+  transition: all 0.3s;
+  &:hover{
+    background: $info;
+    color: $white;
+  }
+}
+
 
 @mixin btn($bg,$text,$border,$px){
   background-color: $bg;

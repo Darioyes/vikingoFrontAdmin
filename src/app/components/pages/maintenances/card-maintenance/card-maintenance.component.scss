@@ -1,0 +1,50 @@
+@import '../../../../../styles/variables/variables';
+
+.card-maintenances{
+  width: 100%;
+  background-color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  font-size: clamp(12px, 2dvw, 18px );
+  &__image{
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    flex-direction: column;
+    img{
+      width: 80px;
+      border-radius: 5px;
+    }
+    p{
+      font-size: 0.8em;
+      color: $gray-600;
+    }
+
+  }
+  &__data{
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    :first-child{
+      font-size: 0.8em;
+      //color: $success;
+    }
+    p{
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+    div{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      i{
+        cursor: pointer;
+      }
+    }
+  }
+}

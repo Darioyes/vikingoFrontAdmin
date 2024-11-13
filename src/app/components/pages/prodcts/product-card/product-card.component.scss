@@ -1,0 +1,65 @@
+@import '../../../../../styles/variables/variables';
+@import '../../../../../styles/variables/variables';
+
+.conteiner-product{
+  max-width: 100%;
+  background-color: $white;
+  font-size: clamp(14px, 2dvw, 18px );
+  &__img{
+    width: 100%;
+    img{
+      width: 100%;
+    }
+  }
+  &__description{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    &--title{
+      width: 100%;
+      h3{
+        text-align: center;
+        font-size: 1.5em;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+    }
+    &--costs{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      //primer hijo
+      .costs{
+        font-size: 0.9em;
+        color: $gray-600;
+      }
+      .stock{
+        width: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1em;
+        color: $gray-600;
+        span{
+          color: $success;
+          font-size: 1.2em;
+        }
+      }
+    }
+    &--actions{
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 5px;
+      padding: 10px;
+      i{
+        cursor: pointer;
+      }
+    }
+  }
+}

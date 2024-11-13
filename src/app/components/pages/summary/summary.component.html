@@ -1,15 +1,16 @@
 <div class="container-summary">
   <div class="container-summary__filters" >
-    <button class="btn" >Hoy</button>
-    <button class="btn" >7 Días</button>
-    <button class="btn" >15 Días</button>
-    <button class="btn" >30 Días</button>
-    <button class="btn" >90 Días</button>
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
   </div>
   <div class="container-summary__summarycards" >
-    <app-summary-card [icon]="'fa-solid fa-money-bill'" [title]="'Ventas'" [value]="'1,000,000'" />
-    <app-summary-card [icon]="'fa-solid fa-screwdriver-wrench'" [title]="'Mtto'" [value]="'1,000,000'" />
-    <app-summary-card [icon]="'fa-solid fa-chart-column'" [title]="'C.Directos'"  [value]="'1,000,000'" />
-    <app-summary-card [icon]="'fa-solid fa-chart-area'" [title]="'C.Indirectos'" [value]="'1,000,000'" />
+    <app-summary-card [icon]="'fa-solid fa-money-bill'" [title]="'Ventas'" [value]="sales()" />
+    <app-summary-card [icon]="'fa-solid fa-screwdriver-wrench'" [title]="'Mtto'" [value]="maintenances()" />
+    <app-summary-card [icon]="'fa-solid fa-chart-column'" [title]="'C.Directos'"  [value]="directCost()" />
+    <app-summary-card [icon]="'fa-solid fa-chart-area'" [title]="'C.Indirectos'" [value]="indirectCost()" />
   </div>
 </div>

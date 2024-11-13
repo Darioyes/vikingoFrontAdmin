@@ -1,0 +1,51 @@
+<div class="conteinaer-mttolist">
+
+  <div class="conteinaer-mttolist__search">
+    <input #searchInput type="text" name="search" id="search" placeholder="Buscar..."  >
+    <label for="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </label>
+  </div>
+
+  <div class="conteinaer-mttolist__description">
+    @defer (when dataProgress().response === 'success')
+    {
+      @for( maintenance of maintenances(); track $index){
+
+        <app-card-maintenance
+        [image]=" urlImg + maintenance.image1.replace('public', 'storage')"
+        [title]="maintenance.product"
+        [progress]="maintenance.advance"
+        [price]="maintenance.price"
+        />
+      }@empty {
+        <p class="text-danger" >No hay mantenimientos</p>
+      }
+
+    }@placeholder {
+      <app-spiner-pages/>
+    }
+
+  </div>
+  <div class="conteinaer-mttolist__new">
+    <i class="fa-solid fa-circle-plus"></i>
+  </div>
+
+  <div class="conteinaer-mttolist__pagination">
+    <div class="conteinaer-mttolist__pagination--links">
+      @for(links of dataProgress()?.data?.links; track $index){
+        @if( links.label === '&laquo; Anterior'){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(dataProgress()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+        }@else if(links.label ==='Siguiente &raquo;' ){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(dataProgress()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+        }@else{
+          <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+        }
+      }
+    </div>
+    <div class="conteinaer-mttolist__pagination--page">
+      <p>{{ dataProgress()?.data?.to }} / {{ dataProgress()?.data?.total }}</p>
+    </div>
+  </div>
+
+</div>

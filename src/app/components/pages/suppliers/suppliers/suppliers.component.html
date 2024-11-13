@@ -1,1 +1,25 @@
-<p>suppliers works!</p>
+<div class="conteiner-suppliers">
+  <div class="conteiner-suppliers__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div>
+  <div class="conteiner-suppliers__cards">
+    <app-smoll-sumary-card [name]="'C.Proveedores'" [amount]="'120'" [color]="'#00264d'" [gradient]="'#9accff'" />
+    <app-smoll-sumary-card [name]="'Compras'" [amount]="'80'" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
+    <app-smoll-sumary-card [name]="'Mes'" [amount]="'40'" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
+    <app-smoll-sumary-card [name]="'año'" [amount]="'20'" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+  </div>
+  <div class="conteiner-suppliers__links">
+    <a class="text-success " [routerLink]="'lista-proveedores'" routerLinkActive = "selected" >Proveedores</a>
+    <a class="text-success" [routerLink]="'estadisticas-proveedores'" routerLinkActive = "selected" >Estadisticas</a>
+  </div>
+  <div class="conteiner-suppliers__principal">
+    <router-outlet/>
+  </div>
+</div>

@@ -7,9 +7,7 @@ import { LoginResponse } from '@interfaces/user/ILoginResponse';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoginService {
 
   #url = environment.domain;
@@ -27,6 +25,7 @@ export class LoginService {
 
   logout(): Observable<ApiResponse>{
     const token = this.#cookieService.get('token');
+
     const headers = new HttpHeaders({
       'Accept': 'application/json',
       'Authorization': `Bearer ${token}`,
