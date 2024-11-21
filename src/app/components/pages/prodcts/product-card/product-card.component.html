@@ -1,18 +1,28 @@
 <div class="conteiner-product">
   <div class="conteiner-product__img">
-    <img src="../../../../../assets/images/predeterminada.jpg" alt="product.name" />
+    <img [src]="img()" [alt]="title()" />
   </div>
   <div class="conteiner-product__description">
     <div class="conteiner-product__description--title">
-      <h3>Nombre producto</h3>
+      <h3>{{title()}}</h3>
     </div>
     <div class="conteiner-product__description--costs">
       <div class="costs">
-        <p>Venta: 150.000</p>
-        <p>Costo: 100.000</p>
+        <p>{{price() | number}}</p>
+        <p>{{cost() | number}}</p>
       </div>
       <div class="stock" >
-        <p>Stock:<span>10</span></p>
+        <p>Stock:
+          @if(stock() < 6){
+            <span [ngStyle]="{'background':colorDanger}" >0{{stock() | number}}</span>
+          }@else if (stock() < 11) {
+            <span [ngStyle]="{'background':colorWarning}" >{{stock() | number}}</span>
+          }@else if (stock() < 11) {
+            <span [ngStyle]="{'background':colorWarning}" >0{{stock() | number}}</span>
+          }@else{
+            <span [ngStyle]="{'background':colorSuccess}" >{{stock() | number}}</span>
+          }
+        </p>
       </div>
     </div>
     <div class="conteiner-product__description--actions">

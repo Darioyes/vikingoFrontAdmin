@@ -72,4 +72,42 @@
     }
   }
 
+  &__pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    &--links{
+      display: flex;
+      gap: 5px;
+      color: $primary;
+      font-weight: 600;
+      a{
+        cursor: pointer;
+        font-size: 17px;
+        &:hover{
+          color: $success;
+        }
+        i{
+          font-size: 22px;
+          font-weight: 900
+        };
+
+      }
+      .active{
+        color: $success;
+        border-bottom: 1px solid $success;
+      }
+    }
+    &--page{
+      p{
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary;
+      }
+    }
+  }
+
 }

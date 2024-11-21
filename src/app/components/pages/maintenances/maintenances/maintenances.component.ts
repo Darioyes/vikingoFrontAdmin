@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { environment } from '@enviroments/environment.development';
 import { ErrorMaintenanceResponse, SuccessMaintenanceResponse } from '@interfaces/maintenances/IGeneralMtto.interface';
 import { MaintenanceProgressService } from '@services/maintenance/maintenanceProgress/maintenance-progress.service';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
@@ -22,6 +23,16 @@ export class MaintenancesComponent implements OnInit {
 
   public RouterModule = inject(RouterModule);
   #maintenanceProgressService = inject(MaintenanceProgressService);
+
+
+  public colorPrimary = environment.colorPrimay;
+  public colorPrimaryGradient = environment.colorPrimaryGradient;
+  public colorSuccess = environment.colorSuccess;
+  public colorSuccessGradient = environment.colorSuccessGradient;
+  public colorWarning = environment.colorWarning;
+  public colorWarningGradient = environment.colorWarningGradient;
+  public colorDanger = environment.colorDanger;
+  public colorDangerGradient = environment.colorDangerGradient;
 
   public joined = signal<number | any>(0);
   public inProgress = signal<number | any>(0);

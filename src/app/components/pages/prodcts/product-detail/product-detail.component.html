@@ -8,7 +8,7 @@
 
     <div class="conteinaer-productslist__search--item">
 
-      <input type="text" name="search" id="search" placeholder="Buscar...">
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
 
       <label for="search">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,18 +19,42 @@
   </div>
 
   <div class="conteinaer-productslist__description">
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
-    <app-product-card/>
+
+    @defer( when productsPage().response === 'success'){
+
+      @for(product of products(); track $index){
+        <app-product-card
+        [img]="urlImg + product.image1.replace('public', 'storage')"
+        [title]="product.name"
+        [price]="product.sale_price"
+        [cost]="product.cost_price"
+        [stock]="product.stock"
+        />
+      }@empty {
+        <p class="text-danger" >No hay productos</p>
+      }
+    }@placeholder {
+      <app-spiner-pages/>
+    }
+
+    <div class="conteinaer-productslist__pagination">
+      <div class="conteinaer-productslist__pagination--links">
+        @for(links of productsPage()?.data?.links; track $index){
+          @if( links.label === '&laquo; Anterior'){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(productsPage()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+          }@else if(links.label ==='Siguiente &raquo;' ){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(productsPage()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+          }@else{
+            <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+          }
+        }
+      </div>
+      <div class="conteinaer-productslist__pagination--page">
+        <p>{{ productsPage()?.data?.to }} / {{ productsPage()?.data?.total }}</p>
+      </div>
+    </div>
+
+
+
   </div>
 </div>

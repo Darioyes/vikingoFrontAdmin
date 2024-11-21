@@ -8,7 +8,7 @@
 
     <div class="conteinaer-userslist__search--item">
 
-      <input type="text" name="search" id="search" placeholder="Buscar...">
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
 
       <label for="search">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,17 +19,41 @@
   </div>
 
   <div class="conteinaer-userslist__description">
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
-    <app-user-card/>
+    @defer ( when success().response === 'success'){
+      @for(user of users(); track $index){
+        <app-user-card
+        [name]="user.name"
+        [lastName]="user.lastname"
+        [userRole]="user.vikingo_roles.name_admin"
+        [phone]="user.phone1"
+        [email]="user.email"
+        [image]="urlImage + user.image.replace('public', 'storage')"
+        [gender]="user.gender"
+        />
+      }@empty {
+        <p class="text-danger" >No hay Clientes</p>
+      }
+
+    }@placeholder {
+      <app-spiner-pages/>
+    }
+
+    <div class="conteinaer-userslist__pagination">
+      <div class="conteinaer-userslist__pagination--links">
+        @for(links of success()?.data?.links; track $index){
+          @if( links.label === '&laquo; Anterior'){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(success()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+          }@else if(links.label ==='Siguiente &raquo;' ){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(success()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+          }@else{
+            <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+          }
+        }
+      </div>
+      <div class="conteinaer-userslist__pagination--page">
+        <p>{{ success()?.data?.to }} / {{ success()?.data?.total }}</p>
+      </div>
+    </div>
+
   </div>
 </div>

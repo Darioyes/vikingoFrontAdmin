@@ -1,24 +1,26 @@
 <div class="conteiner-usercard">
-  <div class="conteiner-usercard__img">
-    <img src="../../../../../assets/images/avatar.jpg" alt="avatar">
+  <div
+    [ngStyle]="{'border': '3px solid '+ color}"
+    class="conteiner-usercard__img">
+    <img [src]="image() ? image():'../../../../../assets/images/avatar.jpg'" [alt]="name()">
   </div>
   <div class="conteiner-usercard__name">
-    <span>Dario Alexander Gutierrez novoa</span>
+    <span>{{name() +' '+ lastName()}}</span>
   </div>
   <div class="conteiner-usercard__rol">
-    <span>User</span>
+    <span>{{userRole()=== 'admin'?'admin':'Usuario'}}</span>
   </div>
   <div class="conteiner-usercard__data">
-    <a href="https://api.whatsapp.com/send?phone=573163528817" target="_blank">
+    <a [href]="'https://api.whatsapp.com/send?phone=57'+phone()" target="_blank">
       <div class="conteiner-usercard__data--phone">
           <i class="fa-brands fa-whatsapp"></i>
-        <span>300 123 4567</span>
+        <span>{{phone()}}</span>
       </div>
     </a>
     <div class="conteiner-usercard__data--email">
-      <a href="mailto:dario-yes@hotmail.com" target="_blank">
+      <a [href]="'mailto:'+email()" target="_blank">
         <i class="fa-regular fa-envelope"></i>
-        <span>{{'correo@correo.com'}}</span>
+        <span>{{email()}}</span>
       </a>
     </div>
   </div>

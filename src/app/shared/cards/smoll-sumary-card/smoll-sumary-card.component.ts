@@ -1,11 +1,12 @@
-import { NgStyle } from '@angular/common';
+import { DecimalPipe, NgStyle } from '@angular/common';
 import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-smoll-sumary-card',
   standalone: true,
   imports: [
-    NgStyle
+    NgStyle,
+    DecimalPipe
   ],
   templateUrl: './smoll-sumary-card.component.html',
   styleUrl: './smoll-sumary-card.component.scss'

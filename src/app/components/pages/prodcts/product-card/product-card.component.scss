@@ -44,10 +44,17 @@
         place-items: center;
         font-size: 1em;
         color: $gray-600;
-        span{
-          color: $success;
-          font-size: 1.2em;
+        p{
+          text-align: center;
+          span{
+            border-radius: 50%;
+            color: $white;
+            font-size: .8em;
+            font-weight: 400;
+            padding: 6px;
+          }
         }
+
       }
     }
     &--actions{

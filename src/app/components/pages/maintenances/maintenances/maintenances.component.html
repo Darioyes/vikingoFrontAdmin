@@ -10,10 +10,10 @@
 
   </div>
   <div class="conteiner-maintenance__cards">
-    <app-smoll-sumary-card [name]="'Recibidos'" [amount]="joined()" [color]="'#00264d'" [gradient]="'#9accff'" />
-    <app-smoll-sumary-card [name]="'En progreso'" [amount]="inProgress()" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
-    <app-smoll-sumary-card [name]="'Autorización'" [amount]="authorization()" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
-    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="finalized()" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+    <app-smoll-sumary-card [name]="'Recibidos'" [amount]="joined()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
+    <app-smoll-sumary-card [name]="'En progreso'" [amount]="inProgress()" [color]="colorWarning" [gradient]="colorWarningGradient"/>
+    <app-smoll-sumary-card [name]="'Autorización'" [amount]="authorization()" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="finalized()" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
   </div>
   <div class="conteiner-maintenance__links">
     <a class="text-success " [routerLink]="'lista-mantenimientos'" routerLinkActive = "selected" >Mantenimientos</a>
