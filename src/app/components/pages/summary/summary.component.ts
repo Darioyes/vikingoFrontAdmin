@@ -7,14 +7,13 @@ import { SummaryCardComponent } from '@shared/cards/summary-card/summary-card.co
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-summary',
-  standalone: true,
-  imports: [
-    SummaryCardComponent,
-    NgClass
-  ],
-  templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss'
+    selector: 'app-summary',
+    imports: [
+        SummaryCardComponent,
+        NgClass
+    ],
+    templateUrl: './summary.component.html',
+    styleUrl: './summary.component.scss'
 })
 export class SummaryComponent implements OnInit, OnDestroy {
 

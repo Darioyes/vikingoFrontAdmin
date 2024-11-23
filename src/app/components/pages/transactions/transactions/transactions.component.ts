@@ -4,15 +4,14 @@ import { RouterModule } from '@angular/router';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
 
 @Component({
-  selector: 'app-transactions',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmollSumaryCardComponent,
-    RouterModule
-  ],
-  templateUrl: './transactions.component.html',
-  styleUrl: './transactions.component.scss'
+    selector: 'app-transactions',
+    imports: [
+        CommonModule,
+        SmollSumaryCardComponent,
+        RouterModule
+    ],
+    templateUrl: './transactions.component.html',
+    styleUrl: './transactions.component.scss'
 })
 export class TransactionsComponent {
   public RouterModule = inject(RouterModule);

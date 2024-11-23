@@ -7,15 +7,14 @@ import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-user-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmollSumaryCardComponent,
-    RouterModule
-  ],
-  templateUrl: './user-page.component.html',
-  styleUrl: './user-page.component.scss'
+    selector: 'app-user-page',
+    imports: [
+        CommonModule,
+        SmollSumaryCardComponent,
+        RouterModule
+    ],
+    templateUrl: './user-page.component.html',
+    styleUrl: './user-page.component.scss'
 })
 export class UserPageComponent implements OnInit, OnDestroy {
 

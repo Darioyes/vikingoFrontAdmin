@@ -9,16 +9,15 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
 import { CardMaintenanceComponent } from '../card-maintenance/card-maintenance.component';
 
 @Component({
-  selector: 'app-maintenances-list',
-  standalone: true,
-  imports: [
-    CardMaintenanceComponent,
-    SpinerPagesComponent,
-    NgClass,
-    NgStyle
-  ],
-  templateUrl: './maintenances-list.component.html',
-  styleUrl: './maintenances-list.component.scss'
+    selector: 'app-maintenances-list',
+    imports: [
+        CardMaintenanceComponent,
+        SpinerPagesComponent,
+        NgClass,
+        NgStyle
+    ],
+    templateUrl: './maintenances-list.component.html',
+    styleUrl: './maintenances-list.component.scss'
 })
 export class MaintenancesListComponent implements OnInit, OnDestroy {
   //viewChild para obtener el valor del input

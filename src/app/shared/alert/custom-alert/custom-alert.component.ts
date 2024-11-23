@@ -5,13 +5,12 @@ import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-custom-alert',
-  standalone: true,
-  imports: [
-    NgClass,
-    NgStyle
-  ],
-  template: `
+    selector: 'app-custom-alert',
+    imports: [
+        NgClass,
+        NgStyle
+    ],
+    template: `
   @if(show){
     <div class="modal-container" >
       <div class="modal">
@@ -35,7 +34,7 @@ import { Subscription } from 'rxjs';
   }
 
   `,
-  styleUrl: './custom-alert.component.scss'
+    styleUrl: './custom-alert.component.scss'
 })
 export class CustomAlertComponent implements OnInit, OnDestroy {
 

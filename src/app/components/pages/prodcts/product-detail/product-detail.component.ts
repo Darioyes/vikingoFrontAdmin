@@ -10,16 +10,15 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
 import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
-  selector: 'app-product-detail',
-  standalone: true,
-  imports: [
-    ProductCardComponent,
-    SpinerPagesComponent,
-    NgClass,
-    NgStyle
-  ],
-  templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.scss'
+    selector: 'app-product-detail',
+    imports: [
+        ProductCardComponent,
+        SpinerPagesComponent,
+        NgClass,
+        NgStyle
+    ],
+    templateUrl: './product-detail.component.html',
+    styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   //viewChild para obtener el valor del input

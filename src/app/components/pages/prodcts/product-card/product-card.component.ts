@@ -3,14 +3,13 @@ import { Component, input } from '@angular/core';
 import { environment } from '@enviroments/environment.development';
 
 @Component({
-  selector: 'app-product-card',
-  standalone: true,
-  imports: [
-    DecimalPipe,
-    NgStyle
-  ],
-  templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.scss'
+    selector: 'app-product-card',
+    imports: [
+        DecimalPipe,
+        NgStyle
+    ],
+    templateUrl: './product-card.component.html',
+    styleUrl: './product-card.component.scss'
 })
 export class ProductCardComponent {
 

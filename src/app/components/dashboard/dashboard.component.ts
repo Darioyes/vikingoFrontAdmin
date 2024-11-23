@@ -10,18 +10,17 @@ import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    HeaderComponent,
-    SummaryComponent,
-    CustomAlertComponent,
-    NgClass,
-  ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard',
+    imports: [
+        RouterOutlet,
+        NavbarComponent,
+        HeaderComponent,
+        SummaryComponent,
+        CustomAlertComponent,
+        NgClass,
+    ],
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
 

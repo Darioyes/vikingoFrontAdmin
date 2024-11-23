@@ -2,14 +2,13 @@ import { DecimalPipe, NgClass } from '@angular/common';
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-summary-card',
-  standalone: true,
-  imports: [
-    NgClass,
-    DecimalPipe
-  ],
-  templateUrl: './summary-card.component.html',
-  styleUrl: './summary-card.component.scss'
+    selector: 'app-summary-card',
+    imports: [
+        NgClass,
+        DecimalPipe
+    ],
+    templateUrl: './summary-card.component.html',
+    styleUrl: './summary-card.component.scss'
 })
 export class SummaryCardComponent {
 

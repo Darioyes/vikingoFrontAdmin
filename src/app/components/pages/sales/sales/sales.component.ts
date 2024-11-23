@@ -4,15 +4,14 @@ import { RouterModule } from '@angular/router';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
 
 @Component({
-  selector: 'app-sales',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmollSumaryCardComponent,
-    RouterModule
-  ],
-  templateUrl: './sales.component.html',
-  styleUrl: './sales.component.scss'
+    selector: 'app-sales',
+    imports: [
+        CommonModule,
+        SmollSumaryCardComponent,
+        RouterModule
+    ],
+    templateUrl: './sales.component.html',
+    styleUrl: './sales.component.scss'
 })
 export class SalesComponent {
 

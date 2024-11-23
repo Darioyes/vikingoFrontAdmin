@@ -2,14 +2,13 @@ import { DecimalPipe, NgStyle } from '@angular/common';
 import { Component, input, OnInit, signal } from '@angular/core';
 
 @Component({
-  selector: 'app-card-maintenance',
-  standalone: true,
-  imports: [
-    NgStyle,
-    DecimalPipe
-  ],
-  templateUrl: './card-maintenance.component.html',
-  styleUrl: './card-maintenance.component.scss'
+    selector: 'app-card-maintenance',
+    imports: [
+        NgStyle,
+        DecimalPipe
+    ],
+    templateUrl: './card-maintenance.component.html',
+    styleUrl: './card-maintenance.component.scss'
 })
 export class CardMaintenanceComponent implements OnInit {
 

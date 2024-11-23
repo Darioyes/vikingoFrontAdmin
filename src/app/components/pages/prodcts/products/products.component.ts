@@ -7,15 +7,14 @@ import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmollSumaryCardComponent,
-    RouterModule,
-  ],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+    selector: 'app-products',
+    imports: [
+        CommonModule,
+        SmollSumaryCardComponent,
+        RouterModule,
+    ],
+    templateUrl: './products.component.html',
+    styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 

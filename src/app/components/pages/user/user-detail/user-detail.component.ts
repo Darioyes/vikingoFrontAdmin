@@ -9,16 +9,15 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
 import { UserCardComponent } from '../user-card/user-card.component';
 
 @Component({
-  selector: 'app-user-detail',
-  standalone: true,
-  imports: [
-    UserCardComponent,
-    SpinerPagesComponent,
-    NgStyle,
-    NgClass
-  ],
-  templateUrl: './user-detail.component.html',
-  styleUrl: './user-detail.component.scss'
+    selector: 'app-user-detail',
+    imports: [
+        UserCardComponent,
+        SpinerPagesComponent,
+        NgStyle,
+        NgClass
+    ],
+    templateUrl: './user-detail.component.html',
+    styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent implements OnInit, OnDestroy {
 

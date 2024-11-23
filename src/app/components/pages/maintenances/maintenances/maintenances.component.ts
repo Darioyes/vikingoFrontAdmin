@@ -7,15 +7,14 @@ import { MaintenanceProgressService } from '@services/maintenance/maintenancePro
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
 
 @Component({
-  selector: 'app-maintenances',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SmollSumaryCardComponent,
-    RouterModule
-  ],
-  templateUrl: './maintenances.component.html',
-  styleUrl: './maintenances.component.scss'
+    selector: 'app-maintenances',
+    imports: [
+        CommonModule,
+        SmollSumaryCardComponent,
+        RouterModule
+    ],
+    templateUrl: './maintenances.component.html',
+    styleUrl: './maintenances.component.scss'
 })
 
 

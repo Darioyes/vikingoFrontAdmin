@@ -4,11 +4,10 @@ import { NavbarMenuService } from '@services/menu/navbar-menu.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
 

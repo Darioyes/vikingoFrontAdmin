@@ -3,13 +3,12 @@ import { Component, input, OnInit } from '@angular/core';
 import { environment } from '@enviroments/environment.development';
 
 @Component({
-  selector: 'app-user-card',
-  standalone: true,
-  imports: [
-    NgStyle
-  ],
-  templateUrl: './user-card.component.html',
-  styleUrl: './user-card.component.scss'
+    selector: 'app-user-card',
+    imports: [
+        NgStyle
+    ],
+    templateUrl: './user-card.component.html',
+    styleUrl: './user-card.component.scss'
 })
 export class UserCardComponent implements OnInit {
   constructor() {}
