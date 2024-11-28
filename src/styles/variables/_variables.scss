@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 //colores
 $primary: #00264d;
 $secondary: #6C757D;
@@ -36,22 +38,22 @@ $colores:(
 //colores base dark
 @each $name, $color in $colores {
   //quedaria la clase como .dark-primary
-  .dark-#{$name} {
-    color: darken($color, 20%);
+  .dark-#{"#{$name}"} {
+    color: color.scale($color, $lightness: -20%);
   }
 }
 //colores base light
 @each $name, $color in $colores {
   //quedaria la clase como .light-primary
-  .light-#{$name} {
-    color: lighten($color, 20%);
+  .light-#{"#{$name}"} {
+    color: color.adjust($color, $lightness: 20%);
   }
 }
 //colores transparentes
 @each $name, $color in $colores {
   //quedaria la clase como .transparent-primary
-  .transparent-#{$name} {
-    color: transparentize($color, 0.2);
+  .transparent-#{"#{$name}"} {
+    color: color.adjust($color, $alpha: -0.2);
   }
 }
 
@@ -82,7 +84,7 @@ $gray:(
 //colores grises dark
 @each $name, $color in $gray {
   //quedaria la clase como .dark-gray-100
-  .gray-#{$name} {
+  .gray-#{"#{$name}"} {
     color: $color;
   }
 }

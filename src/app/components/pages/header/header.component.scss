@@ -21,13 +21,11 @@
     gap: .65em;
     margin: 10px;
     cursor: pointer;
+    background-color: transparent;
     @include tablets{
       width: 3rem;
       height: 3rem;
     }
-
-
-    background-color: transparent;
     &--hamburger{
       display: none;
       background-color: #fff;

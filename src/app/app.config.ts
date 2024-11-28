@@ -36,6 +36,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
       withInterceptors([ errorApiInterceptor]),
-    ), provideAnimationsAsync(),
+    ), provideAnimationsAsync(), provideAnimationsAsync(),
 ]
 };

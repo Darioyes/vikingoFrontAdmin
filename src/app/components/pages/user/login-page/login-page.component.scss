@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import '../../../../../styles/variables/variables';
 @import '../../../../../styles/variables/typography';
 
@@ -22,7 +23,7 @@
     flex-direction: column;
     border-radius: 15px;
     padding: 30px 0;
-    background: transparentize($primary, 0.77);
+    background: color.adjust($primary, $alpha: -0.77);
     box-shadow: 0 0 20px 3px rgba(0,0,0,0.2);
     .form-login{
       width: 100%;
@@ -107,7 +108,7 @@
           }
           //cambiar placeholder
           &::placeholder{
-            color: transparentize($primary, 0.4);
+            color: color.adjust($primary, $alpha: 0.4);
             letter-spacing: 1px;
             font-weight: 600;
           }
@@ -140,7 +141,7 @@
   &__conteinertitle{
     width: clamp(250px, 20%, 400px);
     //gradiente vertical con un 20% en el primer color
-    background: linear-gradient(180deg, transparent 10% ,transparentize($primary, 0.77) 50%);
+    background: linear-gradient(180deg, transparent 10% , color.adjust($primary, $alpha: -0.77) 50%);
     display: flex;
     justify-content: center;
     align-items: center;
