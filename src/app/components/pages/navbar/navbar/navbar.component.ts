@@ -1,8 +1,9 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AlertsService } from '@services/alerts/alerts.service';
+import { NavbarMenuService } from '@services/menu/navbar-menu.service';
 import { ValidTokenService } from '@services/token/valid-token.service';
 import { LoginService } from '@services/users/login.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -22,12 +23,23 @@ export class NavbarComponent implements OnInit {
 
   public RouterModule = inject(RouterModule);
   public router = inject(Router);
+  #navbarMenu = inject(NavbarMenuService);
   #userService = inject(LoginService);
   #cookieService = inject(CookieService);
   #alertService = inject(AlertsService);
+
   // Inyectamos el servicio de tocken
-  verifyToken = inject(ValidTokenService);
-  session:boolean = true;
+  public verifyToken = inject(ValidTokenService);
+  public session:boolean = true;
+  public submenuActive = false;
+  public activeMenu!:boolean;
+
+    //Detectar cambios en el tamaño de la ventana
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event): void {
+      const width = (event.target as Window).innerWidth;
+      this.updateActiveMenu(width);
+    }
 
   public menuItems = routes
   .map(route => route.children ?? [])
@@ -40,6 +52,18 @@ export class NavbarComponent implements OnInit {
     //this.veryToken();
 
 
+  }
+
+    // Método para actualizar activeMenu basado en el ancho de la ventana
+    private updateActiveMenu(width: number): void {
+      this.activeMenu = width > 1000;
+    }
+
+  validarMenu():void {
+    if(window.innerWidth <= 1000){
+      this.activeMenu = !this.activeMenu;
+      this.#navbarMenu.setSubmenuActive(this.submenuActive);
+    }
   }
 
   logout():void {
@@ -83,7 +107,7 @@ export class NavbarComponent implements OnInit {
         }
       },
     });
-      }, 500);
+      }, 2000);
 
 
   }

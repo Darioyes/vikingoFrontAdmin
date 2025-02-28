@@ -50,6 +50,9 @@ export class HeaderComponent implements OnInit {
   }else{
     this.activeMenu = true;
   }
+  this.#navbarMenu.getSubmenuActive().subscribe((value) => {
+    this.activeMenu = value;
+  });
   this.animationHamburger = !this.animationHamburger;
   this.#navbarMenu.setSubmenuActive(this.activeMenu);
 }

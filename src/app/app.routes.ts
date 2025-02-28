@@ -112,11 +112,13 @@ export const routes: Routes = [
             path:'lista-proveedores',
             title:'Lista de proveedores',
             loadComponent:() => import('./components/pages/suppliers/suppliers-detail/suppliers-detail.component').then(c=>c.SuppliersDetailComponent),
+            canActivate: [authGuard]
           },
           {
             path:'estadisticas-proveedores',
             title:'Estadisticas de proveedores',
             loadComponent:() => import('./components/pages/suppliers/suppliers-statistics/suppliers-statistics.component').then(c=>c.SuppliersStatisticsComponent),
+            canActivate: [authGuard]
           },
         ]
       },
@@ -125,12 +127,50 @@ export const routes: Routes = [
         title: 'Ventas',
         loadComponent: () => import('./components/pages/sales/sales/sales.component').then(c=>c.SalesComponent),
         canActivate: [authGuard],
+        children:[
+          {
+            path:'',
+            redirectTo:'lista-ventas',
+            pathMatch:'full'
+          },
+          {
+            path:'lista-ventas',
+            title:'Lista de ventas',
+            loadComponent:() => import('./components/pages/sales/sales-detail/sales-detail.component').then(c=>c.SalesDetailComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'estadisticas-ventas',
+            title:'Estadisticas de ventas',
+            loadComponent:() => import('./components/pages/sales/sales-statistics/sales-statistics.component').then(c=>c.SalesStatisticsComponent),
+            canActivate: [authGuard]
+          },
+        ]
       },
       {
         path:'transacciones',
         title: 'Transacciones',
         loadComponent: () => import('./components/pages/transactions/transactions/transactions.component').then(c=>c.TransactionsComponent),
         canActivate: [authGuard],
+        children:[
+          {
+            path:'',
+            redirectTo:'lista-transacciones',
+            pathMatch:'full'
+          },
+          {
+            path:'lista-transacciones',
+            title:'Lista de transacciones',
+            loadComponent:() => import('./components/pages/transactions/transactions-detail/transactions-detail.component').then(c=>c.TransactionsDetailComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'estadisticas-transacciones',
+            title:'Estadisticas de transacciones',
+            loadComponent:() => import('./components/pages/transactions/transactions-statistics/transactions-statistics.component').then(c=>c.TransactionsStatisticsComponent),
+            canActivate: [authGuard]
+          }
+        ]
       },
       {
         path:'costosdirectos',

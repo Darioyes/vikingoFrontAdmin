@@ -24,19 +24,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   //viewChild para obtener el valor del input
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-
   public products = signal<IProductDetaill |any >([]);
   public productsPage = signal<SuccessProductDetaillResponse | any>([]);
   public urlImg = environment.domainimage;
 
-
   #maintenancesService = inject(MaintenanceService);
-
-
-
   public productService = inject(ProductsService);
-
   #unsubscribe!: Subscription;
+
   ngOnInit(): void {
     this.getProductsAll();
     this.searcInputProducts();

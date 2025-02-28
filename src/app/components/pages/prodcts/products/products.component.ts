@@ -18,10 +18,11 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
+  public money = signal<string>('$');
   public RouterModule = inject(RouterModule);
   public totalProducts = signal<number>(0);
   public totalStock = signal<number>(0);
-  public totalSalesPrice = signal<number>(0);
+  public totalSalesPrice = signal<any>(0);
   public totalCostPrice = signal<number>(0);
   public colorPrimary = environment.colorPrimay;
   public colorPrimaryGradient = environment.colorPrimaryGradient;

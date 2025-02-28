@@ -24,14 +24,12 @@
 
   }
   &__data{
-    height: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
     :first-child{
       font-size: 0.8em;
-      //color: $success;
     }
     p{
       font-size: 1.2em;

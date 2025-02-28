@@ -5,6 +5,7 @@
           <a class="conteiner-nav__item"
               [routerLink]="item.path"
               routerLinkActive="active-nav"
+              (click)="validarMenu()"
           >
            {{item.title}}
           </a>

@@ -68,7 +68,6 @@ export class UserPageComponent implements OnInit, OnDestroy {
   infoBasicUser():void{
     this.#unsubscribe = this.#userServices.getDataBasicUser().subscribe({
       next: (response:any) => {
-        console.log(response);
         this.cantClientes.set(response.data.totalUsuarios);
         this.cantMale.set(response.data.totalHombres[0].total_male);
         this.cantFemale.set(response.data.totalMujeres[0].total_famele);

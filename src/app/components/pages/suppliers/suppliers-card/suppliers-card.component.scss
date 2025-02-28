@@ -36,7 +36,8 @@
       cursor: pointer;
       i{
         color:$primary;
-        font-size: 1em;
+        font-size: .8em;
+        padding-right: 2px;
       }
       span{
         font-size: 0.8em;
@@ -50,7 +51,8 @@
       cursor: pointer;
       i{
         color:$primary;
-        font-size: 1em;
+        font-size: .8em;
+        padding-right: 2px;
       }
       span{
         font-size: 0.8em;
@@ -64,5 +66,8 @@
     align-items: center;
     justify-content: space-around;
     padding: 10px;
+    i{
+      cursor: pointer;
+    }
   }
 }

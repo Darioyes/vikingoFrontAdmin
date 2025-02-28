@@ -12,8 +12,8 @@
   <div class="conteiner-products__cards">
     <app-smoll-sumary-card [name]="'Cant.Productos'" [amount]="totalProducts()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
     <app-smoll-sumary-card [name]="'Stock'" [amount]="totalStock()" [color]="colorWarning" [gradient]="colorWarningGradient"/>
-    <app-smoll-sumary-card [name]="'inventario'" [amount]="totalSalesPrice()" [color]="colorDanger" [gradient]="colorDangerGradient" />
-    <app-smoll-sumary-card [name]="'Costo'" [amount]="totalCostPrice()" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
+    <app-smoll-sumary-card [name]="'inventario'" [amount]="totalSalesPrice()" [color]="colorDanger" [gradient]="colorDangerGradient" [money]="true" />
+    <app-smoll-sumary-card [name]="'Costo'" [amount]="totalCostPrice()" [color]="colorSuccess" [gradient]="colorSuccessGradient" [money]="true"/>
   </div>
   <div class="conteiner-products__links">
     <a class="text-success " [routerLink]="'lista-productos'" routerLinkActive = "selected" >Productos</a>

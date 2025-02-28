@@ -16,5 +16,6 @@ export class SmollSumaryCardComponent {
   public gradient = input<string>();
   public name = input<string>();
   public amount = input<string | number>()
+  public money = input<boolean>();
 
 }

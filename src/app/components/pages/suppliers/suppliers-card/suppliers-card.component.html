@@ -1,18 +1,18 @@
 <div class="conteiner-cardsuppliers">
   <div class="conteiner-cardsuppliers__name">
-    <p>proveedor número uno S.A.S</p>
+    <p>{{name()}}</p>
   </div>
   <div class="conteiner-cardsuppliers__data">
-    <a href="tel: 3115283419" target="_blank">
+    <a [href]="'tel:'+telephone()" target="_blank">
       <div class="conteiner-cardsuppliers__data--phone">
         <i class="fa-solid fa-phone"></i>
-        <span>311 528 3419</span>
+        <span>{{telephone()}}</span>
       </div>
     </a>
-    <a href="mailto:dario-yes@hotmail.com" target="_blank">
+    <a [href]="'mailto:'+email()" target="_blank">
       <div class="conteiner-cardsuppliers__data--email">
         <i class="fa-regular fa-envelope"></i>
-        <span>{{'dario-yes@hotmail.com'}}</span>
+        <span>{{email()}}</span>
       </div>
     </a>
   </div>

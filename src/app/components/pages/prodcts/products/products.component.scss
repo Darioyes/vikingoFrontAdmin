@@ -36,7 +36,10 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 5px 10px 10px 10px;
+    padding: 10px 10px 5px 10px;
+    @include tablets{
+      padding-top: 0;
+    }
 
     app-smoll-sumary-card{
       background-color: $white;
@@ -72,7 +75,7 @@
       text-align: center;
       width: 100%;
       font-size: 18px;
-      padding-bottom: 5px;
+      padding: 5px 0;
       cursor: pointer;
     }
 

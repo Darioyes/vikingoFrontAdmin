@@ -8,7 +8,7 @@
 
     <div class="conteinaer-supplierslist__search--item">
 
-      <input type="text" name="search" id="search" placeholder="Buscar...">
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
 
       <label for="search">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,17 +19,37 @@
   </div>
 
   <div class="conteinaer-supplierslist__description">
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
-    <app-suppliers-card/>
+
+    @defer( when suppliersPage().response === 'success'){
+
+      @for(supplier of suppliers(); track $index){
+        <app-suppliers-card
+          [name]="supplier.name"
+          [telephone]="supplier.phone1"
+          [email]="supplier.email"
+        />
+
+      }@empty {
+        <p class="text-danger" >No hay productos</p>
+      }
+    }@placeholder {
+      <app-spiner-pages/>
+    }
+    <div class="conteinaer-supplierslist__pagination">
+      <div class="conteinaer-supplierslist__pagination--links">
+        @for(links of suppliersPage()?.data?.links; track $index){
+          @if( links.label === '&laquo; Anterior'){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(suppliersPage()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+          }@else if(links.label ==='Siguiente &raquo;' ){
+            <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(suppliersPage()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+          }@else{
+            <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+          }
+        }
+      </div>
+      <div class="conteinaer-supplierslist__pagination--page">
+        <p>{{ suppliersPage()?.data?.to }} / {{ suppliersPage()?.data?.total }}</p>
+      </div>
+    </div>
   </div>
 </div>

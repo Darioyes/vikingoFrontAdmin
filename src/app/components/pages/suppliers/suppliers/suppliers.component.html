@@ -1,5 +1,5 @@
 <div class="conteiner-suppliers">
-  <div class="conteiner-suppliers__filters">
+  <!-- <div class="conteiner-suppliers__filters">
 
     @for( day of days; track $index ){
       <button class="btn btn-summary"
@@ -8,12 +8,12 @@
        >{{day.label}}</button>
     }
 
-  </div>
+  </div> -->
   <div class="conteiner-suppliers__cards">
-    <app-smoll-sumary-card [name]="'C.Proveedores'" [amount]="'120'" [color]="'#00264d'" [gradient]="'#9accff'" />
-    <app-smoll-sumary-card [name]="'Compras'" [amount]="'80'" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
-    <app-smoll-sumary-card [name]="'Mes'" [amount]="'40'" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
-    <app-smoll-sumary-card [name]="'año'" [amount]="'20'" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+    <app-smoll-sumary-card [name]="'Cant.Proveedores'" [amount]="totalSuppliers()" [color]="'#00264d'" [gradient]="'#9accff'" />
+    <app-smoll-sumary-card [name]="'Compras'" [amount]="totalBuys()" [color]="'#ffc107'" [gradient]="'#fff4d3'" [money]="true"/>
+    <app-smoll-sumary-card [name]="'Cant.Compras'" [amount]="totalPurcharse()" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
+    <!-- <app-smoll-sumary-card [name]="'año'" [amount]="'20'" [color]="'#198754'" [gradient]="'#b7f2d7'"/> -->
   </div>
   <div class="conteiner-suppliers__links">
     <a class="text-success " [routerLink]="'lista-proveedores'" routerLinkActive = "selected" >Proveedores</a>

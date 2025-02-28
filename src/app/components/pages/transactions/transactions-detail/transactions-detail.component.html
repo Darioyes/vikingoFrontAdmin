@@ -1,0 +1,444 @@
+<div class="conteiner-detailtransactions">
+  <div class="conteiner-detailtransactions__search">
+
+    <div class="conteiner-detailtransactions__search--new">
+      <i class="fa-solid fa-circle-plus"></i>
+    </div>
+
+    <div class="conteiner-detailtransactions__search--item">
+
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
+
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </label>
+
+    </div>
+
+  </div>
+
+
+  <div class="conteiner-detailtransactions__table">
+    <details >
+      <summary (click)="searchMovementsUsers()" >Ventas usuarios</summary>
+      @defer( when transactionsUsersPagination().response === 'success'){
+      <table>
+          <thead>
+            <tr>
+              <th class="column-0">Más</th>
+              <th class="column-1">Fecha</th>
+              <th class="column-2">producto</th>
+              <th class="column-3">Cliente</th>
+              <th class="column-4">Cantidad</th>
+              <th class="column-5">Valor unitario</th>
+              <th class="column-6">Total Venta</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of transactionsUsers(); track $index){
+
+              <tr>
+                <td class="column-0">
+                  <button (click)="toggleDetails(item)">+</button>
+                </td>
+                <td class="column-1">{{item.created_at | date: 'dd/MM/yyyy'}}</td>
+                <td class="column-2">{{item.product}}</td>
+                <td class="column-3">{{item.client}}</td>
+                <td class="column-4">{{item.amount}}</td>
+                <td class="column-5">${{item.unit_value| number: '1.2-2' }}</td>
+                <td class="column-6"> ${{item.sale_total| number: '1.2-2'}} </td>
+
+              </tr>
+              <tr class="row">
+                @if(item.showDetails){
+                  <td colspan="6">
+
+                    @if(!isColumnVisible('column-2')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Producto</span>
+                        <p>{{item.product}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-3')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Cliente</span>
+                        <p>{{item.client}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-4')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Cantidad</span>
+                        <p>{{item.amount}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-5')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Valor unitario</span>
+                        <p>{{item.unit_value| number: '1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-6')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Venta total</span>
+                        <p>{{item.sale_total| number: '1.2-2'}}</p>
+                      </div>
+                    }
+                  </td>
+                }
+
+              </tr>
+            }@empty {
+              <p class="text-danger" >No se hay ventas</p>
+            }
+
+
+          </tbody>
+        </table>
+        <div class="pagination">
+        <div class="pagination--links">
+          @for(links of transactionsUsersPagination()?.data?.links; track $index){
+            @if( links.label === '&laquo; Anterior'){
+              <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationUsers(transactionsUsersPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+            }@else if(links.label ==='Siguiente &raquo;' ){
+              <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationUsers(transactionsUsersPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+            }@else{
+              <a [ngClass]="links.active === true? 'active':''" (click)="paginationUsers(links.url)">{{links.label}}</a>
+            }
+          }
+        </div>
+        <div class="pagination--page">
+          <p>{{ transactionsUsersPagination()?.data?.to }} / {{ transactionsUsersPagination()?.data?.total }}</p>
+        </div>
+      </div>
+      }@placeholder {
+      <app-spiner-pages/>
+      }
+    </details>
+    <details >
+      <summary (click)="searchMovementsMaintenance()" >Mantenimientos</summary>
+      @defer( when transactionsMaintenancePagination().response === 'success'){
+        <table>
+          <thead>
+            <tr>
+              <th class="column-0_1" >Más</th>
+              <th class="column-1">Fecha</th>
+              <th class="column-2">Producto</th>
+              <th class="column-3">Precio</th>
+              <th class="column-4">Nombre</th>
+              <th class="column-5">Garantia</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of transactionsMaintenance(); track $index){
+
+              <tr>
+                <td class="column-0_1">
+                  <button (click)="toggleDetails(item)">+</button>
+                </td>
+                <td class="column-1">{{item.created_at|date: 'dd/MM/yyyy' }}</td>
+                <td class="column-2">{{item.product}}</td>
+                <td class="column-3">{{item.price| number: '1.2-2'}}</td>
+                <td class="column-4">{{item.name}}</td>
+                <td class="column-5">{{item.warranty==='true'?'Si':'No'}}</td>
+
+              </tr>
+              <tr class="row">
+                @if(item.showDetails){
+                    <td colspan="6">
+
+                    @if(!isColumnVisible('column-2')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Producto</span>
+                        <p>{{item.product}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-3')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Precio</span>
+                        <p>{{item.price| number: '1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-4')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Nombre</span>
+                        <p>{{item.name}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-5')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Garantia</span>
+                        <p>{{item.warranty==='true'?'Si':'No'}}</p>
+                      </div>
+                    }
+                  </td>
+                }
+
+              </tr>
+            }@empty {
+              <p class="text-danger" >No se hay ventas</p>
+            }
+
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="pagination--links">
+            @for(links of transactionsMaintenancePagination()?.data?.links; track $index){
+              @if( links.label === '&laquo; Anterior'){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationMaintenance(transactionsMaintenancePagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+              }@else if(links.label ==='Siguiente &raquo;' ){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationMaintenance(transactionsMaintenancePagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+              }@else{
+                <a [ngClass]="links.active === true? 'active':''" (click)="paginationMaintenance(links.url)">{{links.label}}</a>
+              }
+            }
+          </div>
+          <div class="pagination--page">
+            <p>{{ transactionsMaintenancePagination()?.data?.to }} / {{ transactionsMaintenancePagination()?.data?.total }}</p>
+          </div>
+        </div>
+      }@placeholder {
+        <app-spiner-pages/>
+      }
+    </details>
+    <details >
+      <summary (click)="searchMovementsPurcharseOrders()">Ordenes de compra</summary>
+      @defer( when transactionsPurcharseOrdersPagination().response === 'success'){
+        <table>
+          <thead>
+            <tr>
+              <th class="column-0_1">Más</th>
+              <th class="column-1">Fecha</th>
+              <th class="column-2">Costo</th>
+              <th class="column-3">Cantidad</th>
+              <th class="column-4">Descripción</th>
+              <th class="column-5">Proveedor</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of transactionsPurcharseOrders(); track $index){
+
+              <tr>
+                <td class="column-0_1">
+                  <button (click)="toggleDetails(item)">+</button>
+                </td>
+                <td class="column-1">{{item.created_at|date: 'dd/MM/yyyy' }}</td>
+                <td class="column-2">{{item.purcharse|number:'1.2-2'}}</td>
+                <td class="column-3">{{item.amount|number:'1.2-2'}}</td>
+                <td class="column-4">{{item.description}}</td>
+                <td class="column-5">{{item.name}}</td>
+              </tr>
+              <tr class="row">
+                @if(item.showDetails){
+                    <td colspan="6">
+
+                    @if(!isColumnVisible('column-2')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Costo</span>
+                        <p>{{item.purcharse|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-3')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Cantidad</span>
+                        <p>{{item.amount|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-4')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Descripción</span>
+                        <p>{{item.description}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-5')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Proveedor</span>
+                        <p>{{item.name}}</p>
+                      </div>
+                    }
+                  </td>
+                }
+
+              </tr>
+            }@empty {
+              <p class="text-danger" >No se hay ventas</p>
+            }
+
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="pagination--links">
+            @for(links of transactionsPurcharseOrdersPagination()?.data?.links; track $index){
+              @if( links.label === '&laquo; Anterior'){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationPurcharseOrder(transactionsPurcharseOrdersPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+              }@else if(links.label ==='Siguiente &raquo;' ){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationPurcharseOrder(transactionsPurcharseOrdersPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+              }@else{
+                <a [ngClass]="links.active === true? 'active':''" (click)="paginationPurcharseOrder(links.url)">{{links.label}}</a>
+              }
+            }
+          </div>
+          <div class="pagination--page">
+            <p>{{ transactionsPurcharseOrdersPagination()?.data?.to }} / {{ transactionsPurcharseOrdersPagination()?.data?.total }}</p>
+          </div>
+        </div>
+      }@placeholder {
+        <app-spiner-pages/>
+      }
+    </details>
+    <details >
+      <summary (click)=" searchMovementsDirectCosts()">Costos directos</summary>
+      @defer( when transactionsDirectCostsPagination().response === 'success'){
+        <table>
+          <thead>
+            <tr>
+              <th class="column-0_2">Más</th>
+              <th class="column-1">Fecha</th>
+              <th class="column-2">Movimiento</th>
+              <th class="column-3">Cantidad</th>
+              <th class="column-4">Total compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of transactionsDirectCosts(); track $index){
+
+              <tr>
+                <td class="column-0_2">
+                  <button (click)="toggleDetails(item)">+</button>
+                </td>
+                <td class="column-1">{{item.created_at|date: 'dd/MM/yyyy' }}</td>
+                <td class="column-2">{{item.name}}</td>
+                <td class="column-3">{{item.amount|number:'1.2-2'}}</td>
+                <td class="column-4">{{item.price|number:'1.2-2'}}</td>
+              </tr>
+              <tr class="row">
+                @if(item.showDetails){
+                  <td colspan="6">
+
+                    @if(!isColumnVisible('column-2')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Movimiento</span>
+                        <p>{{item.name}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-3')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Cantidad</span>
+                        <p>{{item.amount|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-4')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Total compra</span>
+                        <p>{{item.price|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                  </td>
+                }
+
+              </tr>
+            }@empty {
+              <p class="text-danger" >No se hay ventas</p>
+            }
+
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="pagination--links">
+            @for(links of transactionsDirectCostsPagination()?.data?.links; track $index){
+              @if( links.label === '&laquo; Anterior'){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationDirectCosts(transactionsDirectCostsPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+              }@else if(links.label ==='Siguiente &raquo;' ){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationDirectCosts(transactionsDirectCostsPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+              }@else{
+                <a [ngClass]="links.active === true? 'active':''" (click)="paginationDirectCosts(links.url)">{{links.label}}</a>
+              }
+            }
+          </div>
+          <div class="pagination--page">
+            <p>{{ transactionsDirectCostsPagination()?.data?.to }} / {{ transactionsDirectCostsPagination()?.data?.total }}</p>
+          </div>
+        </div>
+      }@placeholder {
+        <app-spiner-pages/>
+      }
+    </details>
+    <details >
+      <summary (click)="searchMovementsIndirectCosts()">Costos indirectos</summary>
+      @defer( when transactionsIndirectCostsPagination().response === 'success'){
+        <table>
+          <thead>
+            <tr>
+              <th class="column-0_2">Más</th>
+              <th class="column-1">Fecha</th>
+              <th class="column-2">Movimiento</th>
+              <th class="column-3">Cantidad</th>
+              <th class="column-4">Total compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of transactionsIndirectCosts(); track $index){
+
+              <tr>
+                <td class="column-0_2">
+                  <button (click)="toggleDetails(item)">+</button>
+                </td>
+                <td class="column-1">{{item.created_at|date: 'dd/MM/yyyy' }}</td>
+                <td class="column-2">{{item.name}}</td>
+                <td class="column-3">{{item.amount|number:'1.2-2'}}</td>
+                <td class="column-4">{{item.price|number:'1.2-2'}}</td>
+              </tr>
+              <tr class="row">
+                @if(item.showDetails){
+                  <td colspan="6">
+
+                    @if(!isColumnVisible('column-2')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Movimiento</span>
+                        <p>{{item.name}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-3')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Cantidad</span>
+                        <p>{{item.amount|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                    @if(!isColumnVisible('column-4')){
+                      <div class="conteiner-detailtransactions__table--details">
+                        <span>Total compra</span>
+                        <p>{{item.price|number:'1.2-2'}}</p>
+                      </div>
+                    }
+                  </td>
+                }
+
+              </tr>
+            }@empty {
+              <p class="text-danger" >No se hay ventas</p>
+            }
+
+          </tbody>
+        </table>
+        <div class="pagination">
+          <div class="pagination--links">
+            @for(links of transactionsIndirectCostsPagination()?.data?.links; track $index){
+              @if( links.label === '&laquo; Anterior'){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationInDirectCosts(transactionsIndirectCostsPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+              }@else if(links.label ==='Siguiente &raquo;' ){
+                <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="paginationInDirectCosts(transactionsIndirectCostsPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+              }@else{
+                <a [ngClass]="links.active === true? 'active':''" (click)="paginationInDirectCosts(links.url)">{{links.label}}</a>
+              }
+            }
+          </div>
+          <div class="pagination--page">
+            <p>{{ transactionsIndirectCostsPagination()?.data?.to }} / {{ transactionsIndirectCostsPagination()?.data?.total }}</p>
+          </div>
+        </div>
+         }@placeholder {
+        <app-spiner-pages/>
+      }
+    </details>
+  </div>
+
+</div>

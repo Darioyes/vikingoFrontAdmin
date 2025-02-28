@@ -10,14 +10,14 @@
 
   </div>
   <div class="conteiner-sales__cards">
-    <app-smoll-sumary-card [name]="'Ventas'" [amount]="'1200000'" [color]="'#00264d'" [gradient]="'#9accff'" />
-    <app-smoll-sumary-card [name]="'Costo'" [amount]="'800000'" [color]="'#ffc107'" [gradient]="'#fff4d3'"/>
-    <app-smoll-sumary-card [name]="'Cantidad'" [amount]="'80'" [color]="'#dc3545'" [gradient]="'#f9dadd'" />
-    <app-smoll-sumary-card [name]="'Por Confirmar'" [amount]="'5'" [color]="'#198754'" [gradient]="'#b7f2d7'"/>
+    <app-smoll-sumary-card [name]="'Ventas'" [amount]="salesTotal()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" [money]="true"  />
+    <app-smoll-sumary-card [name]="'Costo'" [amount]="costTotal()" [color]="colorWarning" [gradient]="colorWarningGradient" [money]="true" />
+    <app-smoll-sumary-card [name]="'Cantidad'" [amount]="amoutnTotal()" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Por Confirmar'" [amount]="cofirmTotal()" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
   </div>
   <div class="conteiner-sales__links">
-    <a class="text-success " [routerLink]="'lista-mantenimientos'" routerLinkActive = "selected" >Mantenimientos</a>
-    <a class="text-success" [routerLink]="'estadisticas-mantenimiento'" routerLinkActive = "selected" >Estadisticas</a>
+    <a class="text-success " [routerLink]="'lista-ventas'" routerLinkActive = "selected" >Detalle Ventas</a>
+    <a class="text-success" [routerLink]="'estadisticas-ventas'" routerLinkActive = "selected" >Estadisticas</a>
   </div>
   <div class="conteiner-sales__principal">
     <router-outlet/>

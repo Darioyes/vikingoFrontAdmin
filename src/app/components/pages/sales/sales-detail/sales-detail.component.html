@@ -1,0 +1,137 @@
+<div class="conteiner-detailsales">
+  <div class="conteiner-detailsales__search">
+
+    <div class="conteiner-detailsales__search--new">
+      <i class="fa-solid fa-circle-plus"></i>
+    </div>
+
+    <div class="conteiner-detailsales__search--item">
+
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
+
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </label>
+
+    </div>
+
+  </div>
+
+  @defer( when salesPagination().response === 'success'){
+
+    <div class="conteiner-detailsales__table">
+      <table>
+        <thead>
+          <tr>
+            <th class="column-0">Más</th>
+            <th class="column-1">Producto</th>
+            <th class="column-2">Observación</th>
+            <th class="column-3">Cantidad</th>
+            <th class="column-4">Total Venta</th>
+            <th class="column-5">Confirmar venta</th>
+            <th class="column-6">Cliente</th>
+            <th class="column-7">Fecha</th>
+            <th class="column-8">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(item of sales(); track $index){
+
+            <tr>
+              <td class="column-0">
+                <button (click)="toggleDetails(item)">+</button>
+              </td>
+              <td class="column-1">{{item.product.name}}</td>
+              <td class="column-2">{{item.description}}</td>
+              <td class="column-3">{{item.amount| number: '1.2-2'}}</td>
+              <td class="column-4">${{item.sale_total | number: '1.2-2'}}</td>
+              <td class="column-5">{{item.confirm_sale}}</td>
+              <td class="column-6">{{item.user.name}}</td>
+              <td class="column-7">{{item.created_at | date: 'dd/MM/yyyy'}}</td>
+              <td class="column-8">
+                <i  class="fa-regular fa-pen-to-square text-warning"></i>
+                <i class="fa-regular fa-trash-can text-danger"></i>
+              </td>
+            </tr>
+            <tr class="row">
+              @if(item.showDetails){
+                <td colspan="8">
+                  @if(!isColumnVisible('column-2')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>
+                        Observaciones
+                      </span>
+                      <p>{{item.description}}</p>
+                    </div>
+                  }
+                  @if(!isColumnVisible('column-3')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Cantidad</span>
+                      <p>{{item.amount| number: '1.2-2'}}</p>
+                    </div>
+                  }
+                  @if(!isColumnVisible('column-4')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Total Ventas</span>
+                      <p>{{item.sale_total | number: '1.2-2' }}</p>
+                    </div>
+                  }
+                  @if(!isColumnVisible('column-5')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Confirmar</span>
+                      <p>{{item.confirm_sale}}</p>
+                    </div>
+                  }
+                  @if(!isColumnVisible('column-6')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Cliente</span>
+                      <p>{{item.user.name}}</p>
+                    </div>
+                  }
+                  @if(!isColumnVisible('column-7')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Fecha</span>
+                      <p>{{item.created_at | date: 'dd/MM/yyyy'}}</p>
+                    </div>
+                  }@if(!isColumnVisible('column-8')){
+                    <div class="conteiner-detailsales__table--details">
+                      <span>Acciones</span>
+                      <p>
+                        <i  class="fa-regular fa-pen-to-square text-warning"></i>
+                        <i class="fa-regular fa-trash-can text-danger"></i>
+                      </p>
+                    </div>
+                  }
+
+                </td>
+              }
+
+            </tr>
+          }@empty {
+            <p class="text-danger" >No se hay ventas</p>
+          }
+
+        </tbody>
+      </table>
+    </div>
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+  <div class="conteiner-detailsales__pagination">
+    <div class="conteiner-detailsales__pagination--links">
+      @for(links of salesPagination()?.data?.links; track $index){
+        @if( links.label === '&laquo; Anterior'){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(salesPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+        }@else if(links.label ==='Siguiente &raquo;' ){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(salesPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+        }@else{
+          <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+        }
+      }
+    </div>
+    <div class="conteiner-detailsales__pagination--page">
+      <p>{{ salesPagination()?.data?.to }} / {{ salesPagination()?.data?.total }}</p>
+    </div>
+  </div>
+</div>

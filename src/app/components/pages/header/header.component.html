@@ -3,7 +3,7 @@
     <div class="container-header__menu--hamburger"></div>
     <div class="container-header__menu--hamburger"></div>
     <div class="container-header__menu--hamburger"></div>
-    <img class="container-header__menu--img" src="../../../../assets/images/vikingoTech1.jpg" alt="">
+    <img class="container-header__menu--img" src="../../../../assets/images/vikingoTech1.jpg" alt="VikintoTech">
   </button>
 
   <div class="container-header__title">
@@ -21,7 +21,7 @@
           <img src="../../../../assets/images/avatar.jpg" alt="avatar">
 
         }@else{
-          <img [src]="urlImage + avatar().replace('public','storage')" alt="avatar">
+          <img [src]="urlImage + avatar().replace('public','storage')" alt="{{name()}}">
         }
       </div>
       <div class="container-user__name">

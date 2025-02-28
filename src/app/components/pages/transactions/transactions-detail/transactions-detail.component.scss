@@ -1,0 +1,299 @@
+@use 'sass:color';
+@import '../../../../../styles/variables/variables';
+@import '../../../../../styles/variables/mediaq';
+
+
+.conteiner-detailtransactions{
+
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px 5px;
+
+  &__search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    &--new{
+      cursor: pointer;
+      i{
+        font-size: 30px;
+        color: $success;
+          &:hover{
+              color: color.adjust($success, $lightness: 20%);
+          }
+        }
+      }
+
+    &--item{
+      background-color: aqua;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      input{
+        width: 350px;
+        height: 30px;
+        border: none;
+        outline: none;
+        padding: 0 5px;
+        @include phone{
+          width: 270px;
+        }
+      }
+      label{
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: $primary;
+        i{
+          color:$white
+        }
+      }
+    }
+  }
+
+  &__table{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    details{
+
+      width: 100%;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      max-height: 34px;
+      transition: max-height 0.8s ease allow-discrete;
+
+        &[open]{// paso 1 al abrir la tabla
+          max-height: 400px;
+          overflow-y: auto;
+          overflow-x: hidden;
+          transition: max-height 0.8s ease;
+          //es la animacion de la apertura de la tabla startin-style es cuando empieza la animacion y ending-style es cuando termina
+          @starting-style{//paso 0 estado inicial
+            max-height: 34px;
+          }
+
+        }
+
+        &[open] summary::before{
+          content: '-';
+        }
+
+        summary{
+          font-size: .9em;
+          font-weight: 600;
+          letter-spacing: 1px;
+          user-select: none;
+          position: relative;
+          padding-bottom: 10px;
+          color: $primary;
+          cursor: pointer;
+          &::marker{
+            //content con flecha abajo parecida a la de select
+            content: '';
+          }
+          &::before{
+            content: '+';
+            font-size: 1.3em;
+            color: $primary;
+            position: absolute;
+            right: 0;
+          }
+        }
+
+    }
+    overflow: hidden;
+    table{
+      width: 100%;
+      height: 100%;
+      border-collapse: collapse;
+      border:1px solid $gray-400;
+      //quitar la barra de scroll
+
+      //media query
+      @include tablets{
+        max-width: 95vw;
+      }
+      thead{
+        background: $primary;
+        border: 1px solid $primary;
+        tr{
+          text-align: center;
+          th{
+            text-align: center;
+            color: $white;
+            padding: 10px;
+            letter-spacing: 1px;
+            font-weight: 400;
+          }
+        }
+      }
+      tbody{
+
+        tr{
+
+          text-align: center;
+          cursor: pointer;
+
+          td{
+            text-align: center;
+            padding: 10px;
+            color: $gray-700;
+            button{
+              border: none;
+              background-color: $success;
+              color: $white;
+              border-radius: 50%;
+              font-weight: 500;
+              cursor: pointer;
+            };
+            i{
+              padding-left: 8px;
+              &:hover{
+                font-size: 20px;
+              }
+            }
+
+          }
+
+          &:nth-child(even){
+            background-color: $gray-300;
+          }
+          &:hover{
+            background-color: $gray-400;
+          }
+        }
+        .row{
+
+          div{
+            padding: 0;
+            display: grid;
+            grid-template-columns: .3fr 1fr;
+            align-items: center;
+            //alinear los items a la izquierda
+            justify-items: start;
+            gap: 10px;
+            border-bottom: 1px solid $white;
+            &:last-child{
+              border-bottom: none;
+            }
+            @include phone{
+              grid-template-columns: .6fr 1fr;
+            }
+            span{
+              padding-left: 5px;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              text-align: start;
+              background:$primary;
+              color: $white;
+              letter-spacing: .5px;
+            }
+
+          }
+          &:nth-child(even){
+            background-color: $gray-300;
+          }
+        }
+
+      }
+    }
+  }
+  .pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 10px;
+    &--links{
+      display: flex;
+      gap: 5px;
+      color: $primary;
+      font-weight: 600;
+      a{
+        cursor: pointer;
+        font-size: 17px;
+        &:hover{
+          color: $success;
+        }
+        i{
+          font-size: 22px;
+          font-weight: 900
+        };
+
+      }
+      .active{
+        color: $success;
+        border-bottom: 1px solid $success;
+      }
+    }
+    &--page{
+      p{
+        font-size: 16px;
+        font-weight: 600;
+        color: $primary;
+      }
+    }
+  }
+
+
+}
+
+@media (min-width: 900px) {
+  .column-0 {
+    display: none;
+  }
+}
+@media (min-width: 800px) {
+  .column-0_1 {
+    display: none;
+  }
+}
+@media (min-width: 700px) {
+  .column-0_2 {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .column-6 {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .column-5 {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .column-4 {
+    display: none;
+  }
+}
+@media (max-width: 600px) {
+  .column-3 {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .column-2 {
+    display: none;
+  }
+}
