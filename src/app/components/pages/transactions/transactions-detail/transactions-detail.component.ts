@@ -75,7 +75,7 @@ export class TransactionsDetailComponent implements OnInit, OnDestroy {
 
   toggleDetails(item: any): void {
     item.showDetails = !item.showDetails;
-    console.log(item.showDetails);
+    //console.log(item.showDetails);
   }
 
 

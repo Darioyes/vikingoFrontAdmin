@@ -169,19 +169,19 @@ export const routes: Routes = [
             title:'Estadisticas de transacciones',
             loadComponent:() => import('./components/pages/transactions/transactions-statistics/transactions-statistics.component').then(c=>c.TransactionsStatisticsComponent),
             canActivate: [authGuard]
-          }
+          },
         ]
       },
       {
         path:'costosdirectos',
         title: 'Costos Directos',
-        loadComponent: () => import('./components/pages/costs/categorydirect-costs/categorydirect-costs.component').then(c=>c.CategorydirectCostsComponent),
+        loadComponent: () => import('./components/pages/costs/direct-costs/direct-costs.component').then(c=>c.DirectCostsComponent),
         canActivate: [authGuard],
       },
       {
         path:'costosindirectos',
         title: 'Costos Indirectos',
-        loadComponent: () => import('./components/pages/costs/category-indirect-costs/category-indirect-costs.component').then(c=>c.CategoryIndirectCostsComponent),
+        loadComponent: () => import('./components/pages/costs/indirect-costs/indirect-costs.component').then(c=>c.IndirectCostsComponent),
         canActivate: [authGuard],
       },
     ],
