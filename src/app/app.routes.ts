@@ -45,8 +45,17 @@ export const routes: Routes = [
             loadComponent:()=> import('./components/pages/maintenances/maintenance-statistics/maintenance-statistics.component').then(c=>c.MaintenanceStatisticsComponent),
             canActivate: [authGuard]
           },
+          {
+            path:'nuevo-mantenimiento',
+            title:'Nuevo mantenimiento',
+            loadComponent:() => import('./components/pages/maintenances/forms/form-new-maintenance/form-new-maintenance.component').then(c=>c.FormNewMaintenanceComponent),
+            canActivate: [authGuard]
+          },
         ],
       },
+
+
+
       {
         path:'productos',
         title: 'Productos',

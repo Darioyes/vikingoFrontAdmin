@@ -23,6 +23,15 @@ export class MaintenanceService {
     return this.#http.get<ApiMaintenanceDetalleResponse>(`${this.#url}maintenances`, {headers: headers});
   }
 
+  getMaintenance(id: number): Observable<ApiMaintenanceDetalleResponse>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.#http.get<ApiMaintenanceDetalleResponse>(`${this.#url}maintenances/${id}`, {headers: headers});
+  }
+
   getPaginator(url:string): Observable<ApiMaintenanceDetalleResponse>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -41,5 +50,36 @@ export class MaintenanceService {
     };
 
     return this.#http.get<ApiMaintenanceDetalleResponse>(`${this.#url}searchmaintenance/${search}`, {headers: headers});
+  }
+
+  modifyMaintenance(id: number, data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<any>(`${this.#url}maintenances/${id}`, data, {headers: headers});
+  }
+
+  postMaintenance(data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<any>(`${this.#url}maintenances/`,data,{headers:headers});
+  }
+
+  deleteMaintenance(id: number): Observable<any>{
+
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.delete<any>(`${this.#url}maintenances/${id}`, {headers: headers});
   }
 }

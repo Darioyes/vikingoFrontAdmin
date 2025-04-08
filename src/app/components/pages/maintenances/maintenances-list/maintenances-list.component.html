@@ -1,5 +1,20 @@
 <div class="conteinaer-mttolist">
 
+  @if(maintenancesActive() === false){
+
+    <app-form-information
+    [maintenanceid]="maintenance().id"
+    (maintenancesActivate)="maintenanceActivate($event)"
+    />
+
+  }@else if( newMaintenance()){
+
+    <router-outlet/>
+
+  }@else{
+
+
+
   <div class="conteinaer-mttolist__search">
     <input #searchInput type="text" name="search" id="search" placeholder="Buscar..."  >
     <label for="search">
@@ -13,10 +28,13 @@
       @for( maintenance of maintenances(); track $index){
 
         <app-card-maintenance
+        [id]="maintenance.id"
         [image]=" urlImg + maintenance.image1.replace('public', 'storage')"
         [title]="maintenance.product"
         [progress]="maintenance.advance"
         [price]="maintenance.price"
+        (maintenanceDescription)="maintenanceConsult($event)"
+        (maintenanceDelete)="confirmDeleteMaintenance($event)"
         />
       }@empty {
         <p class="text-danger" >No hay mantenimientos</p>
@@ -28,7 +46,7 @@
 
   </div>
   <div class="conteinaer-mttolist__new">
-    <i class="fa-solid fa-circle-plus"></i>
+    <i class="fa-solid fa-circle-plus" (click)="maintenanceNew()" ></i>
   </div>
 
   <div class="conteinaer-mttolist__pagination">
@@ -47,5 +65,5 @@
       <p>{{ dataProgress()?.data?.to }} / {{ dataProgress()?.data?.total }}</p>
     </div>
   </div>
-
+  }
 </div>

@@ -4,9 +4,7 @@ import { environment } from '@enviroments/environment.development';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class IndirectCostService {
 
     #url = environment.domain;

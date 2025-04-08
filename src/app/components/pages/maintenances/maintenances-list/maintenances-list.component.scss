@@ -10,6 +10,15 @@
   align-items: center;
   flex-direction: column;
   padding: 10px 0;
+
+  app-form-information{
+    min-width: 100%;
+  }
+  router-outlet{
+    min-width: 100%;
+    max-height: 20%;
+  }
+
   &__search{
     width: 100%;
     display: flex;

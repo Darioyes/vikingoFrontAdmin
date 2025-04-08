@@ -2,7 +2,7 @@ import { IUser } from '../users/IUser.interface';
 
 export interface IMaintenanceDetail {
   current_page?: number;
-  data?: IMaintenanceDetail[];
+  data?: IDetail[];
   first_page_url?: string;
   from?: number;
   last_page?: number;
@@ -16,7 +16,7 @@ export interface IMaintenanceDetail {
   total?: number;
 }
 
-export interface IMaintenanceDetail {
+export interface IDetail {
   id: number;
   product?: string;
   description?: string;

@@ -1,4 +1,4 @@
-import { DecimalPipe, NgStyle } from '@angular/common';
+import { CurrencyPipe, DecimalPipe, NgStyle } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { environment } from '@enviroments/environment.development';
 
@@ -6,6 +6,7 @@ import { environment } from '@enviroments/environment.development';
     selector: 'app-product-card',
     imports: [
         DecimalPipe,
+        CurrencyPipe,
         NgStyle
     ],
     templateUrl: './product-card.component.html',

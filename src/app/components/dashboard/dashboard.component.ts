@@ -5,6 +5,7 @@ import { HeaderComponent } from '@components/pages/header/header.component';
 import { NavbarComponent } from '@components/pages/navbar/navbar/navbar.component';
 import { SummaryComponent } from '@components/pages/summary/summary.component';
 import { NavbarMenuService } from '@services/menu/navbar-menu.service';
+import { ConfirmAlertComponent } from '@shared/alert/confirm-alert/confirm-alert.component';
 import { CustomAlertComponent } from '@shared/alert/custom-alert/custom-alert.component';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -17,6 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
         HeaderComponent,
         SummaryComponent,
         CustomAlertComponent,
+        ConfirmAlertComponent,
         NgClass,
     ],
     templateUrl: './dashboard.component.html',

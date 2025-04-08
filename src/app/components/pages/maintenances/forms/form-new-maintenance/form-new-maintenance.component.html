@@ -1,0 +1,178 @@
+<div class="cointeinear-newmaintenance" >
+
+    <div class="cointeinear-newmaintenance__title">
+
+       <h2>Registrar Nuevo mantenimiento</h2>
+
+    <form [formGroup]="maintenanceFormNew"  enctype = "multipart/form-data">
+
+      <div class="cointeinear-newmaintenance__content" >
+
+         <div class="cointeinear-newmaintenance__content--item">
+           <label for="product">Producto</label>
+           <input type="text" name="product" id="product" formControlName="product" >
+           @if(product?.errors?.['required'] && product?.touched ){
+             <span class="alert text-danger" >El producto es obligatorio</span>
+           }
+           @if(product?.errors?.['minlength']){
+             <span class="alert text-danger" > El producto debe terner mínimo 3 caracteres </span>
+           }
+           @if( product?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > El producto debe tener máximo 100 caracteres </span>
+           }
+         </div>
+
+
+       <div class="cointeinear-newmaintenance__content--item">
+
+         <label for="users_id">Cliente</label>
+
+           <select id="users_id" name="users_id" formControlName="users_id" >
+           <option value="" disabled selected>Selecciona un cliente</option>
+           @for (item of usersMaintenance(); track $index) {
+             <option [value]="item.id" >{{ item.name + ' '+ item.lastname }}</option>
+           }
+         </select>
+           @if(maintenanceFormNew.get('users_id')?.errors?.['invalidUser']){
+             <span class="alert text-danger" >Por favor, selecciona una opción válida</span>
+           }
+
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="reference">Referencia</label>
+           <input type="text" id="reference" name="reference" formControlName="reference" >
+           @if( reference?.errors?.['minlength'] ){
+             <span class="alert text-danger" > La referencia debe terner mínimo 3 caracteres </span>
+           }
+           @if( reference?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > La referencia debe tener máximo 100 caracteres </span>
+           }
+
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="price">Precio Mantenimiento</label>
+           <input type="number" id="price" name="price" formControlName="price" >
+           @if(price?.errors?.['required'] && price?.touched ){
+             <span class="alert text-danger" >El precio es obligatorio</span>
+           }
+           @if( price?.errors?.['pattern'] ){
+             <span class="alert text-danger" >El precio debe ser un número válido (ej: 123.45)</span>
+           }
+
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="delivery_date">Fecha entrega</label>
+
+           <input type="date" id="delivery_date" name="delivery_date" formControlName="delivery_date" >
+           @if( delivery_date?.errors?.['pattern'] ){
+             <span class="alert text-danger" >La fecha debe estar en formato AAAA/MM/DD (ej: 2023-12-31)</span>
+           }
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="advance">Avance</label>
+
+
+           <select id="advance" formControlName="advance" name="advance" >
+             <option value="joined" >Recibido</option>
+             <option value="in_progress" >En progreso</option>
+             <option value="authorization" >Pendiente autorización del cliente</option>
+             <option value="finalized" >Finalizado</option>
+           </select>
+           @if(advance?.errors?.['required'] && advance?.touched ){
+             <span class="alert text-danger" >El avance es obligatorio</span>
+           }
+
+       </div>
+
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="repaired">Reparado</label>
+
+           <select id="repaired" name="repaired" formControlName="repaired" >
+             <option value="true" >Sí</option>
+             <option value="false">No</option>
+           </select>
+           @if(repaired?.errors?.['required'] && repaired?.touched ){
+             <span class="alert text-danger" >El campo reparado es obligatorio</span>
+           }
+
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="warranty">Garantía</label>
+
+           <select id="warranty" name="warranty" formControlName="warranty" >
+             <option value="false" >No</option>
+             <option value="labour" >Mano de obra</option>
+             <option value="replacement" >Repuesto</option>
+           </select>
+           @if(warranty?.errors?.['required'] && warranty?.touched ){
+             <span class="alert text-danger" >El campo garantía es obligatorio</span>
+           }
+       </div>
+       <div class="cointeinear-newmaintenance__content--item">
+         <label for="description">Descripción</label>
+
+           <textarea id="description" formControlName="description" ></textarea>
+           @if(description?.errors?.['required'] && description?.touched ){
+             <span class="alert text-danger" >La descripción es obligatorio</span>
+           }
+           @if(description?.errors?.['minlength']){
+             <span class="alert text-danger" > La descripción debe terner mínimo 3 caracteres </span>
+           }
+           @if( description?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+           }
+
+       </div>
+      </div>
+      <div class="cointeinear-newmaintenance__images">
+         <div class="cointeinear-newmaintenance__images--img">
+           <img [src]=" previewImage1 ? previewImage1 : '../../../../../../assets/images/noImage.png'"
+                alt="no hay imagen"
+                (click)=" triggerFileInput(1)"
+           />
+           <input #fileInput1 type="file" name="image1" id="image1" (change)="onFileSelected($event,1)"  accept="image/*" />
+         </div>
+
+
+         <div class="cointeinear-newmaintenance__images--img">
+          <img  [src]=" previewImage2 ? previewImage2 : '../../../../../../assets/images/noImage.png'"
+                alt="no hay imagen"
+                (click)=" triggerFileInput(2)"
+         />
+           <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)"  accept="image/*" />
+         </div>
+
+
+         <div class="cointeinear-newmaintenance__images--img">
+          <img  [src]=" previewImage3 ? previewImage3 : '../../../../../../assets/images/noImage.png'"
+                alt="no hay imagen"
+                (click)=" triggerFileInput(3)"
+          />
+           <input #fileInput3 type="file" name="image3" id="image3" (change)="onFileSelected($event,3)"  accept="image/*" />
+         </div>
+
+
+         <div class="cointeinear-newmaintenance__images--img" >
+          <img  [src]=" previewImage4 ? previewImage4 : '../../../../../../assets/images/noImage.png'"
+                alt="no hay imagen"
+                (click)=" triggerFileInput(4)"
+          />
+           <input #fileInput4 type="file" name="image4" id="image4" (change)="onFileSelected($event,4)"  accept="image/*" />
+         </div>
+
+
+     </div>
+
+      <div class="cointeinear-newmaintenance__btn">
+
+         <button class="btn btn-success btn2" (click)="newMaintenanceForm()" [disabled]="maintenanceFormNew.invalid" >Guardar</button>
+
+         <button class="btn btn-danger btn3" type="button" (click)="cancel()" >Cancelar</button>
+
+
+      </div>
+
+    </form>
+
+</div>
+

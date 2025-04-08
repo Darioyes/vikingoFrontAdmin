@@ -1,0 +1,282 @@
+<div class="cointeinear-detailmaintenance" >
+  @defer ( when success() === 'success' ) {
+    @let maintenanceH = maintenanceOne();
+    <div class="cointeinear-detailmaintenance__title">
+     @if(modifyInput() === false){
+       <h2>Detalle mantenimiento {{maintenanceH.product}}</h2>
+     }@else {
+       <h2>Modificar mantenimiento {{maintenanceH.product}}</h2>
+     }
+    </div>
+
+    <form [formGroup]="maintenanceForm"enctype = "multipart/form-data">
+
+      <div class="cointeinear-detailmaintenance__content" >
+
+       @if(modifyInput() === !false){
+         <div class="cointeinear-detailmaintenance__content--item">
+           <label for="product">Producto</label>
+           <input type="text" name="product" id="product" formControlName="product" >
+           @if(product?.errors?.['required'] && product?.touched ){
+             <span class="alert text-danger" >El producto es obligatorio</span>
+           }
+           @if(product?.errors?.['minlength']){
+             <span class="alert text-danger" > El producto debe terner mínimo 3 caracteres </span>
+           }
+           @if( product?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > El producto debe tener máximo 100 caracteres </span>
+           }
+         </div>
+       }
+
+       <div class="cointeinear-detailmaintenance__content--item">
+
+         <label for="users_id">Cliente</label>
+         @if(modifyInput() === false){
+           <p>{{maintenanceH?.users?.name +' '+ maintenanceH?.users?.lastname}}</p>
+         }@else{
+           <select id="users_id" name="users_id" formControlName="users_id" >
+           <option value="" disabled selected>Selecciona un cliente</option>
+           @for (item of usersMaintenance(); track $index) {
+             <option [value]="item.id" [selected]="maintenanceH?.users?.id === item.id  " >{{ item.name + ' '+ item.lastname }}</option>
+           }
+         </select>
+           @if(maintenanceForm.get('users_id')?.errors?.['invalidUser']){
+             <span class="alert text-danger" >Por favor, selecciona una opción válida</span>
+           }
+         }
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="reference">Referencia</label>
+         @if(modifyInput() === false){
+           <p>{{maintenanceH.reference}}</p>
+         }@else{
+           <input type="text" id="reference" name="reference" formControlName="reference" >
+           @if( reference?.errors?.['minlength'] ){
+             <span class="alert text-danger" > La referencia debe terner mínimo 3 caracteres </span>
+           }
+           @if( reference?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > La referencia debe tener máximo 100 caracteres </span>
+           }
+         }
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="price">Precio Mantenimiento</label>
+         @if(modifyInput() === false){
+           <p>{{maintenanceH.price | currency:'COP' }}</p>
+         }@else{
+           <input type="number" id="price" name="price" formControlName="price" >
+           @if(price?.errors?.['required'] && price?.touched ){
+             <span class="alert text-danger" >El precio es obligatorio</span>
+           }
+           @if( price?.errors?.['pattern'] ){
+             <span class="alert text-danger" >El precio debe ser un número válido (ej: 123.45)</span>
+           }
+         }
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="delivery_date">Fecha entrega</label>
+         @if(modifyInput() === false){
+           @if(maintenanceH.delivery_date == null){
+             <p>Pendiente entrega</p>
+           }
+           @else{
+             <p>{{maintenanceH.delivery_date | date: 'dd/MM/yyyy' }}</p>
+           }
+         }@else{
+           <input type="date" id="delivery_date" name="delivery_date" formControlName="delivery_date" >
+           @if(maintenanceH.delivery_date == null){
+             <span class="alert text-danger" >Pendiente entrega</span>
+           }
+           @if( delivery_date?.errors?.['pattern'] ){
+             <span class="alert text-danger" >La fecha debe estar en formato AAAA/MM/DD (ej: 2023-12-31)</span>
+           }
+         }
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="advance">Avance</label>
+         @if(modifyInput() === false){
+           @if(maintenanceH.advance==='joined'){
+             <p>Recibido</p>
+           }@else if (maintenanceH.advance==='in_progress') {
+             <p>En progreso</p>
+           }@else if (maintenanceH.advance==='authorization') {
+             <p>Pendiente autorización del cliente</p>
+           }@else{
+             <p>Finalizado</p>
+           }
+         }@else{
+           <select id="advance" formControlName="advance" name="advance" >
+             <option value="joined" [selected]="maintenanceH.advance === 'joined'">Recibido</option>
+             <option value="in_progress" [selected]="maintenanceH.advance === 'in_progress'">En progreso</option>
+             <option value="authorization" [selected]="maintenanceH.advance === 'authorization'">Pendiente autorización del cliente</option>
+             <option value="finalized" [selected]="maintenanceH.advance === 'finished'">Finalizado</option>
+           </select>
+           @if(advance?.errors?.['required'] && advance?.touched ){
+             <span class="alert text-danger" >El avance es obligatorio</span>
+           }
+         }
+       </div>
+       @if(modifyInput() === false){
+         <div class="cointeinear-detailmaintenance__content--item">
+           <label for="created_at">Fecha creación</label>
+           <p>{{maintenanceH.created_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+         <div class="cointeinear-detailmaintenance__content--item">
+           <label for="updated_at">Fecha actualización</label>
+           <p>{{maintenanceH.updated_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+       }
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="repaired">Reparado</label>
+         @if(modifyInput() === false){
+           @if(maintenanceH.repaired === 'true'){
+             <p>Sí</p>
+           }@else {
+             <p>No</p>
+           }
+         }@else {
+           <select id="repaired" name="repaired" formControlName="repaired" >
+             <option value="true" [selected]="maintenanceH.repaired === 'true'">Sí</option>
+             <option value="false" [selected]="maintenanceH.repaired === 'false'">No</option>
+           </select>
+           @if(repaired?.errors?.['required'] && repaired?.touched ){
+             <span class="alert text-danger" >El campo reparado es obligatorio</span>
+           }
+         }
+
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="warranty">Garantía</label>
+         @if(modifyInput() === false){
+           @if(maintenanceH.warranty === 'false'){
+             <p>No</p>
+           }@else if (maintenanceH.warranty === 'labour') {
+             <p>Mano de obra</p>
+           }@else{
+             <p>Repuesto</p>
+           }
+
+         }@else {
+           <select id="warranty" name="warranty" formControlName="warranty" >
+             <option value="false" [selected]="maintenanceH.warranty === 'false'">No</option>
+             <option value="labour" [selected]="maintenanceH.warranty === 'labour'">Mano de obra</option>
+             <option value="replacement" [selected]="maintenanceH.warranty === 'replacement'">Repuesto</option>
+           </select>
+           @if(warranty?.errors?.['required'] && warranty?.touched ){
+             <span class="alert text-danger" >El campo garantía es obligatorio</span>
+           }
+         }
+       </div>
+       <div class="cointeinear-detailmaintenance__content--item">
+         <label for="description">Descripción</label>
+         @if(modifyInput() === false){
+           <p>{{maintenanceH.description}}</p>
+         }@else{
+           <textarea id="description" formControlName="description" ></textarea>
+           @if(description?.errors?.['required'] && description?.touched ){
+             <span class="alert text-danger" >La descripción es obligatorio</span>
+           }
+           @if(description?.errors?.['minlength']){
+             <span class="alert text-danger" > La descripción debe terner mínimo 3 caracteres </span>
+           }
+           @if( description?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+           }
+         }
+       </div>
+      </div>
+      <div class="cointeinear-detailmaintenance__images">
+       @if(maintenanceH.image1 != null){
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img  [src]="previewImage1"
+                 [alt]="maintenanceH.product+1"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(1)"
+           />
+           <input #fileInput1 type="file" name="image1" id="image1" (change)="onFileSelected($event,1)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img [src]="!image1? '../../../../../../assets/images/noImage.png':previewImage1"
+            alt="No hay imagen"
+            [ngClass]="{'imageinput':modifyInput()}"
+            (click)="triggerFileInput(1)" />
+           <input #fileInput1 type="file" name="image1" id="image1" (change)="onFileSelected($event,1)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(maintenanceH.image2 != null){
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img  [src]="previewImage2"
+                 [alt]="maintenanceH.product+2"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(2)"
+                 />
+           <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img  [src]="!image2 ? '../../../../../../assets/images/noImage.png':previewImage2"
+                 alt="No hay imagen" (click)="triggerFileInput(2)"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 />
+           <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(maintenanceH.image3 != null){
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img [src]="previewImage3"
+           [alt]="maintenanceH.product+3"
+           [ngClass]="{'imageinput':modifyInput()}"
+           (click)="triggerFileInput(3)"
+           />
+           <input #fileInput3 type="file" name="image3" id="image3" (change)="onFileSelected($event,3)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img  [src]="!image3 ? '../../../../../../assets/images/noImage.png':previewImage3"
+                 alt="No hay imagen"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(3)"
+           />
+           <input #fileInput3 type="file" name="image3" id="image3" (change)="onFileSelected($event,3)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(maintenanceH.image4 != null){
+         <div class="cointeinear-detailmaintenance__images--img" (click)="triggerFileInput(4)">
+           <img  [src]="previewImage4"
+                 [alt]="maintenanceH.product+4"
+                 [ngClass]="{'imageinput':modifyInput()}"
+           />
+           <input #fileInput4 type="file" name="image4" id="image4" (change)="onFileSelected($event,4)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailmaintenance__images--img">
+           <img  [src]="!image4 ? '../../../../../../assets/images/noImage.png':previewImage4"
+                 alt="No hay imagen"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(4)"
+           />
+           <input #fileInput4 type="file" name="image4" id="image4" (change)="onFileSelected($event,4)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+
+     </div>
+
+      <div class="cointeinear-detailmaintenance__btn">
+        @if(modifyInput() === false){
+         <button class="btn btn-warning btn1" (click)="modifyMaintenanceDetail()">Editar</button>
+       }@else {
+         <button class="btn btn-success btn2" (click)="modifyMaintenanceForm()" >Modificar</button>
+       }
+       <button class="btn btn-danger btn3" (click)="modifyInput() === !false? modifyMaintenanceDetail():MaintenanceDetailClose()">{{modifyInput() === !false? 'Cancelar':'Volver'}}</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>

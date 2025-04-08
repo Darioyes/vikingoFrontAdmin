@@ -1,26 +1,28 @@
 <div class="card-maintenances">
+  <!-- se realiza una variable para la señal para no hacer tantas suscripciones -->
+  @let progressM = progress();
   <div class="card-maintenances__image">
     <img [src]="image()" [alt]="title()" >
     <p class="card-maintenances__image--item">{{title()}}</p>
   </div>
   <div class="card-maintenances__data">
-    @if(progress() === 'finalized'){
+    @if(progressM === 'finalized'){
       <p [ngStyle]="{'color':'#198754'}" >Finalizado</p>
     }
-    @if(progress() === 'in_progress'){
+    @if(progressM === 'in_progress'){
       <p [ngStyle]="{'color':'#ffc107'}" >En progreso</p>
     }
-    @if(progress() === 'joined'){
+    @if(progressM === 'joined'){
       <p [ngStyle]="{'color':'#00264d'}" >Recibido</p>
     }
-    @if(progress() === 'authorization'){
+    @if(progressM === 'authorization'){
       <p [ngStyle]="{'color':'#dc3545'}" >Autorización</p>
     }
-    <p class="card-maintenances__data--item">{{price() | number}}</p>
+    <p class="card-maintenances__data--item">${{price() | number}}</p>
     <div class="card-maintenances__data--item">
-      <i class="fa-solid fa-info text-info"></i>
-      <i  class="fa-regular fa-pen-to-square text-warning"></i>
-      <i class="fa-regular fa-trash-can text-danger"></i>
+      <i (click)="consultMaintenance()" class="fa-solid fa-info text-info"></i>
+      <!-- <i  class="fa-regular fa-pen-to-square text-warning"></i> -->
+      <i (click)="confirmDeleteMaintenance()" class="fa-regular fa-trash-can text-danger"></i>
     </div>
   </div>
 </div>

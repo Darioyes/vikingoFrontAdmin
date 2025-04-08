@@ -12,10 +12,12 @@
   line-height: 22px;
   transition: all 0.3s;
   &:disabled{
-    background-color:  color.scale($primary, $lightness: 5%);
+    background-color:  color.scale($gray-700, $lightness: 5%);
     color: $white;
-    border: 1px solid  color.scale($primary, $lightness: 5%);
+    border: 1px solid  color.scale($gray-700, $lightness: 5%);
+
   }
+
 }
 
 .btn-summary{

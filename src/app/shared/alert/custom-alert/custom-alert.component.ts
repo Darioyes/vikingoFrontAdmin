@@ -1,4 +1,3 @@
-import { NgClass, NgStyle } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AlertsService } from '@services/alerts/alerts.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -6,15 +5,13 @@ import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-custom-alert',
-    imports: [
-        NgClass,
-        NgStyle
-    ],
+    imports: [],
     template: `
   @if(show){
     <div class="modal-container" >
       <div class="modal">
-        <div class="modal-header" [ngStyle]="{'border-bottom': '1px solid '+color }">
+        <!-- <div class="modal-header" [ngStyle]="{'border-bottom': '1px solid '+color }"> -->
+        <div class="modal-header" >
           @if(icon === 'success'){
             <h3><i class="fa-regular fa-circle-check"></i></h3>
           }@else if(icon === 'error'){
@@ -24,10 +21,12 @@ import { Subscription } from 'rxjs';
           }
         </div>
         <div class="modal-body">
-          <p [innerHTML]="message" [ngStyle]="{'color':color}" ></p>
+          <p [innerHTML]="message"  ></p>
+          <!-- <p [innerHTML]="message" [ngStyle]="{'color':color}" ></p> -->
         </div>
-        <div class="modal-footer" [ngStyle]="{'border-top': '1px solid '+color }">
-          <button [ngClass]="'btn btn-' + buttonType" (click)="onClose()">Cerrar</button>
+        <div class="modal-footer" >
+        <!-- <button [ngClass]="'btn btn-' + buttonType" (click)="onClose()">Cerrar</button> -->
+          <button class="btn" (click)="onClose()">Cerrar</button>
         </div>
       </div>
     </div>
@@ -52,7 +51,9 @@ export class CustomAlertComponent implements OnInit, OnDestroy {
   public loadingButton: boolean = false;
 
   ngOnInit() {
+    // Suscríbete al observable de alertas
     this.#subscription = this.#alertService.alertState$.subscribe(alert => {
+      //si
       if (alert) {
         this.icon = alert.icon;
         this.message = alert.message;
@@ -70,7 +71,7 @@ export class CustomAlertComponent implements OnInit, OnDestroy {
           this.color = '#0dcaf0';
           this.buttonType = 'info';
         };
-        console.log(this.buttonType);
+        //console.log(this.buttonType);
 
       } else {
         this.show = false;
