@@ -75,6 +75,20 @@
          }
        </div>
        <div class="cointeinear-detailmaintenance__content--item">
+        <label for="cost_price">Costo Mantenimiento</label>
+        @if(modifyInput() === false){
+          <p>{{maintenanceH.cost_price | currency:'COP' }}</p>
+        }@else{
+          <input type="number" id="cost_price" name="cost_price" formControlName="cost_price" >
+          @if(cost_price?.errors?.['required'] && cost_price?.touched ){
+            <span class="alert text-danger" >El costo del mantenimiento es obligatorio</span>
+          }
+          @if( cost_price?.errors?.['pattern'] ){
+            <span class="alert text-danger" >El costo del mantenimiento debe ser un número válido (ej: 123.45)</span>
+          }
+        }
+      </div>
+       <div class="cointeinear-detailmaintenance__content--item">
          <label for="delivery_date">Fecha entrega</label>
          @if(modifyInput() === false){
            @if(maintenanceH.delivery_date == null){

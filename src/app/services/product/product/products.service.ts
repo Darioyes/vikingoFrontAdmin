@@ -12,6 +12,16 @@ export class ProductsService {
   #http = inject(HttpClient);
   #cookieService = inject(CookieService);
 
+  public newProduct(data:any): Observable<ApiProductDetaillResponse> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<ApiProductDetaillResponse>(`${this.#url}products`, data, {headers: headers});
+  }
+
   getProducts(): Observable<ApiProductDetaillResponse>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -20,6 +30,37 @@ export class ProductsService {
     };
 
     return this.#http.get<ApiProductDetaillResponse>(`${this.#url}products`, {headers: headers});
+  }
+
+  public getProduct(id:number) : Observable<ApiProductDetaillResponse> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.get<ApiProductDetaillResponse>(`${this.#url}products/${id}`, {headers: headers});
+  }
+
+  public modifyProduct(id:number, data:FormData): Observable<ApiProductDetaillResponse> {
+
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<ApiProductDetaillResponse>(`${this.#url}products/${id}`, data, {headers: headers});
+  }
+
+  public deleteProduct(id:number): Observable<ApiProductDetaillResponse> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+    return this.#http.delete<ApiProductDetaillResponse>(`${this.#url}products/${id}`, {headers: headers});
   }
 
   searchProducts(search:string): Observable<ApiProductDetaillResponse>{

@@ -1,8 +1,10 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
 import { IProductDetaill } from '@interfaces/poducts/IProductDetail.interface';
 import { ErrorProductDetaillResponse, SuccessProductDetaillResponse } from '@interfaces/poducts/IProductGeneral.interface';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { ProductsService } from '@services/product/product/products.service';
 import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
@@ -29,8 +31,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   public urlImg = environment.domainimage;
 
   #maintenancesService = inject(MaintenanceService);
-  public productService = inject(ProductsService);
   #unsubscribe!: Subscription;
+  #alertService = inject(AlertsService);
+  public productService = inject(ProductsService);
+  public router = inject(Router)
 
   ngOnInit(): void {
     this.getProductsAll();
@@ -47,15 +51,23 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   this.#unsubscribe = this.productService.getProducts().subscribe({
     next:(response:SuccessProductDetaillResponse)=>{
-      //console.log(response);
       this.products.set(response?.data?.data);
       this.productsPage.set(response);
+     //console.log(this.products());
     },
     error:(error:ErrorProductDetaillResponse)=>{
       console.log(error);
     }
   });
 
+  }
+
+  public getProduct(id: number){
+    this.router.navigate(['./home/productos/consulta-productos'],{queryParams:{id:id}});
+  }
+
+  public modifyP(id:number){
+    this.router.navigate(['./home/productos/consulta-productos'],{queryParams:{id:id , modify:false }});
   }
 
   pagination(url:string){
@@ -68,6 +80,32 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     });
+  }
+
+  async confirmDeleteProduct(id:number) {
+    const confirm = await this.#alertService.openAlert('alert', '¿Seguro que desea eliminar este producto?');
+    if (confirm) {
+      this.delelteProduct(id);
+    } else {
+      //console.log('Cancelado');
+    }
+  }
+
+  public delelteProduct(id:number){
+    this.#unsubscribe = this.productService.deleteProduct(id).subscribe({
+      next:(response)=>{
+        this.#alertService.showAlert('success', response.message);
+        this.getProductsAll();
+      },
+      error:(error:ErrorProductDetaillResponse)=>{
+        console.log(error);
+        this.#alertService.showAlert('error', 'Error al eliminar el producto');
+      }
+    });
+  }
+
+  public newProductRedirect(){
+    this.router.navigate(['./home/productos/nuevo-producto']);
   }
 
   searcInputProducts(){

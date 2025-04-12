@@ -54,8 +54,6 @@ export const routes: Routes = [
         ],
       },
 
-
-
       {
         path:'productos',
         title: 'Productos',
@@ -77,6 +75,18 @@ export const routes: Routes = [
             path:'estadisticas-productos',
             title:'Estadisticas de productos',
             loadComponent:() => import('./components/pages/prodcts/product-statistics/product-statistics.component').then(c=>c.ProductStatisticsComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'consulta-productos',
+            title:'Consulta y modificación productos',
+            loadComponent:() => import('./components/pages/prodcts/forms/form-information-product/form-information-product.component').then(c=>c.FormInformationProductComponent),
+            canActivate : [authGuard]
+          },
+          {
+            path:'nuevo-producto',
+            title:'Nuevo producto',
+            loadComponent:() => import('./components/pages/prodcts/forms/form-new-product/form-new-product.component').then(c=>c.FormNewProductComponent),
             canActivate: [authGuard]
           },
         ],

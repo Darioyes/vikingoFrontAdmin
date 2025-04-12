@@ -9,6 +9,7 @@ import { IndirectCostService } from '@services/cost/indirectCost/indirect-cost.s
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { MaintenanceProgressService } from '@services/maintenance/maintenanceProgress/maintenance-progress.service';
 import { NavbarMenuService } from '@services/menu/navbar-menu.service';
+import { CategoriesProductsService } from '@services/product/categoriesProducts/categories-products.service';
 import { ProductsService } from '@services/product/product/products.service';
 import { SalesMainService } from '@services/sales/salesMain/sales-main.service';
 import { SummaryService } from '@services/summary/summary.service';
@@ -37,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     TransactionService,
     DirectCostService,
     IndirectCostService,
+    CategoriesProductsService,
     { provide: LOCALE_ID, useValue: 'es-CO' },//para que la aplicación se ejecute en español colombiano
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes,

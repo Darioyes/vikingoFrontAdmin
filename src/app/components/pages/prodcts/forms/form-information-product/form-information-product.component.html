@@ -1,0 +1,294 @@
+<div class="cointeinear-detailproduct" >
+  @defer ( when success() === 'success' ) {
+    @let productH = product();
+    <div class="cointeinear-detailproduct__title">
+     @if(modifyInput() === false){
+       <h2>Detalle producto {{productH.name}}</h2>
+     }@else {
+       <h2>Modificar producto {{productH.name}}</h2>
+     }
+    </div>
+
+    <form [formGroup]="productForm"enctype = "multipart/form-data">
+
+      <div class="cointeinear-detailproduct__content" >
+
+       @if(modifyInput() === !false){
+         <div class="cointeinear-detailproduct__content--item">
+           <label for="name">Producto</label>
+           <input type="text" name="name" id="name" formControlName="name" >
+           @if(name?.errors?.['required'] && name?.touched ){
+             <span class="alert text-danger" >El producto es obligatorio</span>
+           }
+           @if(name?.errors?.['minlength']){
+             <span class="alert text-danger" > El producto debe terner mínimo 3 caracteres </span>
+           }
+           @if( name?.errors?.['maxlength'] ){
+             <span class="alert text-danger" > El producto debe tener máximo 200 caracteres </span>
+           }
+         </div>
+       }
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="reference">Referencia</label>
+        @if(modifyInput() === false){
+          <p>{{productH.reference}}</p>
+        }@else{
+          <input type="text" id="reference" name="reference" formControlName="reference" >
+          @if( reference?.errors?.['minlength'] ){
+            <span class="alert text-danger" > La referencia debe terner mínimo 3 caracteres </span>
+          }
+          @if( reference?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La referencia debe tener máximo 100 caracteres </span>
+          }
+        }
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="barcode">Codigo de barras</label>
+        @if(modifyInput() === false){
+          <p>{{productH.barcode?productH.barcode:'Null'}}</p>
+        }@else{
+          <input type="text" id="barcode" name="barcode" formControlName="barcode" >
+          @if( barcode?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El codigo de barras debe terner mínimo 3 caracteres </span>
+          }
+          @if( barcode?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > el codigo de debe tener máximo 100 caracteres </span>
+          }
+        }
+      </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="stock">Stock</label>
+        @if(modifyInput() === false){
+          @if(productH.stock){
+            <p>{{productH.stock | number}}</p>
+          }@else{
+            <p>Null</p>
+          }
+        }
+         @else{
+          <input type="number" id="stock" name="stock" formControlName="stock" >
+          @if( stock?.errors?.['pattern'] ){
+            <span class="alert text-danger" >El stock debe ser un número válido (ej: 123.45)</span>
+          }
+        }
+      </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+         <label for="sale_price">Precio del producto</label>
+         @if(modifyInput() === false){
+           <p>{{productH.sale_price | currency:'COP' }}</p>
+         }@else{
+           <input type="number" id="sale_price" name="sale_price" formControlName="sale_price" >
+           @if( sale_price?.errors?.['pattern'] ){
+             <span class="alert text-danger" >El precio debe ser un número válido (ej: 123.45)</span>
+           }
+         }
+       </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="cost_price">Costo del producto</label>
+        @if(modifyInput() === false){
+          @if(productH.cost_price){
+            <p>{{productH.cost_price | currency:'COP' }}</p>
+          }@else{
+            <p>Null</p>
+          }
+        }@else{
+          <input type="number" id="cost_price" name="cost_price" formControlName="cost_price" >
+          @if(cost_price?.errors?.['required'] && cost_price?.touched ){
+            <span class="alert text-danger" >El costo del mantenimiento es obligatorio</span>
+          }
+          @if( cost_price?.errors?.['pattern'] ){
+            <span class="alert text-danger" >El costo del mantenimiento debe ser un número válido (ej: 123.45)</span>
+          }
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="color">Color</label>
+        @if(modifyInput() === false){
+          <p>{{productH.color ? productH.color:'Null' }}</p>
+        }@else{
+          <input type="text" id="color" name="color" formControlName="color" >
+          @if(color?.errors?.['minlength']){
+            <span class="alert text-danger" > El color debe terner mínimo 3 caracteres </span>
+          }
+          @if( color?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El color debe tener máximo 50 caracteres </span>
+          }
+        }
+      </div>
+
+       @if(modifyInput() === false){
+         <div class="cointeinear-detailproduct__content--item">
+           <label for="created_at">Fecha creación</label>
+           <p>{{productH.created_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+         <div class="cointeinear-detailproduct__content--item">
+           <label for="updated_at">Fecha actualización</label>
+           <p>{{productH.updated_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+       }
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="categories_products_id">Categoría</label>
+          @if(modifyInput() === false){
+            <p>{{productH.categories_products.name}}</p>
+          }@else{
+            <select id="categories_products_id" name="categories_products_id" formControlName="categories_products_id" >
+            <option value="" disabled selected>Selecciona una categoría</option>
+            @for (item of productsCategories(); track $index) {
+              <option [value]="item.id" [selected]="productH?.categories_products?.id === item.id  " >{{ item.name }}</option>
+            }
+            </select>
+          }
+       </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="visible">Visible</label>
+        @if(modifyInput() === false){
+          <p>{{productH.visible === 'true' ? 'Si':'No'}}</p>
+        }@else{
+          <select id="visible" name="visible" formControlName="visible" >
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option [value]="true" [selected]="productH?.visible === true">Si</option>
+            <option [value]="false" [selected]="productH?.visible === false">No</option>
+          </select>
+        }
+       </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="description">Descripción</label>
+        @if(modifyInput() === false){
+          <p>{{productH.description}}</p>
+        }@else{
+          <textarea id="description" formControlName="description" ></textarea>
+          @if(description?.errors?.['required'] && description?.touched ){
+            <span class="alert text-danger" >La descripción es obligatorio</span>
+          }
+          @if(description?.errors?.['minlength']){
+            <span class="alert text-danger" > La descripción debe terner mínimo 3 caracteres </span>
+          }
+          @if( description?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+          }
+        }
+      </div>
+
+      </div>
+      <div class="cointeinear-detailproduct__images">
+       @if(productH.image1 != null){
+         <div class="cointeinear-detailproduct__images--img">
+           <img  [src]="previewImage1"
+                 [alt]="productH.product+1"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(1)"
+           />
+           <input #fileInput1 type="file" name="image1" id="image1" (change)="onFileSelected($event,1)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailproduct__images--img">
+           <img [src]="!image1? '../../../../../../assets/images/noImage.png':previewImage1"
+            alt="No hay imagen"
+            [ngClass]="{'imageinput':modifyInput()}"
+            (click)="triggerFileInput(1)" />
+           <input #fileInput1 type="file" name="image1" id="image1" (change)="onFileSelected($event,1)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(productH.image2 != null){
+         <div class="cointeinear-detailproduct__images--img">
+           <img  [src]="previewImage2"
+                 [alt]="productH.product+2"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(2)"
+                 />
+           <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailproduct__images--img">
+           <img  [src]="!image2 ? '../../../../../../assets/images/noImage.png':previewImage2"
+                 alt="No hay imagen" (click)="triggerFileInput(2)"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 />
+           <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(productH.image3 != null){
+         <div class="cointeinear-detailproduct__images--img">
+           <img [src]="previewImage3"
+           [alt]="productH.product+3"
+           [ngClass]="{'imageinput':modifyInput()}"
+           (click)="triggerFileInput(3)"
+           />
+           <input #fileInput3 type="file" name="image3" id="image3" (change)="onFileSelected($event,3)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailproduct__images--img">
+           <img  [src]="!image3 ? '../../../../../../assets/images/noImage.png':previewImage3"
+                 alt="No hay imagen"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(3)"
+           />
+           <input #fileInput3 type="file" name="image3" id="image3" (change)="onFileSelected($event,3)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(productH.image4 != null){
+         <div class="cointeinear-detailproduct__images--img" (click)="triggerFileInput(4)">
+           <img  [src]="previewImage4"
+                 [alt]="productH.product+4"
+                 [ngClass]="{'imageinput':modifyInput()}"
+           />
+           <input #fileInput4 type="file" name="image4" id="image4" (change)="onFileSelected($event,4)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }@else{
+         <div class="cointeinear-detailproduct__images--img">
+           <img  [src]="!image4 ? '../../../../../../assets/images/noImage.png':previewImage4"
+                 alt="No hay imagen"
+                 [ngClass]="{'imageinput':modifyInput()}"
+                 (click)="triggerFileInput(4)"
+           />
+           <input #fileInput4 type="file" name="image4" id="image4" (change)="onFileSelected($event,4)" [disabled]="modifyInput() === false" accept="image/*" />
+         </div>
+       }
+       @if(productH.image5 != null){
+        <div class="cointeinear-detailproduct__images--img" (click)="triggerFileInput(5)">
+          <img  [src]="previewImage5"
+                [alt]="productH.product+5"
+                [ngClass]="{'imageinput':modifyInput()}"
+          />
+          <input #fileInput5 type="file" name="image5" id="image5" (change)="onFileSelected($event,5)" [disabled]="modifyInput() === false" accept="image/*" />
+        </div>
+      }@else{
+        <div class="cointeinear-detailproduct__images--img">
+          <img  [src]="!image5 ? '../../../../../../assets/images/noImage.png':previewImage5"
+                alt="No hay imagen"
+                [ngClass]="{'imageinput':modifyInput()}"
+                (click)="triggerFileInput(5)"
+          />
+          <input #fileInput5 type="file" name="image5" id="image5" (change)="onFileSelected($event,5)" [disabled]="modifyInput() === false" accept="image/*" />
+        </div>
+      }
+
+     </div>
+
+      <div class="cointeinear-detailproduct__btn">
+        @if(modifyInput() === false){
+         <button type="button" class="btn btn-warning btn1" (click)="modifyProductDetail()">Editar</button>
+       }
+       @else {
+         <button type="button"  class="btn btn-success btn2" (click)="modifyProductForm(productH.id)" >Modificar</button>
+       }
+       <button type="button"  class="btn btn-danger btn3" (click)="modifyInput() === !false? modifyProductDetail():productFormClose()">{{modifyInput() === !false? 'Cancelar':'Volver'}}</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>
+

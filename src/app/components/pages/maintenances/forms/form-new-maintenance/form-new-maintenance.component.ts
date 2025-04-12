@@ -65,6 +65,7 @@ export class FormNewMaintenanceComponent implements OnInit, OnDestroy {
           product: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
           reference: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
           price: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
+          cost_price:['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
           delivery_date: ['', Validators.compose([Validators.pattern('^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$')])],
           advance: ['', Validators.compose([Validators.required])],
           repaired: ['', Validators.compose([Validators.required])],
@@ -79,6 +80,7 @@ export class FormNewMaintenanceComponent implements OnInit, OnDestroy {
       get product(){ return this.maintenanceFormNew.get('product'); }
       get reference(){ return this.maintenanceFormNew.get('reference'); }
       get price(){ return this.maintenanceFormNew.get('price'); }
+      get cost_price(){return this.maintenanceFormNew.get('cost_price');}
       get delivery_date(){return this.maintenanceFormNew.get('delivery_date'); }
       get advance(){ return this.maintenanceFormNew.get('advance'); }
       get repaired(){ return this.maintenanceFormNew.get('repaired'); }

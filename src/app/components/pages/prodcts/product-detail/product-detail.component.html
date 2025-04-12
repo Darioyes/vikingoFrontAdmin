@@ -2,7 +2,7 @@
 
   <div class="conteinaer-productslist__search">
 
-    <div class="conteinaer-productslist__search--new">
+    <div class="conteinaer-productslist__search--new" (click)="newProductRedirect()" >
       <i class="fa-solid fa-circle-plus"></i>
     </div>
 
@@ -29,6 +29,10 @@
         [price]="product.sale_price"
         [cost]="product.cost_price"
         [stock]="product.stock"
+        [id]="product.id"
+        (idProduct)="getProduct($event)"
+        (idDelete)="confirmDeleteProduct($event)"
+        (modify)="modifyP($event)"
         />
       }@empty {
         <p class="text-danger" >No se encuentran proveedores</p>

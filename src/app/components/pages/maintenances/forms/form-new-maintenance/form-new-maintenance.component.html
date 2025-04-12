@@ -10,7 +10,7 @@
 
          <div class="cointeinear-newmaintenance__content--item">
            <label for="product">Producto</label>
-           <input type="text" name="product" id="product" formControlName="product" >
+           <input type="text" name="product" id="product" formControlName="product" autocomplete="name" >
            @if(product?.errors?.['required'] && product?.touched ){
              <span class="alert text-danger" >El producto es obligatorio</span>
            }
@@ -50,7 +50,7 @@
 
        </div>
        <div class="cointeinear-newmaintenance__content--item">
-         <label for="price">Precio Mantenimiento</label>
+         <label for="price">Precio mantenimiento</label>
            <input type="number" id="price" name="price" formControlName="price" >
            @if(price?.errors?.['required'] && price?.touched ){
              <span class="alert text-danger" >El precio es obligatorio</span>
@@ -60,6 +60,19 @@
            }
 
        </div>
+
+       <div class="cointeinear-newmaintenance__content--item">
+        <label for="cost_cost_price">Costo del mantenimiento</label>
+          <input type="number" id="cost_price" name="cost_price" formControlName="cost_price" >
+          @if(cost_price?.errors?.['required'] && cost_price?.touched ){
+            <span class="alert text-danger" >El precio es obligatorio</span>
+          }
+          @if( cost_price?.errors?.['pattern'] ){
+            <span class="alert text-danger" >El precio debe ser un número válido (ej: 123.45)</span>
+          }
+
+      </div>
+
        <div class="cointeinear-newmaintenance__content--item">
          <label for="delivery_date">Fecha entrega</label>
 

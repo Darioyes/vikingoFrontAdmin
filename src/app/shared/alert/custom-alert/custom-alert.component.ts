@@ -12,7 +12,9 @@ import { Subscription } from 'rxjs';
       <div class="modal">
         <!-- <div class="modal-header" [ngStyle]="{'border-bottom': '1px solid '+color }"> -->
         <div class="modal-header" >
-          @if(icon === 'success'){
+          @if(icon === 'alert'){
+          <h3><i class="fa-solid fa-triangle-exclamation" ></i></h3>
+          }@else if(icon === 'success'){
             <h3><i class="fa-regular fa-circle-check"></i></h3>
           }@else if(icon === 'error'){
             <h3><i class="fa-regular fa-circle-xmark"></i></h3>

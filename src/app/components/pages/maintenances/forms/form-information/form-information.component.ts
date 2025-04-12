@@ -62,7 +62,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
   public formbuilder = inject(FormBuilder);
   public maintenanceForm:IDetail | any = new FormGroup({});
   public modifyInput = signal<boolean>(false);
-   public router = inject(Router)
+  public router = inject(Router)
 
   public image1: File | null = null;
   public image2: File | null = null;
@@ -125,6 +125,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
       users: ['', Validators.compose([Validators.required,])],
       reference: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
       price: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
+      cost_price:['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
       delivery_date: ['', Validators.compose([Validators.pattern('^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$')])],
       advance: ['', Validators.compose([Validators.required])],
       repaired: ['', Validators.compose([Validators.required])],
@@ -140,6 +141,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
   get users(){ return this.maintenanceForm.get('users'); }
   get reference(){ return this.maintenanceForm.get('reference'); }
   get price(){ return this.maintenanceForm.get('price'); }
+  get cost_price(){return this.maintenanceForm.get('cost_price');}
   get delivery_date(){return this.maintenanceForm.get('delivery_date'); }
   get advance(){ return this.maintenanceForm.get('advance'); }
   get repaired(){ return this.maintenanceForm.get('repaired'); }
@@ -155,6 +157,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
         users: this.maintenanceOne().users.name + ' '+ this.maintenanceOne().users.lastname,
         reference: this.maintenanceOne().reference,
         price: this.maintenanceOne().price,
+        cost_price: this.maintenanceOne().cost_price,
         delivery_date: this.maintenanceOne().delivery_date,
         advance: this.maintenanceOne().advance,
         repaired: this.maintenanceOne().repaired,
@@ -225,16 +228,17 @@ export class FormInformationComponent implements OnInit, OnDestroy {
 
     //si el formualrio es valido{}
     if(this.maintenanceForm.valid){
-      //enviamos los datos al formulario
+      //guardamos en la variable data los datos al formulario
       const data = new FormData();
       data.append('_method','PUT');
-         // Agrega todos los campos del formulario
+      // Agrega todos los campos del formulario
       Object.keys(this.maintenanceForm.value).forEach(key => {
       data.append(key, this.maintenanceForm.get(key)?.value);
     });
       // data.append('product', this.maintenanceForm.get('product')?.value);
       // data.append('reference', this.maintenanceForm.get('reference')?.value);
       // data.append('price', this.maintenanceForm.get('price')?.value);
+      // data.append('cost_price', this.maintenanceForm.get('cost_price')?.value);
       // data.append('delivery_date', this.maintenanceForm.get('delivery_date')?.value);
       // data.append('advance', this.maintenanceForm.get('advance')?.value);
       // data.append('repaired', this.maintenanceForm.get('repaired')?.value);

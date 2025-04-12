@@ -1,6 +1,5 @@
 import { DecimalPipe, NgStyle } from '@angular/common';
-import { Component, inject, input, OnInit, output, signal } from '@angular/core';
-import { AlertsService } from '@services/alerts/alerts.service';
+import { Component, input, output, signal } from '@angular/core';
 
 @Component({
     selector: 'app-card-maintenance',
@@ -11,7 +10,7 @@ import { AlertsService } from '@services/alerts/alerts.service';
     templateUrl: './card-maintenance.component.html',
     styleUrl: './card-maintenance.component.scss'
 })
-export class CardMaintenanceComponent implements OnInit {
+export class CardMaintenanceComponent {
 
 
   public color = signal<string>('');
@@ -25,12 +24,6 @@ export class CardMaintenanceComponent implements OnInit {
 
   public maintenanceDescription = output<any>();
   public maintenanceDelete = output<any>();
-
-  #alertSevice = inject(AlertsService);
-
-  ngOnInit(): void {
-    //console.log(this.id());
-  }
 
   public consultMaintenance():void{
     this.maintenanceDescription.emit(this.id());
