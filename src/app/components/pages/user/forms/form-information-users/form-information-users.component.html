@@ -1,0 +1,269 @@
+<div class="cointeinear-detailproduct" >
+  @defer ( when success() === 'success' ) {
+    @let userH = user();
+    <div class="cointeinear-detailproduct__title">
+     @if(modifyInput() === false){
+       <h2>Detalle Cliente {{userH.name + ' '+ userH.lastname}}</h2>
+     }@else {
+       <h2>Modificar Cliente {{userH.name + ' '+ userH.lastname}}</h2>
+     }
+    </div>
+
+    <div class="cointeinear-detailproduct__images">
+      @if(userH.image != null){
+        <div class="cointeinear-detailproduct__images--img">
+          <img  [src]="previewImage"
+                [alt]="userH.name"
+                [ngClass]="{'imageinput':modifyInput()}"
+                (click)="triggerFileInput()"
+          />
+          <input #fileInput1 type="file" name="image" id="image" (change)="onFileSelected($event)" [disabled]="modifyInput() === false" accept="image/*" />
+        </div>
+      }@else{
+        <div class="cointeinear-detailproduct__images--img">
+          <img [src]="!image? '../../../../../../assets/images/noImage.png':previewImage"
+           alt="No hay imagen"
+           [ngClass]="{'imageinput':modifyInput()}"
+           (click)="triggerFileInput()" />
+          <input #fileInput1 type="file" name="image" id="image" (change)="onFileSelected($event)" [disabled]="modifyInput() === false" accept="image/*" />
+        </div>
+      }
+
+    </div>
+
+    <form [formGroup]="userForm"enctype = "multipart/form-data">
+
+      <div class="cointeinear-detailproduct__content" >
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="name">Nombres</label>
+        @if(modifyInput() === false){
+          <p>{{userH.name}}</p>
+        }@else{
+          <input type="text" id="name" name="name" formControlName="name" >
+          @if(name?.errors?.['required'] && name?.touched ){
+            <span class="alert text-danger" >El nombre es obligatorio</span>
+          }
+          @if( name?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El nombre debe terner mínimo 3 caracteres </span>
+          }
+          @if( name?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El nombre debe tener máximo 45 caracteres </span>
+          }
+        }
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="lastname">Apellidos</label>
+        @if(modifyInput() === false){
+          <p>{{userH.lastname}}</p>
+        }@else{
+          <input type="text" id="lastname" name="lastname" formControlName="lastname" >
+          @if(lastname?.errors?.['required'] && lastname?.touched ){
+            <span class="alert text-danger" >El apellido es obligatorio</span>
+          }
+          @if( lastname?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El apellido debe terner mínimo 3 caracteres </span>
+          }
+          @if( lastname?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El apellido debe tener máximo 45 caracteres </span>
+          }
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="email">Email</label>
+        @if(modifyInput() === false){
+          <p>{{userH.email}}</p>
+        }@else{
+          <input type="text" id="email" name="email" formControlName="email" >
+          @if(email?.errors?.['required'] && email?.touched ){
+            <span class="alert text-danger" >El email es obligatorio</span>
+          }
+          @if( email?.errors?.['email'] ){
+            <span class="alert text-danger" > El email debe ser un formato válido </span>
+          }
+          @if( email?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El email debe terner mínimo 3 caracteres </span>
+          }
+          @if( email?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El email debe tener máximo 255 caracteres </span>
+          }
+
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="gender">Genero</label>
+        @if(modifyInput() === false){
+          @if(userH.gender === 'famele'){
+            <p>Femenino</p>
+          }@else if(userH.gender === 'male'){
+            <p>Masculino</p>
+          }@else if(userH.gender === 'other'){
+            <p>Otro</p>
+          }
+        }@else{
+          <select id="gender" name="gender" formControlName="gender" >
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="famele" [selected]="userH?.gender === 'famele'">Femenino</option>
+            <option value="male" [selected]="userH?.gender === 'male'">Masculino</option>
+            <option value="other" [selected]="userH?.gender === 'other'">Otro</option>
+          </select>
+        }
+       </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="birthday">Fecha de nacimiento</label>
+        @if(modifyInput() === false){
+          <p>{{userH.birthday | date: 'dd/MM/yyyy' }}</p>
+        }@else{
+          <input type="date" id="birthday" name="birthday" formControlName="birthday" [value]="userH.birthday | date: 'yyyy-MM-dd'" >
+          @if(birthday?.errors?.['required'] && birthday?.touched ){
+            <span class="alert text-danger" >La fecha de nacimiento es obligatorio</span>
+          }
+        }
+       </div>
+
+       @if(modifyInput() === false){
+         <div class="cointeinear-detailproduct__content--item">
+           <label for="created_at">Fecha creación</label>
+           <p>{{userH.created_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+         <div class="cointeinear-detailproduct__content--item">
+           <label for="updated_at">Fecha actualización</label>
+           <p>{{userH.updated_at | date: 'dd/MM/yyyy' }}</p>
+         </div>
+       }
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="phone1">Teléfono 1</label>
+        @if(modifyInput() === false){
+          <p>{{userH.phone1}}</p>
+        }@else{
+          <input type="number" id="phone1" name="phone1" formControlName="phone1" >
+          @if(phone1?.errors?.['required'] && phone1?.touched ){
+            <span class="alert text-danger" >El teléfono es obligatorio</span>
+          }
+          @if( phone1?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El teléfono debe terner mínimo 12 caracteres </span>
+          }
+          @if( phone1?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El teléfono debe tener máximo 12 caracteres </span>
+          }@if( phone1?.errors?.['pattern'] ){
+            <span class="alert text-danger" > El teléfono debe ser un número válido </span>
+          }
+        }
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="address">Teléfono 2</label>
+        @if(modifyInput() === false){
+          <p>{{userH.phone2}}</p>
+        }@else{
+          <input type="number" id="phone2" name="phone2" formControlName="phone2" >
+
+          @if( phone2?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El teléfono debe terner mínimo 12 caracteres </span>
+          }
+          @if( phone2?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El teléfono debe tener máximo 12 caracteres </span>
+          }
+          @if( phone2?.errors?.['pattern'] ){
+            <span class="alert text-danger" > El teléfono debe ser un número válido </span>
+          }
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="address">Dirección</label>
+        @if(modifyInput() === false){
+          <p>{{userH.address}}</p>
+        }@else{
+          <input type="text" id="address" name="address" formControlName="address" >
+
+          @if( address?.errors?.['minlength'] ){
+            <span class="alert text-danger" > la dirección debe terner mínimo 03 caracteres </span>
+          }
+          @if( address?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La dirección debe tener máximo 255 caracteres </span>
+          }
+
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="cities_id">Ciudad residencia</label>
+        @if(modifyInput() === false){
+          <p>{{userH.cities.city}}</p>
+        }@else{
+          <select id="cities_id" name="cities_id" formControlName="cities_id" >
+            <option value="" disabled >Selecciona una opción</option>
+            @for( item of city(); track $index ) {
+              <option [value]="item.id" [selected]="userH?.cities_id === item.id">{{ item.city }}</option>
+            }@empty {
+              <p class="alert text-danger" >No hay ciudades registradas</p>
+            }
+
+          </select>
+
+          @if(cities_id?.errors?.['required'] && cities_id?.touched ){
+            <span class="alert text-danger" >El rol es obligatorio</span>
+          }
+
+        }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="vikingo_roles_id">Rol</label>
+        @if(modifyInput() === false){
+          <p>{{userH.vikingo_roles.name_admin}}</p>
+        }@else{
+          <select id="vikingo_roles_id" name="vikingo_roles_id" formControlName="vikingo_roles_id" >
+            <option value="" disabled >Selecciona una opción</option>
+            <option value="1" [selected]="userH?.vikingo_roles_id === 1">Admintrador</option>
+            <option value="2" [selected]="userH?.vikingo_roles_id === 2">Usuario</option>
+
+          </select>
+
+          @if(vikingo_roles_id?.errors?.['required'] && vikingo_roles_id?.touched ){
+            <span class="alert text-danger" >El rol es obligatorio</span>
+          }
+
+        }
+      </div>
+
+       <!-- <div class="cointeinear-detailproduct__content--item">
+        <label for="categories_products_id">Categoría</label>
+          @if(modifyInput() === false){
+            <p>{{userH.categories_products.name}}</p>
+          }@else{
+            <select id="categories_products_id" name="categories_products_id" formControlName="categories_products_id" >
+            <option value="" disabled selected>Selecciona una categoría</option>
+            @for (item of productsCategories(); track $index) {
+              <option [value]="item.id" [selected]="userH?.categories_products?.id === item.id  " >{{ item.name }}</option>
+            }
+            </select>
+          }
+       </div> -->
+
+      </div>
+
+
+      <div class="cointeinear-detailproduct__btn">
+        @if(modifyInput() === false){
+         <button type="button" class="btn btn-warning btn1" (click)="modifyUserDetail()">Editar</button>
+       }
+       @else {
+         <button type="button"  class="btn btn-success btn2" (click)="modifyUserForm(userH.id)" [disabled]="!userForm.valid" >Modificar</button>
+       }
+       <button type="button"  class="btn btn-danger btn3" (click)="modifyInput() === !false? modifyUserDetail():userFormClose()">{{modifyInput() === !false? 'Cancelar':'Volver'}}</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>
+

@@ -114,6 +114,18 @@ export const routes: Routes = [
             loadComponent:() => import('./components/pages/user/user-statistics/user-statistics.component').then(c=>c.UserStatisticsComponent),
             canActivate: [authGuard]
           },
+          {
+            path:'nuevo-cliente',
+            title:'Nuevo cliente',
+            loadComponent:() => import('./components/pages/user/forms/form-new-users/form-new-users.component').then(c=>c.FormNewUsersComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'consulta-clientes',
+            title:'Consulta y modificación clientes',
+            loadComponent:() => import('./components/pages/user/forms/form-information-users/form-information-users.component').then(c=>c.FormInformationUsersComponent),
+            canActivate: [authGuard]
+          }
         ],
       },
       {

@@ -66,9 +66,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['./home/productos/consulta-productos'],{queryParams:{id:id}});
   }
 
-  public modifyP(id:number){
-    this.router.navigate(['./home/productos/consulta-productos'],{queryParams:{id:id , modify:false }});
-  }
+
 
   pagination(url:string){
     this.#unsubscribe = this.#maintenancesService.getPaginator(url).subscribe({

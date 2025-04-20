@@ -32,7 +32,6 @@
         [id]="product.id"
         (idProduct)="getProduct($event)"
         (idDelete)="confirmDeleteProduct($event)"
-        (modify)="modifyP($event)"
         />
       }@empty {
         <p class="text-danger" >No se encuentran proveedores</p>

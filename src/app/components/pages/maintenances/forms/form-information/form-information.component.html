@@ -281,7 +281,7 @@
         @if(modifyInput() === false){
          <button class="btn btn-warning btn1" (click)="modifyMaintenanceDetail()">Editar</button>
        }@else {
-         <button class="btn btn-success btn2" (click)="modifyMaintenanceForm()" >Modificar</button>
+         <button class="btn btn-success btn2" (click)="modifyMaintenanceForm()" [disabled]="!maintenanceForm.valid" >Modificar</button>
        }
        <button class="btn btn-danger btn3" (click)="modifyInput() === !false? modifyMaintenanceDetail():MaintenanceDetailClose()">{{modifyInput() === !false? 'Cancelar':'Volver'}}</button>
       </div>

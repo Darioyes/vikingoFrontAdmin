@@ -278,7 +278,7 @@
          <button type="button" class="btn btn-warning btn1" (click)="modifyProductDetail()">Editar</button>
        }
        @else {
-         <button type="button"  class="btn btn-success btn2" (click)="modifyProductForm(productH.id)" >Modificar</button>
+         <button type="button"  class="btn btn-success btn2" (click)="modifyProductForm(productH.id)" [disabled]="!productForm.valid">Modificar</button>
        }
        <button type="button"  class="btn btn-danger btn3" (click)="modifyInput() === !false? modifyProductDetail():productFormClose()">{{modifyInput() === !false? 'Cancelar':'Volver'}}</button>
       </div>

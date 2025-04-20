@@ -169,7 +169,7 @@
 
       <div class="cointeinear-detailproduct__btn">
 
-         <button type="button" class="btn btn-success btn2" (click)="newProductForm()" >Guardar</button>
+         <button type="button" class="btn btn-success btn2" (click)="newProductForm()" [disabled]="!productForm.valid" >Guardar</button>
          <button type="button"  class="btn btn-danger btn3" (click)="cancel()" >Cancelar</button>
 
       </div>

@@ -1,7 +1,9 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
 import { ErrorProductDetaillResponse, SuccessProductDetaillResponse } from '@interfaces/poducts/IProductGeneral.interface';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { UsersService } from '@services/users/users/users.service';
 import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
@@ -25,6 +27,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   #maintenancesService = inject(MaintenanceService);
+  #userService = inject(UsersService);
+  #unsubscribe!: Subscription;
+  #router = inject(Router);
+  #alertService = inject(AlertsService);
   public urlImage = environment.domainimage;
   public users = signal<any>([]);
   public success = signal<any>([]);
@@ -41,8 +47,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  #userService = inject(UsersService);
-  #unsubscribe!: Subscription;
+
 
   getUsers(){
     this.#unsubscribe = this.#userService.getUsers().subscribe({
@@ -95,4 +100,33 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  public userInformationId(id:any):void{
+   this.#router.navigate(['home/clientes/consulta-clientes'],{queryParams:{id:id}});
+  }
+
+  public newUser():void{
+    this.#router.navigate(['home/clientes/nuevo-cliente']);
+  }
+
+  async confirmDeleteUser(id:any) {
+    const confirm = await this.#alertService.openAlert('alert', '¿Seguro que desea eliminar este cliente?');
+    if (confirm) {
+      this.delelteUser(id);
+    }
+  }
+
+  public delelteUser(id:any){
+    this.#unsubscribe = this.#userService.deleteUser(id).subscribe({
+      next:(response)=>{
+        this.#alertService.showAlert('success', response.message);
+        this.getUsers();
+      },
+      error:(error:ErrorProductDetaillResponse)=>{
+        console.log(error);
+        this.#alertService.showAlert('error', 'Error al eliminar el usuario');
+      }
+    });
+  }
+
 }

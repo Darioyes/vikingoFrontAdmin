@@ -3,7 +3,7 @@
   <div class="conteinaer-userslist__search">
 
     <div class="conteinaer-userslist__search--new">
-      <i class="fa-solid fa-circle-plus"></i>
+      <i class="fa-solid fa-circle-plus" (click)="newUser()"></i>
     </div>
 
     <div class="conteinaer-userslist__search--item">
@@ -22,6 +22,7 @@
     @defer ( when success().response === 'success'){
       @for(user of users(); track $index){
         <app-user-card
+        [id]="user.id"
         [name]="user.name"
         [lastName]="user.lastname"
         [userRole]="user.vikingo_roles.name_admin"
@@ -29,6 +30,8 @@
         [email]="user.email"
         [image]="urlImage + user.image.replace('public', 'storage')"
         [gender]="user.gender"
+        (userInformationId)="userInformationId($event)"
+        (userDeleteId)="confirmDeleteUser($event)"
         />
       }@empty {
         <p class="text-danger" >No hay Clientes</p>

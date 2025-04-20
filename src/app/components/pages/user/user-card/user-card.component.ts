@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { environment } from '@enviroments/environment.development';
 
 @Component({
@@ -14,7 +14,7 @@ export class UserCardComponent implements OnInit {
   constructor() {}
 
 
-
+  public id = input<any>();
   public name = input('john');
   public lastName = input('doe');
   public userRole = input('admin');
@@ -22,6 +22,10 @@ export class UserCardComponent implements OnInit {
   public phone = input('123456789');
   public email = input('correo@correo.com');
   public gender = input();
+
+  public userInformationId = output();
+  public userNewId = output();
+  public userDeleteId = output();
 
   public color!: string;
   public colorMale = environment.colorMale;
@@ -41,6 +45,14 @@ export class UserCardComponent implements OnInit {
     }else{
       this.color = this.colorOther;
     };
+  }
+
+  userInformation():void{
+    this.userInformationId.emit(this.id());
+  }
+
+  userDelete():void{
+    this.userDeleteId.emit(this.id());
   }
 
 }

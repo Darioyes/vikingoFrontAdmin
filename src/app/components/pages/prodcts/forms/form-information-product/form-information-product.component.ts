@@ -114,7 +114,6 @@ export class FormInformationProductComponent implements OnInit, OnDestroy {
     this.productId.set(
       Number(this.#routeId.snapshot.queryParams['id'])
     )
-    this.modifyInput.set(true)
   }
 
   public formProduct(){
@@ -218,9 +217,6 @@ export class FormInformationProductComponent implements OnInit, OnDestroy {
       }
     }
   }
-
-
-
 
   public infoProduct(id:any):void {
 
@@ -360,12 +356,12 @@ export class FormInformationProductComponent implements OnInit, OnDestroy {
   this.fileInput4.nativeElement.value = '';
   this.fileInput5.nativeElement.value = '';
 
-  if (this.modifyInput()) {
-    // Inicializa y llena el formulario solo cuando se active el modo de edición
-    this.fillProductForm();
+    if (this.modifyInput()) {
+      // Inicializa y llena el formulario solo cuando se active el modo de edición
+      this.fillProductForm();
 
 
-  }
+    }
 
   }
 
