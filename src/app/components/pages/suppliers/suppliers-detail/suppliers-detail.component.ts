@@ -1,5 +1,7 @@
 import { NgClass, NgStyle } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { SupliersServiceService } from '@services/suplier/supliers/supliers-service.service';
 import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
@@ -23,6 +25,9 @@ export class SuppliersDetailComponent implements OnInit, OnDestroy {
   #unsubscribe!: Subscription;
   #suppliersService = inject(SupliersServiceService);
   #maintenancesService = inject(MaintenanceService);
+  #alertService = inject(AlertsService);
+  #router = inject(Router);
+
   public suppliers = signal<any>([]);
   public suppliersPage = signal<any>([]);
 
@@ -49,6 +54,29 @@ export class SuppliersDetailComponent implements OnInit, OnDestroy {
     });
   };
 
+  public getIdInformation(id:number):void{
+    this.#router.navigate(['home/proveedores/consulta-proveedor'],{queryParams:{id:id}});
+  }
+
+  async confirmDeleteUser(id:any):Promise<void> {
+    const confirm = await this.#alertService.openAlert('alert', '¿Seguro que desea eliminar este proveedor?');
+    if (confirm) {
+      this.deleteSupplier(id);
+    }
+  }
+
+  deleteSupplier(id:number){
+    this.#unsubscribe = this.#suppliersService.deleteSupplier(id).subscribe({
+      next: (response) => {
+        this.#alertService.openAlert('success', response.message);
+        this.getSuppliersFull();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
+
   pagination(url:string):void{
     this.#unsubscribe = this.#maintenancesService.getPaginator(url).subscribe({
       next: (response) => {
@@ -60,6 +88,8 @@ export class SuppliersDetailComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  private deleteSupplierId(id:number):void{}
 
   searcInputSuppliers(){
 
@@ -85,6 +115,10 @@ export class SuppliersDetailComponent implements OnInit, OnDestroy {
         console.log(error);
       }
     });
+  }
+
+  newSupplierForm():void{
+    this.#router.navigate(['home/proveedores/nuevo-proveedor']);
   }
 
 }

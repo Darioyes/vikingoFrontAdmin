@@ -3,7 +3,7 @@
   <div class="conteinaer-supplierslist__search">
 
     <div class="conteinaer-supplierslist__search--new">
-      <i class="fa-solid fa-circle-plus"></i>
+      <i class="fa-solid fa-circle-plus" (click)="newSupplierForm()" ></i>
     </div>
 
     <div class="conteinaer-supplierslist__search--item">
@@ -24,9 +24,12 @@
 
       @for(supplier of suppliers(); track $index){
         <app-suppliers-card
+          [id]="supplier.id"
           [name]="supplier.name"
           [telephone]="supplier.phone1"
           [email]="supplier.email"
+          (idInformation)="getIdInformation($event)"
+          (idDelete)="confirmDeleteUser($event)"
         />
 
       }@empty {

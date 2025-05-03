@@ -151,6 +151,18 @@ export const routes: Routes = [
             loadComponent:() => import('./components/pages/suppliers/suppliers-statistics/suppliers-statistics.component').then(c=>c.SuppliersStatisticsComponent),
             canActivate: [authGuard]
           },
+          {
+            path:'nuevo-proveedor',
+            title:'Nuevo proveedor',
+            loadComponent:() => import('./components/pages/suppliers/forms/form-new-suppliers/form-new-suppliers.component').then(c=>c.FormNewSuppliersComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'consulta-proveedor',
+            title:'Consulta y modificación proveedores',
+            loadComponent:() => import('./components/pages/suppliers/forms/form-infrmation-suppliers/form-infrmation-suppliers.component').then(c=>c.FormInfrmationSuppliersComponent),
+            canActivate: [authGuard]
+          },
         ]
       },
       {

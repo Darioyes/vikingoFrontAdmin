@@ -4,6 +4,7 @@ import { provideRouter, withComponentInputBinding, withHashLocation } from '@ang
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AlertsService } from '@services/alerts/alerts.service';
+import { CitiesService } from '@services/cities/cities.service';
 import { DirectCostService } from '@services/cost/directCost/direct-cost.service';
 import { IndirectCostService } from '@services/cost/indirectCost/indirect-cost.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
@@ -39,6 +40,7 @@ export const appConfig: ApplicationConfig = {
     DirectCostService,
     IndirectCostService,
     CategoriesProductsService,
+    CitiesService,
     { provide: LOCALE_ID, useValue: 'es-CO' },//para que la aplicación se ejecute en español colombiano
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes,

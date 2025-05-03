@@ -1,0 +1,141 @@
+<div class="cointeinear-detailproduct" >
+
+    <div class="cointeinear-detailproduct__title">
+      <h2>Crear nuevo proveedor</h2>
+
+    <form [formGroup]="newSupplierForm"enctype = "multipart/form-data">
+
+      <div class="cointeinear-detailproduct__content" >
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="name">Nombres</label>
+
+          <input type="text" id="name" name="name" formControlName="name" >
+          @if(name?.errors?.['required'] && name?.touched ){
+            <span class="alert text-danger" >El nombre es obligatorio</span>
+          }
+          @if( name?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El nombre debe terner mínimo 3 caracteres </span>
+          }
+          @if( name?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El nombre debe tener máximo 45 caracteres </span>
+          }
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="nit">NIT</label>
+
+          <input type="text" id="nit" name="nit" formControlName="nit" >
+          @if(nit?.errors?.['required'] && nit?.touched ){
+            <span class="alert text-danger" >El NIT es obligatorio</span>
+          }
+          @if( nit?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El NIT debe terner mínimo 3 caracteres </span>
+          }
+          @if( nit?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El NIT debe tener máximo 20 caracteres </span>
+          }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="email">Email</label>
+
+          <input type="text" id="email" name="email" formControlName="email" >
+          @if(email?.errors?.['required'] && email?.touched ){
+            <span class="alert text-danger" >El email es obligatorio</span>
+          }
+          @if( email?.errors?.['email'] ){
+            <span class="alert text-danger" > El email debe ser un formato válido </span>
+          }
+          @if( email?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El email debe terner mínimo 3 caracteres </span>
+          }
+          @if( email?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El email debe tener máximo 255 caracteres </span>
+          }
+      </div>
+
+       <div class="cointeinear-detailproduct__content--item">
+        <label for="phone1">Teléfono 1</label>
+
+          <input type="number" id="phone1" name="phone1" formControlName="phone1" >
+          @if(phone1?.errors?.['required'] && phone1?.touched ){
+            <span class="alert text-danger" >El teléfono es obligatorio</span>
+          }
+          @if( phone1?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El teléfono debe terner mínimo 12 caracteres </span>
+          }
+          @if( phone1?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El teléfono debe tener máximo 12 caracteres </span>
+          }@if( phone1?.errors?.['pattern'] ){
+            <span class="alert text-danger" > El teléfono debe ser un número válido </span>
+          }
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="address">Teléfono 2</label>
+          <input type="number" id="phone2" name="phone2" formControlName="phone2" >
+          @if( phone2?.errors?.['minlength'] ){
+            <span class="alert text-danger" > El teléfono debe terner mínimo 12 caracteres </span>
+          }
+          @if( phone2?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > El teléfono debe tener máximo 12 caracteres </span>
+          }
+          @if( phone2?.errors?.['pattern'] ){
+            <span class="alert text-danger" > El teléfono debe ser un número válido </span>
+          }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="address">Dirección</label>
+          <input type="text" id="address" name="address" formControlName="address" >
+          @if( address?.errors?.['minlength'] ){
+            <span class="alert text-danger" > la dirección debe terner mínimo 03 caracteres </span>
+          }
+          @if( address?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La dirección debe tener máximo 255 caracteres </span>
+          }
+      </div>
+
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="cities_id">Ciudad despacha</label>
+          <select id="cities_id" name="cities_id" formControlName="cities_id" >
+            <option value="" disabled >Selecciona una opción</option>
+            @for( item of city(); track $index ) {
+              <option [value]="item.id" >{{ item.city }}</option>
+            }@empty {
+              <p class="alert text-danger" >No hay ciudades registradas</p>
+            }
+
+          </select>
+
+          @if(cities_id?.errors?.['required'] && cities_id?.touched ){
+            <span class="alert text-danger" >El rol es obligatorio</span>
+          }
+
+      </div>
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="description">Descripción</label>
+
+          <textarea id="description" formControlName="description" ></textarea>
+          @if(description?.errors?.['required'] && description?.touched ){
+            <span class="alert text-danger" >La descripción es obligatorio</span>
+          }
+          @if(description?.errors?.['minlength']){
+            <span class="alert text-danger" > La descripción debe terner mínimo 3 caracteres </span>
+          }
+          @if( description?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+          }
+      </div>
+
+    </div>
+    <div class="cointeinear-detailproduct__btn">
+       <button type="button"  class="btn btn-success btn2" (click)="createSupplier()" [disabled]="!newSupplierForm.valid" >Guardar</button>
+     <button type="button"  class="btn btn-danger btn3" (click)="cancelSupplier() ">Cancelar</button>
+    </div>
+
+    </form>
+
+
+
+
+</div>
