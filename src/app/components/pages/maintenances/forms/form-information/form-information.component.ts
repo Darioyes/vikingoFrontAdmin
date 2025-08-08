@@ -127,6 +127,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
       price: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
       cost_price:['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
       delivery_date: ['', Validators.compose([Validators.pattern('^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$')])],
+      created_at:['', Validators.compose([Validators.pattern('^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|1[0-9]|2[0-9]|3[0-1])$')])],
       advance: ['', Validators.compose([Validators.required])],
       repaired: ['', Validators.compose([Validators.required])],
       warranty: ['', Validators.compose([Validators.required])],
@@ -143,6 +144,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
   get price(){ return this.maintenanceForm.get('price'); }
   get cost_price(){return this.maintenanceForm.get('cost_price');}
   get delivery_date(){return this.maintenanceForm.get('delivery_date'); }
+  get created_at(){return this.maintenanceForm.get('created_at'); }
   get advance(){ return this.maintenanceForm.get('advance'); }
   get repaired(){ return this.maintenanceForm.get('repaired'); }
   get warranty(){ return this.maintenanceForm.get('warranty'); }
@@ -159,6 +161,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
         price: this.maintenanceOne().price,
         cost_price: this.maintenanceOne().cost_price,
         delivery_date: this.maintenanceOne().delivery_date,
+        created_at: this.maintenanceOne().created_at.slice(0, 10),
         advance: this.maintenanceOne().advance,
         repaired: this.maintenanceOne().repaired,
         warranty: this.maintenanceOne().warranty,
@@ -304,6 +307,7 @@ export class FormInformationComponent implements OnInit, OnDestroy {
       next:(response)=>{
         this.success.set(response.response);
         this.maintenanceOne.set(response?.data);
+        console.log(this.maintenanceOne().delivery_date);
       },
       error:(error)=>{
         console.log(error);

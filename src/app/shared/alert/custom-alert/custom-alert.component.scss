@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* por encima de otros elementos*/
+  z-index: 1000; /* por encima de otros elementos*/
 }
 
 .modal {

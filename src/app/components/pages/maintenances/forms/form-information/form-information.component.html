@@ -107,6 +107,19 @@
            }
          }
        </div>
+        <div class="cointeinear-detailmaintenance__content--item">
+         <label for="created_at">Fecha recibido</label>
+         @if(modifyInput() === false){
+          
+             <p>{{maintenanceH.created_at | date: 'dd/MM/yyyy' }}</p>
+           
+         }@else{
+           <input type="date" id="created_at" name="created_at" formControlName="created_at"  >
+           @if( created_at?.errors?.['pattern'] ){
+             <span class="alert text-danger" >La fecha debe estar en formato AAAA/MM/DD (ej: 2023-12-31)</span>
+           }
+         }
+       </div>
        <div class="cointeinear-detailmaintenance__content--item">
          <label for="advance">Avance</label>
          @if(modifyInput() === false){
@@ -132,10 +145,6 @@
          }
        </div>
        @if(modifyInput() === false){
-         <div class="cointeinear-detailmaintenance__content--item">
-           <label for="created_at">Fecha creación</label>
-           <p>{{maintenanceH.created_at | date: 'dd/MM/yyyy' }}</p>
-         </div>
          <div class="cointeinear-detailmaintenance__content--item">
            <label for="updated_at">Fecha actualización</label>
            <p>{{maintenanceH.updated_at | date: 'dd/MM/yyyy' }}</p>

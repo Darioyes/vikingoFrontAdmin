@@ -41,9 +41,10 @@ export class MaintenancesComponent implements OnInit {
   public days = [
     {value:1, label: 'Hoy'},
     {value:7, label: '7 días'},
-    {value:15, label: '15 días'},
     {value:30, label: '30 días'},
     {value:90, label: '90 días'},
+    {value:180, label: '6 meses'},
+    {value:365, label: '1 año'},
   ];
   public activeDay:any=this.days[4];
 
@@ -66,6 +67,7 @@ export class MaintenancesComponent implements OnInit {
         let finalized = 0;
         //si existe la data
         if(response.data){
+          console.log(response);
           //recorremos la  data
           response.data?.forEach(item => {
             //si el item.advance es igual a inProgress;
@@ -91,6 +93,7 @@ export class MaintenancesComponent implements OnInit {
         this.inProgress.set(inProgress);
         this.authorization.set(authorization);
         this.finalized.set(finalized);
+        console.log(this.joined(), this.inProgress(), this.authorization(), this.finalized());
       },
       error:(error:ErrorMaintenanceResponse)=>{
         console.log(error);

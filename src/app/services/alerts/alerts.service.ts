@@ -50,9 +50,11 @@ export class AlertsService {
         resolve(result);
       });
 
-      // Attach to DOM
+      // insertamos el componente en el DOM
       this.appRef.attachView(componentRef.hostView);
+      // obtenemos el elemento DOM
       const domElem = (componentRef.hostView as any).rootNodes[0] as HTMLElement;
+      // lo insertamos en el body
       document.body.appendChild(domElem);
     });
   }

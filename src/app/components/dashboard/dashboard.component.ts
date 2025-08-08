@@ -18,7 +18,7 @@ import { CookieService } from 'ngx-cookie-service';
         HeaderComponent,
         SummaryComponent,
         CustomAlertComponent,
-        ConfirmAlertComponent,
+        //ConfirmAlertComponent,
         NgClass,
     ],
     templateUrl: './dashboard.component.html',

@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
+import { CustomAlertComponent } from '@shared/alert/custom-alert/custom-alert.component';
 import { CookieService } from 'ngx-cookie-service';
 
 
