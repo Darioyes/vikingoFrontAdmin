@@ -1,0 +1,119 @@
+<div class="cointeinear-newsale" >
+  @defer ( when successProducts() === 'success' && successUsers() === 'success' ) {
+    <div class="cointeinear-newsale__title">
+       <h2>Crear venta</h2>
+
+    </div>
+
+    <form [formGroup]="salesFormNew"enctype = "multipart/form-data">
+
+    <div class="cointeinear-newsale__content" >
+
+        @if(selectedProduct()){
+            <div class="cointeinear-newsale__content--item">
+                <label for="sale_total">Precio Producto</label>
+                <p>{{ selectedProduct().sale_price | currency:'COP'}}</p>
+            </div>
+            <div class="cointeinear-newsale__content--item">
+                <label for="sale_total">Total de la venta</label>
+                <p>{{ selectedProduct().cost_price | currency:'COP'}}</p>
+            </div>
+        }
+      
+      <div class="cointeinear-newsale__content--item">
+        <label for="name">Cantidad</label>
+        <input type="number" id="amount" name="amount" formControlName="amount" >
+         @if(amount?.errors?.['required'] && amount?.touched ){
+             <span class="alert text-danger" >La cantidad es obligatoria</span>
+           }
+           @if( amount?.errors?.['pattern'] ){
+             <span class="alert text-danger" >La cantidad debe ser un número válido (ej: 123.45)</span>
+           }
+           @if( amount?.errors?.['min'] ){
+             <span class="alert text-danger" >La cantidad debe ser mayor a 0</span>
+           }
+      </div>
+
+        @if(selectedProduct()){
+        <div class="cointeinear-newsale__content--item">
+            <label for="sale_total">Precio Producto</label>
+            <p>{{ selectedProduct().sale_price * amount.value | currency:'COP'}}</p>
+        </div>
+        }@else{
+        <div class="cointeinear-newsale__content--item">
+            <label for="sale_total">Precio Producto</label>
+            <p>0</p>
+        </div>
+                
+        }
+
+        <div class="cointeinear-newsale__content--item">
+        <label for="name">Producto</label>
+        <select id="product_id" name="product_id" formControlName="product_id" (change)="onProductChange($event)">
+          <option value="">Seleccione un producto</option>
+          @for (item of products(); track $index) {
+            <option value="{{item.id}}">{{item.name}}</option>
+          }
+          @if(product_id?.errors?.['required'] && product_id?.touched ){
+            <span class="alert text-danger" >El producto es obligatorio</span>
+          }
+        </select>
+      </div>
+
+      <div class="cointeinear-newsale__content--item">
+        <label for="name">Cliente</label>
+        <select id="user_id" name="user_id" formControlName="user_id">
+          <option value="">Seleccione un cliente</option>
+          @for (item of users(); track $index) {
+            <option value="{{item.id}}">{{item.name + ' ' + item.lastname}}</option>
+          }
+        @if(user_id?.errors?.['required'] && user_id?.touched ){
+            <span class="alert text-danger" >El cliente es obligatorio</span>
+        }
+        </select>
+      </div>
+
+       <div class="cointeinear-newsale__content--item">
+        <label for="name">Descripción</label>
+
+        <input type="text" id="description" name="description" formControlName="description" >
+        @if(description?.errors?.['required'] && description?.touched ){
+        <span class="alert text-danger" >La descripción es obligatoria</span>
+        }
+        @if( description?.errors?.['minlength'] ){
+        <span class="alert text-danger" > La descripción debe terner mínimo 10 caracteres </span>
+        }
+        @if( description?.errors?.['maxlength'] ){
+        <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+        }
+        
+      </div>
+
+      <div class="cointeinear-newsale__content--item">
+        <label for="confirm_sale">Venta confirmada</label>
+          <select id="confirm_sale" name="confirm_sale" formControlName="confirm_sale" >
+            <option value="True" >Confirmado</option>
+            <option value="false" selected >Pendiente</option>
+          </select>
+        
+      </div>
+
+      <!-- se va a motrar el precio del producto que eligio en el select de productos -->
+
+
+    </div>
+
+
+      <div class="cointeinear-newsale__btn">
+        <button type="button"  class="btn btn-success btn2" [disabled]="!salesFormNew.valid" (click)="newProduct()">Guardar</button>
+       <button type="button"  class="btn btn-danger btn3" (click)="back()" >Cancelar</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>

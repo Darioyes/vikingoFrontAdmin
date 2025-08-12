@@ -85,4 +85,15 @@ export class UsersService {
     return this.#http.get<any>(`${this.#url}databasicusers`, {headers: headers});
   }
 
+  //obtener usuarios no páginados
+  getUsersNoPagination(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.get<any>(`${this.#url}users-nopaginate`, {headers: headers});
+  }
+
 }

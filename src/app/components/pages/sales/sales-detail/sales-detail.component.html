@@ -2,7 +2,7 @@
   <div class="conteiner-detailsales__search">
 
     <div class="conteiner-detailsales__search--new">
-      <i class="fa-solid fa-circle-plus"></i>
+      <i (click)="newSale()" class="fa-solid fa-circle-plus"></i>
     </div>
 
     <div class="conteiner-detailsales__search--item">
@@ -49,9 +49,9 @@
               <td class="column-6">{{item.user.name}}</td>
               <td class="column-7">{{item.created_at | date: 'dd/MM/yyyy'}}</td>
               <td class="column-8">
-                <i  class="fa-regular fa-pen-to-square text-warning"></i>
+                <i (click)="userModifyId(item.id)" class="fa-regular fa-pen-to-square text-warning"></i>
                 @if(item.confirm_sale ==="false" ){
-                  <i class="fa-regular fa-trash-can text-danger"></i>
+                  <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteSale(item.id)"></i>
                 }
               </td>
             </tr>
@@ -99,8 +99,10 @@
                     <div class="conteiner-detailsales__table--details">
                       <span>Acciones</span>
                       <p>
-                        <i  class="fa-regular fa-pen-to-square text-warning"></i>
-                        <i class="fa-regular fa-trash-can text-danger"></i>
+                        <i (click)="userModifyId(item.id)" class="fa-regular fa-pen-to-square text-warning"></i>
+                        @if(item.confirm_sale ==="false" ){
+                          <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteSale(item.id)"></i>
+                        }
                       </p>
                     </div>
                   }

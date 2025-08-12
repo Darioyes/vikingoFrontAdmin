@@ -171,7 +171,6 @@ export class MaintenancesListComponent implements OnInit, OnDestroy, AfterViewIn
 
       this.#unsubscribe = this.#maintenancesService.deleteMaintenance(id).subscribe({
         next:(response)=>{
-          console.log(response);
           this.getDetailMaintenance();
           this.#alertService.showAlert('success', response.message);
         },

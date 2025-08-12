@@ -1,5 +1,7 @@
 import { DatePipe, DecimalPipe, NgClass, NgStyle } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { SalesMainService } from '@services/sales/salesMain/sales-main.service';
 import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
@@ -30,6 +32,8 @@ export class SalesDetailComponent implements OnInit, OnDestroy {
   public sales = signal<any>([]);
   #unsubscribe!: Subscription;
   #maintenancesService = inject(MaintenanceService);
+  #router = inject(Router);
+  #alertService = inject(AlertsService);
 
 
   @HostListener('window:resize')
@@ -156,6 +160,38 @@ export class SalesDetailComponent implements OnInit, OnDestroy {
 
   toggleDetails(item: any): void {
     item.showDetails = !item.showDetails;
+  }
+
+  userModifyId(id:any):void{
+    this.#router.navigate(['home/ventas/modificar-venta'],{queryParams:{id:id}});
+  }
+
+  async confirmDeleteSale(id:number) {
+    const confirm = await this.#alertService.openAlert('alert', '¿Esta seguro que desea eliminar esta venta?');
+    if (confirm) {
+      this.deleteSale(id);
+    } else {
+      //console.log('Cancelado');
+    }
+  }
+
+  deleteSale(id: any): void {
+    this.#salesService.deleteSale(id).subscribe({
+      next: (response: any) => {
+        console.log('Venta eliminada:', response);
+        this.#alertService.showAlert('success', response.message);
+        // Actualiza la lista de ventas después de eliminar
+        this.getAllSales();
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.#alertService.showAlert('error','Error al eliminar la venta');
+      }
+    });
+  }
+
+  newSale(): void {
+    this.#router.navigate(['home/ventas/nuevo-venta']);
   }
 
 }

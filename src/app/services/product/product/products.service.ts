@@ -82,4 +82,15 @@ export class ProductsService {
     return this.#http.get<any>(`${this.#url}basicproducts`, {headers: headers});
   };
 
+  //obtener los productos sin páginación
+  getProductsNoPaginate(): Observable<ApiProductDetaillResponse> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.get<ApiProductDetaillResponse>(`${this.#url}products-nopaginate`, {headers: headers});
+  }
+
 }

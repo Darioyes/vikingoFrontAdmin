@@ -20,6 +20,33 @@ export class SalesMainService {
       return this.#http.get(`${this.#url}sales`, {headers: headers});
   };
 
+  getsale(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.#http.get(`${this.#url}sales/${id}`, {headers: headers});
+  }
+
+  postModifySale(id: number, data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.#http.post(`${this.#url}sales/${id}`, data, {headers: headers});
+  }
+
+  deleteSale(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.#http.delete(`${this.#url}sales/${id}`, {headers: headers});
+  }
+
   getSearchSales(search: string): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = new HttpHeaders({
@@ -36,6 +63,15 @@ export class SalesMainService {
       'Authorization': `Bearer ${token}`
     });
     return this.#http.get(`${this.#url}sumarysales/${day}`, {headers: headers});
+  }
+
+  postNewSale(data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.#http.post(`${this.#url}sales`, data, {headers: headers});
   }
 
 }

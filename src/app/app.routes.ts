@@ -125,7 +125,7 @@ export const routes: Routes = [
             title:'Consulta y modificación clientes',
             loadComponent:() => import('./components/pages/user/forms/form-information-users/form-information-users.component').then(c=>c.FormInformationUsersComponent),
             canActivate: [authGuard]
-          }
+          },
         ],
       },
       {
@@ -188,6 +188,18 @@ export const routes: Routes = [
             loadComponent:() => import('./components/pages/sales/sales-statistics/sales-statistics.component').then(c=>c.SalesStatisticsComponent),
             canActivate: [authGuard]
           },
+          {
+            path:'modificar-venta',
+            title:'Modificar venta',
+            loadComponent:() => import('./components/pages/sales/forms/sales-modify/sales-modify.component').then(c=>c.SalesModifyComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'nuevo-venta',
+            title:'Nuevo venta',
+            loadComponent:() => import('./components/pages/sales/forms/sales-new/sales-new.component').then(c=>c.SalesNewComponent),
+            canActivate: [authGuard]
+          }
         ]
       },
       {

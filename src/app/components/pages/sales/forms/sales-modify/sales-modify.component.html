@@ -1,0 +1,101 @@
+<div class="cointeinear-detailsale" >
+  @defer ( when success() === 'success' ) {
+    @let saleH = sale();
+    <div class="cointeinear-detailsale__title">
+       <h2>Detalle Venta {{saleH.product.name}}</h2>
+
+    </div>
+
+    <form [formGroup]="salesForm"enctype = "multipart/form-data">
+
+      <div class="cointeinear-detailsale__content" >
+
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Fecha de compra</label>
+        <p>{{saleH.created_at | date: 'dd/MM/yyyy' }}</p>
+      </div>
+      
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Cantidad</label>
+        <input type="number" id="amount" name="amount" formControlName="amount" >
+         @if(amount?.errors?.['required'] && amount?.touched ){
+             <span class="alert text-danger" >La cantidad es obligatoria</span>
+           }
+           @if( amount?.errors?.['pattern'] ){
+             <span class="alert text-danger" >La cantidad debe ser un número válido (ej: 123.45)</span>
+           }
+           @if( amount?.errors?.['min'] ){
+             <span class="alert text-danger" >La cantidad debe ser mayor a 0</span>
+           }
+      </div>
+
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Venta total</label>
+        <p class="saleprin">{{saleH.sale_total | currency:'COP' }}</p>
+      </div>
+
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Costo total</label>
+        <p>{{saleH.cost_total | currency:'COP' }}</p>
+      </div>
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Cliente</label>
+        <p>{{saleH.user.name + ' ' + saleH.user.lastname}}</p>
+      </div>
+
+      <div class="cointeinear-detailsale__content--item">
+        <label for="name">Correo cliente</label>
+        <p>{{saleH.user.email}}</p>
+      </div>
+
+
+       <div class="cointeinear-detailsale__content--item">
+        <label for="name">Descripción</label>
+
+          <input type="text" id="description" name="description" formControlName="description" >
+          @if(description?.errors?.['required'] && description?.touched ){
+            <span class="alert text-danger" >La descripción es obligatoria</span>
+          }
+          @if( description?.errors?.['minlength'] ){
+            <span class="alert text-danger" > La descripción debe terner mínimo 10 caracteres </span>
+          }
+          @if( description?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+          }
+        
+      </div>
+
+      <div class="cointeinear-detailsale__content--item">
+        <label for="confirm_sale">Venta confirmada</label>
+          <select id="confirm_sale" name="confirm_sale" formControlName="confirm_sale" >
+            <option value="True" [selected]="saleH?.confirm_sale === 'True'">Confirmado</option>
+            <option value="false" [selected]="saleH?.confirm_sale === 'false'">Pendiente</option>
+          </select>
+        
+      </div>
+
+      <!-- <div class="cointeinear-detailsale__content--item">
+        <label for="shopping_cart">Carrito de compras</label>
+          <select id="shopping_cart" name="shopping_cart" formControlName="shopping_cart" >
+            <option value="True" [selected]="saleH?.shopping_cart === 'True'">Sí</option>
+            <option value="false" [selected]="saleH?.shopping_cart === 'false'">No</option>
+          </select>
+        
+      </div> -->
+
+    </div>
+
+
+      <div class="cointeinear-detailsale__btn">
+        <button type="button"  class="btn btn-success btn2" (click)="modifySales()" [disabled]="!salesForm.valid" >Modificar</button>
+       <button type="button"  class="btn btn-danger btn3" (click)="goBack()" >Cancelar</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>

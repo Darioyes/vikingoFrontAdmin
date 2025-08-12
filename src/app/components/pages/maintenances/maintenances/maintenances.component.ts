@@ -67,7 +67,6 @@ export class MaintenancesComponent implements OnInit {
         let finalized = 0;
         //si existe la data
         if(response.data){
-          console.log(response);
           //recorremos la  data
           response.data?.forEach(item => {
             //si el item.advance es igual a inProgress;
@@ -93,7 +92,6 @@ export class MaintenancesComponent implements OnInit {
         this.inProgress.set(inProgress);
         this.authorization.set(authorization);
         this.finalized.set(finalized);
-        console.log(this.joined(), this.inProgress(), this.authorization(), this.finalized());
       },
       error:(error:ErrorMaintenanceResponse)=>{
         console.log(error);
