@@ -11,6 +11,8 @@ export class IndirectCostService {
     #http = inject(HttpClient);
     #cookieService = inject(CookieService);
 
+
+    //?costos indirectos
     getIndirectCosts(): Observable<any>{
       const token = this.#cookieService.get('token');
       const headers = {
@@ -28,5 +30,24 @@ export class IndirectCostService {
       };
       return this.#http.get<any>(`${this.#url}searchindirectcosts/${term}`, {headers: headers});
     }
+
+  //?categorias de costos indirectos
+  getCategoriesIndirectCosts(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}categoriesindirectcosts`, {headers: headers});
+  }
+
+  searchCategoriesIndirectCosts(term: string): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}searchcategoriesindirectcosts/${term}`, {headers: headers});
+  }
 
 }

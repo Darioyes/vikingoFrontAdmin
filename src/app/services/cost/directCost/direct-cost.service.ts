@@ -11,6 +11,8 @@ export class DirectCostService {
   #http = inject(HttpClient);
   #cookieService = inject(CookieService);
 
+  //? costos directos
+
   getDirectCosts(): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -27,6 +29,26 @@ export class DirectCostService {
       'Authorization': `Bearer ${token}`
     };
     return this.#http.get<any>(`${this.#url}searchdirectcosts/${term}`, {headers: headers});
+  }
+
+  //?categorias de costos directos
+
+  getCategoriesDirectCosts(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}categoriesdirectcosts`, {headers: headers});
+  }
+
+  searchCategoriesDirectCosts(term: string): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}searchcategoriesdirectcosts/${term}`, {headers: headers});
   }
 
 }
