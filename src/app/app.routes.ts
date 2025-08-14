@@ -239,6 +239,37 @@ export const routes: Routes = [
         loadComponent: () => import('./components/pages/costs/indirect-costs/indirect-costs.component').then(c=>c.IndirectCostsComponent),
         canActivate: [authGuard],
       },
+      {
+        path:'categorias',
+        title: 'Categorias',
+        loadComponent: () => import('./components/pages/categories/categories.component').then(c=>c.CategoriesComponent),
+        canActivate: [authGuard],
+        children:[
+          {
+            path:'',
+            redirectTo:'categorias-productos',
+            pathMatch:'full'
+          },
+          {
+            path:'categorias-productos',
+            title:'Categorias de Productos',
+            loadComponent:() => import('./components/pages/categories/categories-products/categories-products.component').then(c=>c.CategoriesProductsComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'categorias-costos-directos',
+            title:'Categorias de Costos Directos',
+            loadComponent:() => import('./components/pages/categories/categories-direct-costs/categories-direct-costs.component').then(c=>c.CategoriesDirectCostsComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'categorias-costos-indirectos',
+            title:'Categorias de Costos Indirectos',
+            loadComponent:() => import('./components/pages/categories/categories-indirect-costs/categories-indirect-costs.component').then(c=>c.CategoriesIndirectCostsComponent),
+            canActivate: [authGuard]
+          }
+        ]
+      },
     ],
   },
   {

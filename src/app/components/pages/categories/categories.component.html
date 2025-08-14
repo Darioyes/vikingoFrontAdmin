@@ -1,0 +1,26 @@
+<div class="conteiner-categories">
+  <!-- <div class="conteiner-categories__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div> -->
+  <div class="conteiner-categories__cards">
+    <app-smoll-sumary-card [name]="'Productos'" [amount]="1" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
+    <app-smoll-sumary-card [name]="'Costos Directos'" [amount]="2" [color]="colorWarning" [gradient]="colorWarningGradient"/>
+    <app-smoll-sumary-card [name]="'Costos Indirectos'" [amount]="3" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="4" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
+  </div>
+  <div class="conteiner-categories__links">
+    <a class="text-success " [routerLink]="'categorias-productos'" routerLinkActive = "selected" >Productos</a>
+    <a class="text-success" [routerLink]="'categorias-costos-directos'" routerLinkActive = "selected" >Costos directos</a>
+    <a class="text-success" [routerLink]="'categorias-costos-indirectos'" routerLinkActive = "selected" >Costos indirectos</a>
+  </div>
+  <div class="conteiner-categories__principal">
+    <router-outlet/>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="conteiner-detailcategies">
+  <div class="conteiner-detailcategies__search">
+
+    <div class="conteiner-detailcategies__search--new">
+      <i class="fa-solid fa-circle-plus"></i>
+    </div>
+
+    <div class="conteiner-detailcategies__search--item">
+
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
+
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </label>
+
+    </div>
+
+  </div>
+
+  @defer( when categoriesPagination().response === 'success'){
+
+    <div class="conteiner-detailcategies__table">
+      <table>
+        <thead>
+          <tr>
+            <th class="column-1">Categoría</th>
+            <th class="column-2">Descripción</th>
+            <th class="column-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(item of categories(); track $index){
+
+            <tr>
+              <td class="column-1">{{item.name}}</td>
+              <td class="column-2">{{item.description}}</td>
+              <td class="column-3">
+                <i  class="fa-regular fa-pen-to-square text-warning"></i>
+                <i class="fa-regular fa-trash-can text-danger"></i>
+              </td>
+            </tr>
+          }@empty {
+            <p class="text-danger" >No hay ventas</p>
+          }
+
+        </tbody>
+      </table>
+    </div>
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+  <div class="conteiner-detailcategies__pagination">
+    <div class="conteiner-detailcategies__pagination--links">
+      @for(links of categoriesPagination()?.data?.links; track $index){
+        @if( links.label === '&laquo; Anterior'){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(categoriesPagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+        }@else if(links.label ==='Siguiente &raquo;' ){
+          <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(categoriesPagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+        }@else{
+          <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+        }
+      }
+    </div>
+    <div class="conteiner-detailcategies__pagination--page">
+      <p>{{ categoriesPagination()?.data?.to }} / {{ categoriesPagination()?.data?.total }}</p>
+    </div>
+  </div>
+</div>
+

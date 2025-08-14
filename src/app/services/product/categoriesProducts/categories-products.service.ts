@@ -23,4 +23,14 @@ export class CategoriesProductsService {
 
   }
 
+    getPaginator(url:string): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      };
+  
+      return this.#http.get<any>(url, {headers: headers});
+    }
+
 }
