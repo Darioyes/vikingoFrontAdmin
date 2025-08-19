@@ -2,7 +2,7 @@
   <div class="conteiner-detailcategies__search">
 
     <div class="conteiner-detailcategies__search--new">
-      <i class="fa-solid fa-circle-plus"></i>
+      <i class="fa-solid fa-circle-plus" (click)="redirectToCreateCategory()"></i>
     </div>
 
     <div class="conteiner-detailcategies__search--item">
@@ -35,7 +35,7 @@
               <td class="column-1">{{item.name}}</td>
               <td class="column-2">{{item.description}}</td>
               <td class="column-3">
-                <i  class="fa-regular fa-pen-to-square text-warning"></i>
+                <i class="fa-regular fa-pen-to-square text-warning" (click)="redirectToEditCategory(item.id)"  ></i>
                 <i class="fa-regular fa-trash-can text-danger"></i>
               </td>
             </tr>

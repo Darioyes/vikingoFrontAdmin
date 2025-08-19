@@ -257,9 +257,33 @@ export const routes: Routes = [
             canActivate: [authGuard]
           },
           {
+            path:'modificar-categoria-producto',
+            title:'Modificar Categoria Producto',
+            loadComponent:() => import('./components/pages/categories/categories-products/forms/categories-products-modify/categories-products-modify.component').then(c=>c.CategoriesProductsModifyComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'crear-categoria-producto',
+            title:'Crear Categoria Producto',
+            loadComponent:() => import('./components/pages/categories/categories-products/forms/categories-products-create/categories-products-create.component').then(c=>c.CategoriesProductsCreateComponent),
+            canActivate: [authGuard]
+          },
+          {
             path:'categorias-costos-directos',
             title:'Categorias de Costos Directos',
             loadComponent:() => import('./components/pages/categories/categories-direct-costs/categories-direct-costs.component').then(c=>c.CategoriesDirectCostsComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'modificar-categoria-costos-directos',
+            title:'Modificar Categoria Costos Directos',
+            loadComponent:() => import('./components/pages/categories/categories-direct-costs/forms/categories-direct-cost-modify/categories-direct-cost-modify.component').then(c=>c.CategoriesDirectCostModifyComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'crear-categoria-costos-directos',
+            title:'Crear Categoria Costos Directos',
+            loadComponent:() => import('./components/pages/categories/categories-direct-costs/forms/categories-direct-cost-create/categories-direct-cost-create.component').then(c=>c. CategoriesDirectCostCreateComponent),
             canActivate: [authGuard]
           },
           {
@@ -267,7 +291,25 @@ export const routes: Routes = [
             title:'Categorias de Costos Indirectos',
             loadComponent:() => import('./components/pages/categories/categories-indirect-costs/categories-indirect-costs.component').then(c=>c.CategoriesIndirectCostsComponent),
             canActivate: [authGuard]
-          }
+          },
+          {
+            path:'modificar-categoria-costos-indirectos',
+            title:'Modificar Categoria Costos Indirectos',
+            loadComponent:() => import('./components/pages/categories/categories-indirect-costs/forms/categories-indirect-cost-modify/categories-indirect-cost-modify.component').then(c=>c.CategoriesIndirectCostModifyComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'crear-categoria-costos-indirectos',
+            title:'Crear Categoria Costos Indirectos',
+            loadComponent:() => import('./components/pages/categories/categories-indirect-costs/forms/categories-indirect-cost-create/categories-indirect-cost-create.component').then(c=>c.CategoriesIndirectCostCreateComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'crear-categoria-costos-indirectos',
+            title:'Crear Categoria Costos Indirectos',
+            loadComponent:() => import('./components/pages/categories/categories-indirect-costs/forms/categories-indirect-cost-create/categories-indirect-cost-create.component').then(c=>c.CategoriesIndirectCostCreateComponent),
+            canActivate: [authGuard]
+          },
         ]
       },
     ],

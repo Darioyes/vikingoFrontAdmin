@@ -15,8 +15,8 @@
                 <p>{{ selectedProduct().sale_price | currency:'COP'}}</p>
             </div>
             <div class="cointeinear-newsale__content--item">
-                <label for="sale_total">Total de la venta</label>
-                <p>{{ selectedProduct().cost_price | currency:'COP'}}</p>
+                <label for="sale_total">Costo total</label>
+                <p>{{ selectedProduct().cost_price * amount.value | currency:'COP'}}</p>
             </div>
         }
       
@@ -36,7 +36,7 @@
 
         @if(selectedProduct()){
         <div class="cointeinear-newsale__content--item">
-            <label for="sale_total">Precio Producto</label>
+            <label for="sale_total">Total venta</label>
             <p>{{ selectedProduct().sale_price * amount.value | currency:'COP'}}</p>
         </div>
         }@else{

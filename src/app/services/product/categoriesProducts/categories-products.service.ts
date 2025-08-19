@@ -43,4 +43,14 @@ export class CategoriesProductsService {
 
     return this.#http.get<any>(`${this.#url}searchcategoriesproducts/${term}`, { headers: headers });
   }
+
+  postNewCategory(data: any): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<any>(`${this.#url}categoriesproducts`, data, { headers: headers });
+  }
 }

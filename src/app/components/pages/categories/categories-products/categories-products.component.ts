@@ -86,4 +86,12 @@ export class CategoriesProductsComponent implements OnInit, OnDestroy {
     });
   }
 
+  redirectToCreateCategory(): void {
+    this.#router.navigate(['home/categorias/crear-categoria-producto']);
+  }
+
+  redirectToEditCategory(categoryId: string): void {
+    this.#router.navigate(['home/categorias/modificar-categoria-producto'],{queryParams:{id:categoryId}});
+  }
+
 }

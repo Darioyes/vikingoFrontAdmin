@@ -89,4 +89,13 @@ export class CategoriesIndirectCostsComponent implements OnInit, OnDestroy {
     });
   }
 
+  redirectToCreateCategory(): void {
+    this.#router.navigate(['home/categorias/crear-categoria-costos-indirectos']);
+  }
+
+  redirectToEditCategory(categoryId: string): void {
+    this.#router.navigate(['home/categorias/modificar-categoria-costos-indirectos'],{queryParams:{id:categoryId}});
+  }
+
+
 }

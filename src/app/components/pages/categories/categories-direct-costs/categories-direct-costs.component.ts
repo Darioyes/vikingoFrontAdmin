@@ -62,28 +62,37 @@ export class CategoriesDirectCostsComponent implements OnInit, OnDestroy {
       });
     }
   searchInputCategories(): void {
-      this.#unsubscribe = fromEvent(this.searchInput.nativeElement, 'input').pipe(
-          debounceTime(500), // Espera 500 ms después de la última entrada
-          distinctUntilChanged(), // Evita búsquedas redundantes
-          switchMap((event: any) => {
-            //creamos la constante term que almacena el valor del input
-            const term = event.target.value;
-            if(term === ''){
-              //si el input esta vacio llamamos a la funcion getDetailMaintenance
-              return this.#categoriesService.getCategoriesDirectCosts();
-            }
-            //retornamos el servicio de busqueda
-            return this.#categoriesService.searchCategoriesDirectCosts(term);
-          })
-        ).subscribe({
-          next:(response:any) => {
-          this.categories.set(response.data.data); // Establece la lista actualizada en la señal 'categories'
-          this.categoriesPagination.set(response); // Mantén la paginación sin cambios
-            },
-          error:(error:any) => {
-            console.log(error);
-          }
-        });
+    this.#unsubscribe = fromEvent(this.searchInput.nativeElement, 'input').pipe(
+      debounceTime(500), // Espera 500 ms después de la última entrada
+      distinctUntilChanged(), // Evita búsquedas redundantes
+      switchMap((event: any) => {
+        //creamos la constante term que almacena el valor del input
+        const term = event.target.value;
+        if(term === ''){
+          //si el input esta vacio llamamos a la funcion getDetailMaintenance
+          return this.#categoriesService.getCategoriesDirectCosts();
+        }
+        //retornamos el servicio de busqueda
+        return this.#categoriesService.searchCategoriesDirectCosts(term);
+      })
+    ).subscribe({
+      next:(response:any) => {
+      this.categories.set(response.data.data); // Establece la lista actualizada en la señal 'categories'
+      this.categoriesPagination.set(response); // Mantén la paginación sin cambios
+        },
+      error:(error:any) => {
+        console.log(error);
+      }
+    });
   }
+
+  redirectToCreateCategory(): void {
+  this.#router.navigate(['home/categorias/crear-categoria-costos-directos']);
+  }
+
+  redirectToEditCategory(categoryId: string): void {
+    this.#router.navigate(['home/categorias/modificar-categoria-costos-directos'],{queryParams:{id:categoryId}});
+  }
+
 
 }

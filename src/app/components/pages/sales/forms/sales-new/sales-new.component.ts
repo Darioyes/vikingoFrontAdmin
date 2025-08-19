@@ -15,9 +15,7 @@ import { Subscription } from 'rxjs';
   imports: [
     SpinerPagesComponent,
     ReactiveFormsModule,
-    DatePipe,
     CurrencyPipe,
-    DecimalPipe,
   ],
   templateUrl: './sales-new.component.html',
   styleUrl: './sales-new.component.scss'
@@ -40,7 +38,6 @@ export class SalesNewComponent implements OnInit, OnDestroy {
   public selectedProduct = signal<any>(null);
 
   public formbuilder = inject(FormBuilder);
-  public router = inject(Router)
   public salesFormNew: any = new FormGroup({});
   
   ngOnInit(): void {
@@ -108,6 +105,7 @@ export class SalesNewComponent implements OnInit, OnDestroy {
       });
     }
 
+  // funcion que al seleccionar el producto trae la informacion del producto
   onProductChange(event: any) {
   //evento que se dispara al cambiar el producto
   const productId = event.target.value;
