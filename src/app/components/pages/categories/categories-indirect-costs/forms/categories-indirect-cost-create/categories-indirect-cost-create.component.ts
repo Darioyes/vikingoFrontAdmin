@@ -1,11 +1,81 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertsService } from '@services/alerts/alerts.service';
+import { IndirectCostService } from '@services/cost/indirectCost/indirect-cost.service';
+import { CategoriesProductsService } from '@services/product/categoriesProducts/categories-products.service';
+import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
+import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-categories-indirect-cost-create',
-  imports: [],
+  imports: [
+    SpinerPagesComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './categories-indirect-cost-create.component.html',
   styleUrl: './categories-indirect-cost-create.component.scss'
 })
 export class CategoriesIndirectCostCreateComponent {
+
+    #unsubscribe!: Subscription;
+    #alertService = inject(AlertsService);
+    #cookiesService = inject(CookieService);
+    #indirectCostService = inject(IndirectCostService);
+    #router = inject(Router);
+    
+    public formbuilder = inject(FormBuilder);
+    public categoriesProductsFormNew: any = new FormGroup({});
+  
+    ngOnInit(): void {
+      this.formCategoriesProductNew();
+    }
+  
+    ngOnDestroy(): void {
+      this.#unsubscribe.unsubscribe();
+    }
+  
+      public formCategoriesProductNew(){
+        this.categoriesProductsFormNew = this.formbuilder.group({
+          name: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100)])],
+          description: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(255)])],
+        });
+      }
+  
+    get name() { return this.categoriesProductsFormNew.get('name'); }
+    get description() { return this.categoriesProductsFormNew.get('description'); }
+  
+    newCategory():void {
+      if (this.categoriesProductsFormNew.valid) {
+        if(this.#cookiesService.check('token')){
+          const data = new FormData();
+          // Agrega todos los campos del formulario
+          Object.keys(this.categoriesProductsFormNew.value).forEach(key => {
+            data.append(key, this.categoriesProductsFormNew.get(key)?.value);
+          });
+  
+          this.#unsubscribe = this.#indirectCostService.postIndirectCostNew(data).subscribe({
+            next: (response) => {
+              this.#alertService.showAlert('success', response.message);
+              this.categoriesProductsFormNew.reset();
+              this.#router.navigate(['home/categorias/categorias-costos-indirectos']);
+            },
+            error: (error) => {
+              console.log(error);
+            }
+          });
+        }else{
+          this.#alertService.showAlert('error', 'Inicie sesión nuevamente');
+        }
+      }else{
+        this.#alertService.showAlert('error', 'Por favor, complete todos los campos correctamente.');
+      }
+    }
+  
+    back() {
+      this.#router.navigate(['#/home/categorias/categorias-costos-indirectos']);
+      
+    }
 
 }

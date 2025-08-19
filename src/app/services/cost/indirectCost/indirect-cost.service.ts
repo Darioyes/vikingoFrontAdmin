@@ -50,4 +50,13 @@ export class IndirectCostService {
     return this.#http.get<any>(`${this.#url}searchcategoriesindirectcosts/${term}`, {headers: headers});
   }
 
+  postIndirectCostNew(data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}categoriesindirectcosts`, data, {headers: headers});
+  }
+
 }
