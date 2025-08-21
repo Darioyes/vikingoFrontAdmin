@@ -33,7 +33,9 @@ export class CategoriesIndirectCostCreateComponent {
     }
   
     ngOnDestroy(): void {
-      this.#unsubscribe.unsubscribe();
+      if(this.#unsubscribe){
+        this.#unsubscribe.unsubscribe();
+      }
     }
   
       public formCategoriesProductNew(){
@@ -74,7 +76,7 @@ export class CategoriesIndirectCostCreateComponent {
     }
   
     back() {
-      this.#router.navigate(['#/home/categorias/categorias-costos-indirectos']);
+      this.#router.navigate(['home/categorias/categorias-costos-indirectos']);
       
     }
 

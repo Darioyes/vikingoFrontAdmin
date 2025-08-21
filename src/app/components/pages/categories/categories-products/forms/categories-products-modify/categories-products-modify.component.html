@@ -1,1 +1,59 @@
-<p>categories-products-modify works!</p>
+<div class="cointeinear-newcategory" >
+  @defer ( when success() === 'success' ) {
+    <div class="cointeinear-newcategory__title">
+       <h2>Modificar Categoría Producto</h2>
+
+    </div>
+
+    <form [formGroup]="categoriesProductsFormNew"enctype = "multipart/form-data">
+
+    <div class="cointeinear-newcategory__content" >
+
+        <div class="cointeinear-newcategory__content--item">
+            <label for="name">Categoría</label>
+            <input type="text" id="name" name="name" formControlName="name">
+            @if(name?.errors?.['required'] && name?.touched ){
+              <span class="alert text-danger" >El nombre es obligatorio</span>
+            }
+            @if(name?.errors?.['minlength']){
+              <span class="alert text-danger" > El nombre debe tener mínimo 3 caracteres </span>
+            }
+            @if(name?.errors?.['maxlength']){
+              <span class="alert text-danger" > El nombre debe tener máximo 100 caracteres </span>
+            }
+        </div>
+
+
+       <div class="cointeinear-newcategory__content--item">
+        <label for="name">Descripción</label>
+
+        <input type="text" id="description" name="description" formControlName="description" >
+        @if(description?.errors?.['required'] && description?.touched ){
+        <span class="alert text-danger" >La descripción es obligatoria</span>
+        }
+        @if( description?.errors?.['minlength'] ){
+        <span class="alert text-danger" > La descripción debe terner mínimo 3 caracteres </span>
+        }
+        @if( description?.errors?.['maxlength'] ){
+        <span class="alert text-danger" > La descripción debe tener máximo 255 caracteres </span>
+        }
+        
+      </div>
+
+    </div>
+
+
+      <div class="cointeinear-newcategory__btn">
+        <button type="button"  class="btn btn-success btn2" [disabled]="!categoriesProductsFormNew.valid" (click)="modifyCategory()" >Guardar</button>
+       <button type="button"  class="btn btn-danger btn3" (click)="back()" >Cancelar</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>
+

@@ -53,4 +53,34 @@ export class CategoriesProductsService {
 
     return this.#http.post<any>(`${this.#url}categoriesproducts`, data, { headers: headers });
   }
+
+  modifyCategoryProduct(id: string, data: any): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.post<any>(`${this.#url}categoriesproducts/${id}`, data, { headers: headers });
+  }
+
+  getCategoryProduct(id: string): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.get<any>(`${this.#url}categoriesproducts/${id}`, { headers: headers });
+  }
+
+  deleteCategoryProduct(id: number): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.delete<any>(`${this.#url}categoriesproducts/${id}`, { headers: headers });
+  }
 }

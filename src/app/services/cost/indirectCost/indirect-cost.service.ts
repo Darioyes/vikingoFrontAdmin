@@ -59,4 +59,31 @@ export class IndirectCostService {
     return this.#http.post<any>(`${this.#url}categoriesindirectcosts`, data, {headers: headers});
   }
 
+  getIndirectCost(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}categoriesindirectcosts/${id}`, {headers: headers});
+  }
+
+  modifyIndirectCost(id: number, data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}categoriesindirectcosts/${id}`, data, {headers: headers});
+  }
+
+  deleteIndirectCost(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.delete<any>(`${this.#url}categoriesindirectcosts/${id}`, {headers: headers});
+  }
+
 }

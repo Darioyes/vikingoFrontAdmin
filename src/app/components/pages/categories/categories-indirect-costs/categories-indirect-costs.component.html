@@ -36,7 +36,7 @@
               <td class="column-2">{{item.description}}</td>
               <td class="column-3">
                 <i  class="fa-regular fa-pen-to-square text-warning" (click)="redirectToEditCategory(item.id)"  ></i>
-                <i class="fa-regular fa-trash-can text-danger"></i>
+                <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteCategory(item.id)" ></i>
               </td>
             </tr>
           }@empty {

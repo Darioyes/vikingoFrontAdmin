@@ -49,10 +49,10 @@ export class SalesModifyComponent implements OnInit, OnDestroy {
     }
 
 
-    public idSale(){
-    this.saleId.set(
-      Number(this.#routeId.snapshot.queryParams['id'])
-    );
+  public idSale(){
+  this.saleId.set(
+    Number(this.#routeId.snapshot.queryParams['id'])
+  );
     
     }
 
@@ -91,7 +91,7 @@ export class SalesModifyComponent implements OnInit, OnDestroy {
     //get sale_total() {return this.salesForm.get('sale_total');}
     //get cost_total() {return this.salesForm.get('cost_total');}
 
-      public fillSalesForm():void{
+  public fillSalesForm():void{
     setTimeout(() => {
       this.salesForm.setValue({
         description: this.sale().description,

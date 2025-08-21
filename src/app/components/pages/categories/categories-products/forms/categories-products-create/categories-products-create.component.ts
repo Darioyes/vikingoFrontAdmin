@@ -32,7 +32,10 @@ export class CategoriesProductsCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.#unsubscribe.unsubscribe();
+    if(this.#unsubscribe){
+      this.#unsubscribe.unsubscribe();
+
+    }
   }
 
     public formCategoriesProductNew(){

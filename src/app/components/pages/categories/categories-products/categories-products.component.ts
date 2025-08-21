@@ -1,6 +1,7 @@
 import { NgStyle, NgClass } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Router} from '@angular/router';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { CategoriesProductsService } from '@services/product/categoriesProducts/categories-products.service';
 import { SpinerPagesComponent } from '@shared/spiners/spiner-pages/spiner-pages.component';
 import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap } from 'rxjs';
@@ -22,6 +23,7 @@ export class CategoriesProductsComponent implements OnInit, OnDestroy {
   #unsubscribe!: Subscription;
   #router = inject(Router);
   #categoriesServiceProducts = inject(CategoriesProductsService);
+  #alertService = inject(AlertsService);
   
   public categories = signal<any>([]);
   public categoriesPagination = signal<any>([]);
@@ -33,7 +35,9 @@ export class CategoriesProductsComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-  this.#unsubscribe?.unsubscribe();
+  if(this.#unsubscribe){
+    this.#unsubscribe?.unsubscribe();
+  }
   }
   getCategoriesProducts(){
   this.#unsubscribe = this.#categoriesServiceProducts.getCategoriesProducts().subscribe({
@@ -92,6 +96,30 @@ export class CategoriesProductsComponent implements OnInit, OnDestroy {
 
   redirectToEditCategory(categoryId: string): void {
     this.#router.navigate(['home/categorias/modificar-categoria-producto'],{queryParams:{id:categoryId}});
+  }
+
+  deleteCategoryProduct(categoryId: number): void {
+    this.#unsubscribe = this.#categoriesServiceProducts.deleteCategoryProduct(categoryId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.#alertService.showAlert('success', response.message);
+        // refrescamos la lista de categorias
+        this.getCategoriesProducts();
+      },
+      error: (error) => {
+        console.log(error);
+        this.#alertService.showAlert('error','Error al eliminar la categoria');
+      }
+    });
+  }
+
+    async confirmDeleteCategory(id:number) {
+    const confirm = await this.#alertService.openAlert('alert', '¿Esta seguro que desea eliminar esta categoría?');
+    if (confirm) {
+      this.deleteCategoryProduct(id);
+    } else {
+      //console.log('Cancelado');
+    }
   }
 
 }
