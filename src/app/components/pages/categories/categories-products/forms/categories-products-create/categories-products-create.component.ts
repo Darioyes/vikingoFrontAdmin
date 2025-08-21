@@ -76,7 +76,7 @@ export class CategoriesProductsCreateComponent implements OnInit, OnDestroy {
   }
 
   back() {
-    this.#router.navigate(['#/home/categorias/categorias-productos']);
+    this.#router.navigate(['home/categorias/categorias-productos']);
     
   }
 
