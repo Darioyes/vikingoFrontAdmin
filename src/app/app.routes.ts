@@ -232,6 +232,13 @@ export const routes: Routes = [
         title: 'Costos Directos',
         loadComponent: () => import('./components/pages/costs/direct-costs/direct-costs.component').then(c=>c.DirectCostsComponent),
         canActivate: [authGuard],
+
+      },
+      {
+        path:'crear-costo-directo',
+        title:'Crear Costo Directo',
+        loadComponent:() => import('./components/pages/costs/direct-costs/form/create-direct-cost/create-direct-cost.component').then(c=>c.CreateDirectCostComponent),
+        canActivate: [authGuard]
       },
       {
         path:'costosindirectos',

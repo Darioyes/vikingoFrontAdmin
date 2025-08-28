@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
 import { SuccessMaintenanceResponse, ErrorMaintenanceResponse } from '@interfaces/maintenances/IGeneralMtto.interface';
 import { MaintenanceProgressService } from '@services/maintenance/maintenanceProgress/maintenance-progress.service';
+import { CategoriesProductsService } from '@services/product/categoriesProducts/categories-products.service';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
 
 @Component({
@@ -16,12 +17,12 @@ import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
     public RouterModule = inject(RouterModule);
-    #maintenanceProgressService = inject(MaintenanceProgressService);
-  
-  
+    #categoriesProductService = inject(CategoriesProductsService);
+
+
     public colorPrimary = environment.colorPrimay;
     public colorPrimaryGradient = environment.colorPrimaryGradient;
     public colorSuccess = environment.colorSuccess;
@@ -31,10 +32,10 @@ export class CategoriesComponent {
     public colorDanger = environment.colorDanger;
     public colorDangerGradient = environment.colorDangerGradient;
   
-    public joined = signal<number | any>(0);
-    public inProgress = signal<number | any>(0);
-    public authorization = signal<number | any>(0);
-    public finalized = signal<number | any>(0);
+    public products = signal<number | any>(0);
+    public directCosts = signal<number | any>(0);
+    public indirectCosts = signal<number | any>(0);
+    //public finalized = signal<number | any>(0);
   
     public days = [
       {value:1, label: 'Hoy'},
@@ -47,11 +48,25 @@ export class CategoriesComponent {
     public activeDay:any=this.days[4];
   
     ngOnInit(): void {
-
+      this.totalCategories();
     }
-  
 
-  
-    
+    ngOnDestroy(): void {
+      
+    }
+
+  public totalCategories() {
+    this.#categoriesProductService.getTotalCategories().subscribe({
+      next: (response) => {
+        this.products.set(response.data.totalProducts);
+        this.directCosts.set(response.data.totalDirectCosts);
+        this.indirectCosts.set(response.data.totalIndirectCosts);
+        console.log(response);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+  }
 
 }

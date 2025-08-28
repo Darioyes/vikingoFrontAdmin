@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertsService } from '@services/alerts/alerts.service';
@@ -27,6 +27,8 @@ export class CategoriesIndirectCostCreateComponent {
     
     public formbuilder = inject(FormBuilder);
     public categoriesProductsFormNew: any = new FormGroup({});
+
+    public updateCategory = output<any>();
   
     ngOnInit(): void {
       this.formCategoriesProductNew();
@@ -37,13 +39,14 @@ export class CategoriesIndirectCostCreateComponent {
         this.#unsubscribe.unsubscribe();
       }
     }
+    
   
-      public formCategoriesProductNew(){
-        this.categoriesProductsFormNew = this.formbuilder.group({
-          name: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100)])],
-          description: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(255)])],
-        });
-      }
+    public formCategoriesProductNew(){
+      this.categoriesProductsFormNew = this.formbuilder.group({
+        name: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(100)])],
+        description: ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(255)])],
+      });
+    }
   
     get name() { return this.categoriesProductsFormNew.get('name'); }
     get description() { return this.categoriesProductsFormNew.get('description'); }

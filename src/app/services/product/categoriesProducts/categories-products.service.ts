@@ -83,4 +83,14 @@ export class CategoriesProductsService {
 
     return this.#http.delete<any>(`${this.#url}categoriesproducts/${id}`, { headers: headers });
   }
+
+  getTotalCategories(): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+
+    return this.#http.get<any>(`${this.#url}categories/total`, { headers: headers });
+  }
 }

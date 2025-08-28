@@ -10,10 +10,10 @@
 
   </div> -->
   <div class="conteiner-categories__cards">
-    <app-smoll-sumary-card [name]="'Productos'" [amount]="1" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
-    <app-smoll-sumary-card [name]="'Costos Directos'" [amount]="2" [color]="colorWarning" [gradient]="colorWarningGradient"/>
-    <app-smoll-sumary-card [name]="'Costos Indirectos'" [amount]="3" [color]="colorDanger" [gradient]="colorDangerGradient" />
-    <app-smoll-sumary-card [name]="'Total'" [amount]="4" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
+    <app-smoll-sumary-card [name]="'Productos'" [amount]="products()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
+    <app-smoll-sumary-card [name]="'Costos Directos'" [amount]="directCosts()" [color]="colorWarning" [gradient]="colorWarningGradient"/>
+    <app-smoll-sumary-card [name]="'Costos Indirectos'" [amount]="indirectCosts()" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Total'" [amount]="products() + directCosts() + indirectCosts()" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
   </div>
   <div class="conteiner-categories__links">
     <a class="text-success " [routerLink]="'categorias-productos'" routerLinkActive = "selected" >Productos</a>
@@ -22,5 +22,6 @@
   </div>
   <div class="conteiner-categories__principal">
     <router-outlet/>
+    
   </div>
 </div>
