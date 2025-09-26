@@ -19,8 +19,8 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
 })
 export class CategoriesIndirectCostsComponent implements OnInit, OnDestroy {
 
-      //viewChild para obtener el valor del input
-      @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+    //viewChild para obtener el valor del input
+    @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
     #unsubscribe!: Subscription;
     #router = inject(Router);

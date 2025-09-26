@@ -22,6 +22,24 @@ export class DirectCostService {
     return this.#http.get<any>(`${this.#url}directcosts`, {headers: headers});
   }
 
+  getDirectCost(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}directcosts/${id}`, {headers: headers});
+  }
+
+  modififyDirectCost(id: number, data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}directcosts/${id}`, data, {headers: headers});
+  }
+
   searchDirectCosts(term: string): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -31,7 +49,7 @@ export class DirectCostService {
     return this.#http.get<any>(`${this.#url}searchdirectcosts/${term}`, {headers: headers});
   }
 
-  //?categorias de costos directos
+  //!categorias de costos directos
 
   getCategoriesDirectCosts(): Observable<any>{
     const token = this.#cookieService.get('token');
@@ -85,5 +103,14 @@ export class DirectCostService {
       'Authorization': `Bearer ${token}`
     };
     return this.#http.delete<any>(`${this.#url}categoriesdirectcosts/${id}`, {headers: headers});
+  }
+
+  getAllCategoriesDirectCosts(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}categoriesdirect/total`, {headers: headers});
   }
 }

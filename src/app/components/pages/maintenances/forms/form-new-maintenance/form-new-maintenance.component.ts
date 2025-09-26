@@ -87,7 +87,7 @@ export class FormNewMaintenanceComponent implements OnInit, OnDestroy {
       get warranty(){ return this.maintenanceFormNew.get('warranty'); }
       get description(){ return this.maintenanceFormNew.get('description'); }
 
-        //esta funcion es para abrir el input file
+  //esta funcion es para abrir el input file correspondiente al hacer click en la imagen
   public triggerFileInput(imageNumber:number): void {
     //this.fileInput1.nativeElement.click();
     switch(imageNumber) {

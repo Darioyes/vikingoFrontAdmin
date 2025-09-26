@@ -12,7 +12,7 @@ export class IndirectCostService {
     #cookieService = inject(CookieService);
 
 
-    //?costos indirectos
+    //!costos indirectos
     getIndirectCosts(): Observable<any>{
       const token = this.#cookieService.get('token');
       const headers = {
@@ -20,6 +20,25 @@ export class IndirectCostService {
         'Authorization': `Bearer ${token}`
       };
       return this.#http.get<any>(`${this.#url}indirectcosts`, {headers: headers});
+    }
+
+    getOneIndirectCost(id: number): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application',
+        'Authorization': `Bearer ${token}`
+      };
+      return this.#http.get<any>(`${this.#url}indirectcosts/${id}`, {headers: headers});
+    }
+  
+
+    modifyIndirectCostF(id: number, data: any): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application',
+        'Authorization': `Bearer ${token}`
+      };
+      return this.#http.post<any>(`${this.#url}indirectcosts/${id}`, data, {headers: headers});
     }
 
     searchIndirectCosts(term: string): Observable<any>{
@@ -31,7 +50,7 @@ export class IndirectCostService {
       return this.#http.get<any>(`${this.#url}searchindirectcosts/${term}`, {headers: headers});
     }
 
-  //?categorias de costos indirectos
+  //!categorias de costos indirectos
   getCategoriesIndirectCosts(): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -84,6 +103,15 @@ export class IndirectCostService {
       'Authorization': `Bearer ${token}`
     };
     return this.#http.delete<any>(`${this.#url}categoriesindirectcosts/${id}`, {headers: headers});
+  }
+
+  getAllCategoriesIndirectCosts(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}categoriesdirect/total`, {headers: headers});
   }
 
 }

@@ -228,24 +228,68 @@ export const routes: Routes = [
         ]
       },
       {
-        path:'costosdirectos',
+        path:'costos-directos',
         title: 'Costos Directos',
         loadComponent: () => import('./components/pages/costs/direct-costs/direct-costs.component').then(c=>c.DirectCostsComponent),
         canActivate: [authGuard],
-
+        children:[
+        {
+          path:'',
+          redirectTo:'detalle-costos-directos',
+          pathMatch:'full'
+        },
+        {
+          path:'detalle-costos-directos',
+          title:'Detalle Costos Directos',
+          loadComponent:() => import('./components/pages/costs/direct-costs/detail-sales/detail-sales.component').then(c=>c.DetailSalesComponent),
+          canActivate: [authGuard]
+        },
+        {
+          path:'crear-costo-directo',
+          title:'Crear Costo Directo',
+          loadComponent:() => import('./components/pages/costs/direct-costs/form/create-direct-cost/create-direct-cost.component').then(c=>c.CreateDirectCostComponent),
+          canActivate: [authGuard]
+        },
+        {
+          path:'modificar-costo-directo',
+          title:'Modificar Costo Directo',
+          loadComponent:() => import('./components/pages/costs/direct-costs/form/modify-direct-cost/modify-direct-cost.component').then(c=>c.ModifyDirectCostComponent),
+          canActivate: [authGuard]
+        }
+        ]
       },
       {
-        path:'crear-costo-directo',
-        title:'Crear Costo Directo',
-        loadComponent:() => import('./components/pages/costs/direct-costs/form/create-direct-cost/create-direct-cost.component').then(c=>c.CreateDirectCostComponent),
-        canActivate: [authGuard]
-      },
-      {
-        path:'costosindirectos',
-        title: 'Costos Indirectos',
-        loadComponent: () => import('./components/pages/costs/indirect-costs/indirect-costs.component').then(c=>c.IndirectCostsComponent),
+        path:'costos-indirectos',
+        title:'Costos Indirectos',
+        loadComponent:() => import('./components/pages/costs/indirect-costs/indirect-costs.component').then(c=>c.IndirectCostsComponent),
         canActivate: [authGuard],
+        children:[
+        {
+          path:'',
+          redirectTo:'detalle-costos-indirectos',
+          pathMatch:'full'
+        },   
+        {
+          path:'detalle-costos-indirectos',
+          title: 'Costos Indirectos',
+          loadComponent: () => import('./components/pages/costs/indirect-costs/detail-indirect-costs/detail-indirect-costs.component').then(c=>c.DetailIndirectCostsComponent),
+          canActivate: [authGuard],
+        },
+        {
+          path:'crear-costo-indirecto',
+          title:'Crear Costo Indirecto',
+          loadComponent:() => import('./components/pages/costs/indirect-costs/form/create-indirect-cost/create-indirect-cost.component').then(c=>c.CreateIndirectCostComponent),
+          canActivate: [authGuard]
+        },
+        {
+          path:'modificar-costo-indirecto',
+          title:'Modificar Costo Indirecto',
+          loadComponent:() => import('./components/pages/costs/indirect-costs/form/modify-indirect-cost/modify-indirect-cost.component').then(c=>c.ModifyIndirectCostComponent),
+          canActivate: [authGuard]
+        }
+        ]
       },
+      
       {
         path:'categorias',
         title: 'Categorias',

@@ -1,12 +1,12 @@
 <div class="cointeinear-modifydirectcost" >
   @defer ( when success() === 'success' ) {
-    @let directCosth = directCost();
+    @let directCosth = inDirectCost();
     <div class="cointeinear-modifydirectcost__title">
        <h2>Detalle costo directo: {{directCosth.name}}</h2>
 
     </div>
 
-    <form [formGroup]="directCostFormModify"enctype = "multipart/form-data">
+    <form [formGroup]="inDirectCostFormModify"enctype = "multipart/form-data">
 
       <div class="cointeinear-modifydirectcost__content" >
 
@@ -71,8 +71,8 @@
       </div>
 
       <div class="cointeinear-modifydirectcost__content--item">
-        <label for="categories_direct_costs_id">Categoría</label>
-          <select id="categories_direct_costs_id" name="categories_direct_costs_id" formControlName="categories_direct_costs_id" >
+        <label for="categories_indirect_costs_id">Categoría</label>
+          <select id="categories_indirect_costs_id" name="categories_indirect_costs_id" formControlName="categories_indirect_costs_id" >
             @for (item of categoriesDirectCosts(); track $index) {
                 <option [value]="item.id" [selected]="directCosth?.categories_direct_costs_id === item.id">{{item.name}}</option>
             }
@@ -94,7 +94,7 @@
 
 
       <div class="cointeinear-modifydirectcost__btn">
-        <button type="button"  class="btn btn-success btn2" (click)="modifyDirectCost()"  [disabled]="!directCostFormModify.valid" >Modificar</button>
+        <button type="button"  class="btn btn-success btn2" (click)="modifyIndirectCost()"  [disabled]="!inDirectCostFormModify.valid" >Modificar</button>
        <button type="button"  class="btn btn-danger btn3" (click)="goBack()" >Cancelar</button>
       </div>
 
