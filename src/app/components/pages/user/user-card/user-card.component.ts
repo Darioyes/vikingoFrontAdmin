@@ -22,6 +22,7 @@ export class UserCardComponent implements OnInit {
   public phone = input('123456789');
   public email = input('correo@correo.com');
   public gender = input();
+  public status = input();
 
   public userInformationId = output();
   public userNewId = output();

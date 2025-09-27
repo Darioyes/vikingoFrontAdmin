@@ -231,7 +231,25 @@
         }
       </div>
 
+      <div class="cointeinear-detailproduct__content--item">
+        <label for="status">Usuario Activo</label>
+        @if(modifyInput() === false){
+          <p>{{userH.status === 'active' ? 'Activo' : 'Inactivo'}}</p>
+        }@else{
+          <select id="status" name="status" formControlName="status" >
+            <option value="active" [selected]="userH?.status === 'active'">Activo</option>
+            <option value="inactive" [selected]="userH?.status === 'inactive'">Inactivo</option>
+
+          </select>
+
+          @if(status?.errors?.['required'] && status?.touched ){
+            <span class="alert text-danger" >El estatus es obligatorio</span>
+          }
+
+        }
       </div>
+
+    </div>
 
 
       <div class="cointeinear-detailproduct__btn">

@@ -8,7 +8,7 @@
     <span>{{name() +' '+ lastName()}}</span>
   </div>
   <div class="conteiner-usercard__rol">
-    <span>{{userRole()=== 'admin'?'admin':'Usuario'}}</span>
+    <span>{{status() === 'active' ? 'Activo' : 'Inactivo'}}</span>
   </div>
   <div class="conteiner-usercard__data">
     <a [href]="'https://api.whatsapp.com/send?phone=57'+phone()" target="_blank">

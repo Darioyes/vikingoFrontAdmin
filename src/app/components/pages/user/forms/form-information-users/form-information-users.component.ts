@@ -83,6 +83,7 @@ export class FormInformationUsersComponent implements OnInit, OnDestroy {
         address: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(255)])],
         vikingo_roles_id: ['', Validators.compose([Validators.required])],
         cities_id: ['', Validators.compose([Validators.required])],
+        status: ['', Validators.compose([Validators.required])],
       });
     }
 
@@ -97,6 +98,7 @@ export class FormInformationUsersComponent implements OnInit, OnDestroy {
   get address(){ return this.userForm.get('address'); }
   get vikingo_roles_id(){ return this.userForm.get('vikingo_roles_id'); }
   get cities_id(){ return this.userForm.get('cities_id'); }
+  get status(){ return this.userForm.get('status'); }
 
     //funcion para llenar los datos en el formulario
   public fillProductForm():void{
@@ -112,6 +114,7 @@ export class FormInformationUsersComponent implements OnInit, OnDestroy {
         address: this.user().address,
         vikingo_roles_id: this.user().vikingo_roles_id,
         cities_id: this.user().cities_id,
+        status: this.user().status,
 
       });
     }, 500);

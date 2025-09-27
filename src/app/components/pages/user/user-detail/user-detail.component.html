@@ -30,11 +30,12 @@
         [email]="user.email"
         [image]="urlImage + user.image.replace('public', 'storage')"
         [gender]="user.gender"
+        [status] ="user.status"
         (userInformationId)="userInformationId($event)"
         (userDeleteId)="confirmDeleteUser($event)"
         />
       }@empty {
-        <p class="text-danger" >No hay Clientes</p>
+        <p class="text-danger" >No hay Clientes registrados</p>
       }
 
     }@placeholder {
