@@ -57,7 +57,7 @@ export class ModifyDirectCostComponent implements OnInit, OnDestroy {
   }
 
   getAllCategoriesDirectCosts(): void {
-    this.#serviceDirectCosts.getAllCategoriesDirectCosts().subscribe({
+    this.#unsubscribe = this.#serviceDirectCosts.getAllCategoriesDirectCosts().subscribe({
       next: (response) => {
         this.categoriesDirectCosts.set(response.data);
       },
@@ -118,7 +118,7 @@ export class ModifyDirectCostComponent implements OnInit, OnDestroy {
         data.append(key, this.directCostFormModify.get(key)?.value);
       });
         if(this.#cookiesService.check('token')){
-          this.#serviceDirectCosts.modififyDirectCost(this.saleId(), data).subscribe({
+          this.#unsubscribe = this.#serviceDirectCosts.modififyDirectCost(this.saleId(), data).subscribe({
             next: (response) => {
               this.#alertService.showAlert('success', response.message);
             },

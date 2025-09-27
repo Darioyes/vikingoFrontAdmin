@@ -111,7 +111,7 @@ export class CategoriesDirectCostsComponent implements OnInit, OnDestroy {
     });
   }
 
-    async confirmDeleteCategory(id:number) {
+  async confirmDeleteCategory(id:number) {
     const confirm = await this.#alertService.openAlert('alert', '¿Esta seguro que desea eliminar esta categoría?');
     if (confirm) {
       this.deleteCategoryProduct(id);

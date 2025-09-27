@@ -13,6 +13,15 @@ export class DirectCostService {
 
   //? costos directos
 
+  createDirectCost(data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}directcosts`, data, {headers: headers});
+  }
+
   getDirectCosts(): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -40,6 +49,15 @@ export class DirectCostService {
     return this.#http.post<any>(`${this.#url}directcosts/${id}`, data, {headers: headers});
   }
 
+  deleteDirectCost(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.delete<any>(`${this.#url}directcosts/${id}`, {headers: headers});
+  }
+
   searchDirectCosts(term: string): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
@@ -47,6 +65,15 @@ export class DirectCostService {
       'Authorization': `Bearer ${token}`
     };
     return this.#http.get<any>(`${this.#url}searchdirectcosts/${term}`, {headers: headers});
+  }
+
+  getSumaryDirectCosts(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.get<any>(`${this.#url}sumarydirectcosts`, {headers: headers});  
   }
 
   //!categorias de costos directos

@@ -3,10 +3,10 @@
 
   </div>
   <div class="conteiner-directcosts__cards">
-    <app-smoll-sumary-card [name]="'Recibidos'" [amount]="" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
-    <app-smoll-sumary-card [name]="'En progreso'" [amount]="" [color]="colorWarning" [gradient]="colorWarningGradient"/>
-    <app-smoll-sumary-card [name]="'Autorización'" [amount]="" [color]="colorDanger" [gradient]="colorDangerGradient" />
-    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
+ <app-smoll-sumary-card [name]="'Conteo'" [amount]="resumeData().total_count" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
+    <app-smoll-sumary-card [name]="'Cantidad'" [amount]="resumeData().total_amount" [color]="colorWarning" [gradient]="colorWarningGradient"/>
+    <app-smoll-sumary-card [name]="'Total'" [amount]="resumeData().total_price" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Promedio'" [amount]="resumeData().average_price" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
   </div>
     <router-outlet/>
 

@@ -27,7 +27,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         <div class="modal-footer" >
         <!-- <button [ngClass]="'btn btn-' + buttonType" (click)="onClose()">Cerrar</button> -->
           <button class="btn btn-warning" (click)="onConfirm()">Aceptar</button>
-          <button class="btn btn-danger" (click)="onClose()">Cerrar</button>
+          <button class="btn btn-danger" (click)="onClose()">Cancelar</button>
         </div>
       </div>
     </div>

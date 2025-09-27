@@ -46,7 +46,7 @@
             <td class="column-6">{{item.categories_direct_costs.name}}</td>
             <td class="column-7">
               <i  class="fa-regular fa-pen-to-square text-warning" (click)="redirectToModifyCost(item.id)"></i>
-              <i class="fa-regular fa-trash-can text-danger"></i>
+              <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteCost(item.id)"></i>
             </td>
           </tr>
           <tr class="row">
@@ -97,7 +97,7 @@
                     <span>Acciones</span>
                     <p>
                       <i  class="fa-regular fa-pen-to-square text-warning" (click)="redirectToModifyCost(item.id)"></i>
-                      <i class="fa-regular fa-trash-can text-danger"></i>
+                      <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteCost(item.id)"></i>
                     </p>
                   </div>
                 }

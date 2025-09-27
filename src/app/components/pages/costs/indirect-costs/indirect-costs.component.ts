@@ -2,6 +2,7 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { IndirectCostService } from '@services/cost/indirectCost/indirect-cost.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
@@ -18,7 +19,7 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
     templateUrl: './indirect-costs.component.html',
     styleUrl: './indirect-costs.component.scss'
 })
-export class IndirectCostsComponent  {
+export class IndirectCostsComponent implements OnInit, OnDestroy {
 
   //viewChild para obtener el valor del input
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
@@ -35,13 +36,35 @@ export class IndirectCostsComponent  {
 
   public visibleColumns = [''];
 
-  #maintenancesService = inject(MaintenanceService);
-  #directCostService = inject(IndirectCostService);
+  #indirectCostService = inject(IndirectCostService);
   #unsubscribe!: Subscription;
+  #alertService = inject(AlertsService);
 
   public directCosts = signal<any>([]);
   public directCostsPagination = signal<any>([]);
+  public resumeData = signal<any>([]);
 
-  
+  ngOnInit(): void {
+    this.getResumeData();
+  }
+
+  ngOnDestroy(): void {
+    if(this.#unsubscribe){
+      this.#unsubscribe.unsubscribe();
+    }
+  }
+
+  public getResumeData(): any {
+    this.#unsubscribe = this.#indirectCostService.getSumaryIndirectCosts().subscribe({
+      next:(response) => {
+        this.resumeData.set(response.data);
+        console.log(response.data);
+      },
+      error:(error) => {
+        this.#alertService.showAlert('error', 'Comuniquese con el administrador');
+        console.log(error);
+      }
+    });
+  }
 
 }

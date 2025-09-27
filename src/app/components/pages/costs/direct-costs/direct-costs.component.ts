@@ -2,6 +2,7 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { DirectCostService } from '@services/cost/directCost/direct-cost.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
@@ -21,34 +22,49 @@ import { debounceTime, distinctUntilChanged, fromEvent, Subscription, switchMap 
 export class DirectCostsComponent implements OnInit, OnDestroy {
 
    //viewChild para obtener el valor del input
-    @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-    public RouterModule = inject(RouterModule);
-    public colorPrimary = environment.colorPrimay;
-    public colorPrimaryGradient = environment.colorPrimaryGradient;
-    public colorSuccess = environment.colorSuccess;
-    public colorSuccessGradient = environment.colorSuccessGradient;
-    public colorWarning = environment.colorWarning;
-    public colorWarningGradient = environment.colorWarningGradient;
-    public colorDanger = environment.colorDanger;
-    public colorDangerGradient = environment.colorDangerGradient;
+  public RouterModule = inject(RouterModule);
+  public colorPrimary = environment.colorPrimay;
+  public colorPrimaryGradient = environment.colorPrimaryGradient;
+  public colorSuccess = environment.colorSuccess;
+  public colorSuccessGradient = environment.colorSuccessGradient;
+  public colorWarning = environment.colorWarning;
+  public colorWarningGradient = environment.colorWarningGradient;
+  public colorDanger = environment.colorDanger;
+  public colorDangerGradient = environment.colorDangerGradient;
 
-    public visibleColumns = [''];
+  public visibleColumns = [''];
 
-    #maintenancesService = inject(MaintenanceService);
+  public directCosts = signal<any>([]);
+  public directCostsPagination = signal<any>([]);
+  public resumeData = signal<any>([]);
 
-
-    public directCosts = signal<any>([]);
-    public directCostsPagination = signal<any>([]);
-
+  #directCostService = inject(DirectCostService);
+  #alertService = inject(AlertsService);
+  #unsubscribe!: Subscription;
 
 
   ngOnInit(): void {
-
+    this.sumaryDirectCosts();
   }
 
   ngOnDestroy(): void {
-
+    if(this.#unsubscribe){
+      this.#unsubscribe.unsubscribe();
     }
+  }
+
+  sumaryDirectCosts(){
+    this.#unsubscribe =this.#directCostService.getSumaryDirectCosts().subscribe({
+      next:(response) => {
+        this.resumeData.set(response.data);
+      },
+      error:(error) => {
+        console.log(error);
+        this.#alertService.showAlert('error', 'Comuniquese con el administrador');
+      }
+    });
+  }
 
 }

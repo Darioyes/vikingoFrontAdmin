@@ -13,6 +13,16 @@ export class IndirectCostService {
 
 
     //!costos indirectos
+
+    createIndirectCost(data: any): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      };
+      return this.#http.post<any>(`${this.#url}indirectcosts`, data, {headers: headers});
+    }
+
     getIndirectCosts(): Observable<any>{
       const token = this.#cookieService.get('token');
       const headers = {
@@ -41,6 +51,15 @@ export class IndirectCostService {
       return this.#http.post<any>(`${this.#url}indirectcosts/${id}`, data, {headers: headers});
     }
 
+    deleteIndirectCostF(id: number): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application',
+        'Authorization': `Bearer ${token}`
+      };
+      return this.#http.delete<any>(`${this.#url}indirectcosts/${id}`, {headers: headers});
+    }
+
     searchIndirectCosts(term: string): Observable<any>{
       const token = this.#cookieService.get('token');
       const headers = {
@@ -48,6 +67,15 @@ export class IndirectCostService {
         'Authorization': `Bearer ${token}`
       };
       return this.#http.get<any>(`${this.#url}searchindirectcosts/${term}`, {headers: headers});
+    }
+
+    getSumaryIndirectCosts(): Observable<any>{
+      const token = this.#cookieService.get('token');
+      const headers = {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      };
+      return this.#http.get<any>(`${this.#url}sumaryindirectcosts`, {headers: headers});
     }
 
   //!categorias de costos indirectos
@@ -111,7 +139,7 @@ export class IndirectCostService {
       'Accept': 'application/json',
       'Authorization': `Bearer ${token}`
     };
-    return this.#http.get<any>(`${this.#url}categoriesdirect/total`, {headers: headers});
+    return this.#http.get<any>(`${this.#url}categoriesindirect/total`, {headers: headers});
   }
 
 }

@@ -2,6 +2,7 @@ import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
+import { AlertsService } from '@services/alerts/alerts.service';
 import { IndirectCostService } from '@services/cost/indirectCost/indirect-cost.service';
 import { MaintenanceService } from '@services/maintenance/maintenance/maintenance.service';
 import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-sumary-card.component';
@@ -40,6 +41,7 @@ export class DetailIndirectCostsComponent implements OnInit, OnDestroy {
   #directCostService = inject(IndirectCostService);
   #unsubscribe!: Subscription;
   #router = inject(Router);
+  #alertService = inject(AlertsService);
 
   public directCosts = signal<any>([]);
   public directCostsPagination = signal<any>([]);
@@ -110,37 +112,37 @@ export class DetailIndirectCostsComponent implements OnInit, OnDestroy {
     //console.log(item.showDetails);
   }
 
-    searchInputSales(): void {
-       this.#unsubscribe = fromEvent(this.searchInput.nativeElement, 'input').pipe(
-            debounceTime(500), // Espera 500 ms después de la última entrada
-            distinctUntilChanged(), // Evita búsquedas redundantes
-            switchMap((event: any) => {
-              //creamos la constante term que almacena el valor del input
-              const term = event.target.value;
-              if(term === ''){
-                //si el input esta vacio llamamos a la funcion getDetailMaintenance
-                return this.#directCostService.getIndirectCosts();
-              }
-              //retornamos el servicio de busqueda
-              return this.#directCostService.searchIndirectCosts(term);
-            })
-          ).subscribe({
-            next: (response) => {
-              //recorremos cada venta y añadimos el campo 'showDetails' con valor 'false'
-            const updatedData = response.data.data.map((directCosts: any) => ({
-              //...directCosts, // Copia todas las propiedades de 'directCosts' y añade o sobreescribe  showDetails: false
-              ...directCosts,
-              showDetails: false, // Añade el campo 'showDetails'
-            }));
-
-            this.directCosts.set(updatedData); // Establece la lista actualizada en la señal 'directCostss'
-            this.directCostsPagination.set(response); // Mantén la paginación sin cambios
-            },
-            error: (error) => {
-              console.log(error);
+  searchInputSales(): void {
+      this.#unsubscribe = fromEvent(this.searchInput.nativeElement, 'input').pipe(
+          debounceTime(500), // Espera 500 ms después de la última entrada
+          distinctUntilChanged(), // Evita búsquedas redundantes
+          switchMap((event: any) => {
+            //creamos la constante term que almacena el valor del input
+            const term = event.target.value;
+            if(term === ''){
+              //si el input esta vacio llamamos a la funcion getDetailMaintenance
+              return this.#directCostService.getIndirectCosts();
             }
-          });
-    }
+            //retornamos el servicio de busqueda
+            return this.#directCostService.searchIndirectCosts(term);
+          })
+        ).subscribe({
+          next: (response) => {
+            //recorremos cada venta y añadimos el campo 'showDetails' con valor 'false'
+          const updatedData = response.data.data.map((directCosts: any) => ({
+            //...directCosts, // Copia todas las propiedades de 'directCosts' y añade o sobreescribe  showDetails: false
+            ...directCosts,
+            showDetails: false, // Añade el campo 'showDetails'
+          }));
+
+          this.directCosts.set(updatedData); // Establece la lista actualizada en la señal 'directCostss'
+          this.directCostsPagination.set(response); // Mantén la paginación sin cambios
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+  }
 
 pagination(url:string){
   this.#unsubscribe = this.#maintenancesService.getPaginator(url).subscribe({
@@ -161,11 +163,34 @@ pagination(url:string){
   });
 }
 
-  redirectToNewCost(): void {
-    this.#router.navigate(['home/costos-indirectos/crear-costo-indirecto']);
-  }
+deleteIndirectCost(id: number): void {
+  this.#unsubscribe = this.#directCostService.deleteIndirectCostF(id).subscribe({
+    next: (response) => {
+      this.#alertService.showAlert('success', response.message);
+      this.getDirectCosts();
+      console.log(response);
+    },
+    error: (error) => {
+      console.log(error);
+      this.#alertService.showAlert('error', 'Comuniquese con el administrador');
+    }
+  });
+}
 
-  redirectToModifyCost(costId: string): void {
-    this.#router.navigate(['home/costos-indirectos/modificar-costo-indirecto'],{queryParams:{id:costId}});
+async confirmDeleteCost(id:number) {
+  const confirm = await this.#alertService.openAlert('alert', '¿Esta seguro que desea eliminar el costo indirecto?');
+  if (confirm) {
+    this.deleteIndirectCost(id);
+  } else {
+    //console.log('Cancelado');
   }
+}
+
+redirectToNewCost(): void {
+  this.#router.navigate(['home/costos-indirectos/crear-costo-indirecto']);
+}
+
+redirectToModifyCost(costId: string): void {
+  this.#router.navigate(['home/costos-indirectos/modificar-costo-indirecto'],{queryParams:{id:costId}});
+}
 }
