@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
 
   //implementar el metodo ngOnInit
   ngOnInit(): void {
-    //this.veryToken();
+    this.veryToken();
 
 
   }
@@ -104,10 +104,12 @@ export class NavbarComponent implements OnInit {
         if (error.errorVikingo.message === 'Unauthenticated.') {
           this.logoutSession();
           console.log(error.errorVikingo.message);
+          
         }
       },
+      
     });
-      }, 2000);
+      }, 3000);
 
 
   }

@@ -51,9 +51,9 @@ export class LoginPageComponent implements OnInit {
 
    ngOnInit(): void {
  //inicializamos el formulario del formgroup
- this.loginForm = this.formbuilder.group({
-   email: ['',Validators.compose([Validators.required, Validators.email])],
-   password: ['',Validators.compose([Validators.required])],
+    this.loginForm = this.formbuilder.group({
+      email: ['',Validators.compose([Validators.required, Validators.email])],
+      password: ['',Validators.compose([Validators.required])],
     });
   }
   ngOnDestroy(): void {
@@ -104,19 +104,19 @@ export class LoginPageComponent implements OnInit {
           error:(error:LoginErrorResponse)=>{
             console.log(error);
              // Inicializamos una variable para acumular los mensajes de error
-          let errorMessages = '';
+              let errorMessages = '';
 
           // Verificamos si hay errores específicos
-          if (error.errorVikingo.errors) {
-            // Recorremos los errores
-            for (const key in error.errorVikingo.errors) {
+            if (error.errorVikingo.errors) {
+              // Recorremos los errores
+              for (const key in error.errorVikingo.errors) {
 
-              if (error.errorVikingo.errors.hasOwnProperty(key)) {
-                // Concatenamos los errores con un salto de línea o un separador
-                errorMessages += `${error.errorVikingo.errors[key]}<br>`;
+                if (error.errorVikingo.errors.hasOwnProperty(key)) {
+                  // Concatenamos los errores con un salto de línea o un separador
+                  errorMessages += `${error.errorVikingo.errors[key]}<br>`;
+                }
+                this.loadingButton = false;
               }
-              this.loadingButton = false;
-            }
 
             // Mostrar todos los errores concatenados
             this.alertService.showAlert('error', errorMessages.trim());
