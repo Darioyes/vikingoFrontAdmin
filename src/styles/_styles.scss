@@ -1,6 +1,6 @@
 @use 'variables/typography' as font;
 @use 'variables/mediaq' as mediaq;
-@import './variables/variables';
+@use './variables/variables' as variables;
 
 *{
   font-family: font.$main-family-Roboto-Regular;
@@ -11,7 +11,7 @@
       text-decoration: none;
       //color: color.$principal;
   }
-  scrollbar-color: $primary $gray-200;
+  scrollbar-color: variables.$primary variables.$gray-200;
   scrollbar-width: thin;
 
 }
@@ -19,7 +19,7 @@
 body{
   //dvh es para que tome el 100% de la pantalla
   min-height: 100dvh;
-  background: $gray-200;
+  background: variables.$gray-200;
 
 
 }

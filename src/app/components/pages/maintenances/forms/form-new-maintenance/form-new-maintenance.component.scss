@@ -1,6 +1,6 @@
 @use 'sass:color';
-@import '../../../../../../styles/variables/variables';
-@import '../../../../../../styles/variables/mediaq';
+@use '../../../../../../styles/variables/variables' as *;
+@use '../../../../../../styles/variables/mediaq' as *;
 
 .cointeinear-newmaintenance{
   max-width: 100%;

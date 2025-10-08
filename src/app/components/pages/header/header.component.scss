@@ -1,6 +1,6 @@
-@import '../../../../styles/variables/variables';
-@import '../../../../styles/variables/typography';
-@import '../../../../styles/variables/mediaq';
+@use '../../../../styles/variables/variables' as *;
+@use '../../../../styles/variables/typography' as *;
+@use '../../../../styles/variables/mediaq' as *;
 
 .container-header{
   width: 100%;

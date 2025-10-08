@@ -1,7 +1,7 @@
 @use 'sass:color';
-@import '../../../../../styles/variables/variables';
-@import '../../../../../styles/variables/mediaq';
-@import '../../../../../styles/variables/button';
+@use '../../../../../styles/variables/variables';
+@use '../../../../../styles/variables/mediaq' as *;
+@use  '../../../../../styles/variables/button' as * ;
 
 .conteiner-directcosts{
   position: relative;

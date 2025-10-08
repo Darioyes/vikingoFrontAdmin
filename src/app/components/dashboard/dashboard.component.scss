@@ -1,5 +1,5 @@
-@import '../../../styles/variables/variables';
-@import '../../../styles/variables/mediaq';
+@use '../../../styles/variables/variables' as *;
+@use '../../../styles/variables/mediaq' as * ;
 .dashboard{
   max-width: 100%;
   height: 100vh;

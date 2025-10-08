@@ -1,4 +1,4 @@
-@import '../../../../styles/variables/variables';
+@use '../../../../styles/variables/variables' as *;
 
 .modal-container {
   //posición fixed es para que el modal se mantenga en la misma posición

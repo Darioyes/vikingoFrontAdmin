@@ -1,6 +1,6 @@
 @use 'sass:color';
-@import '../../../../../styles/variables/variables';
-@import '../../../../../styles/variables/typography';
+@use '../../../../../styles/variables/variables' as *;
+@use '../../../../../styles/variables/typography' as *;
 
 .main-login{
     width: 100%;
