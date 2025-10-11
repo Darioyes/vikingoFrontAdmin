@@ -1,5 +1,5 @@
 import { DecimalPipe, DatePipe, NgStyle, NgClass } from '@angular/common';
-import { Component, ElementRef, HostListener, inject, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { environment } from '@enviroments/environment.development';
 import { AlertsService } from '@services/alerts/alerts.service';
@@ -21,7 +21,7 @@ import { Subscription, fromEvent, debounceTime, distinctUntilChanged, switchMap 
   templateUrl: './detail-sales.component.html',
   styleUrl: './detail-sales.component.scss'
 })
-export class DetailSalesComponent {
+export class DetailSalesComponent implements  OnInit, OnDestroy {
   //viewChild para obtener el valor del input
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
   

@@ -165,6 +165,45 @@ export const routes: Routes = [
           },
         ]
       },
+
+      {
+        path:'ordenes-compra',
+        title: 'Ordenes de compra',
+        loadComponent: () => import('./components/pages/purcharseOrders/purcharse-orders/purcharse-orders.component').then(c=>c.PurcharseOrdersComponent),
+        canActivate: [authGuard],
+        children:[
+          {
+            path:'',
+            redirectTo:'lista-ordenes-compra',
+            pathMatch:'full'
+          },
+          {
+            path:'lista-ordenes-compra',
+            title:'Lista de ordenes de compra',
+            loadComponent:() => import('./components/pages/purcharseOrders/purcharse-orders-detail/purcharse-orders-detail.component').then(c=>c.PurcharseOrdersDetailComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'estadisticas-ordenes-compra',
+            title:'Estadisticas de ordenes de compra',
+            loadComponent:() => import('./components/pages/purcharseOrders/purcharse-orders-statistics/purcharse-orders-statistics.component').then(c=>c.PurcharseOrdersStatisticsComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'nuevo-orden-compra',
+            title:'Nuevo orden de compra',
+            loadComponent:() => import('./components/pages/purcharseOrders/forms/purcharse-orders-create/purcharse-orders-create.component').then(c=>c.PurcharseOrdersCreateComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'modificar-orden-compra',
+            title:'Modificar orden de compra',
+            loadComponent:() => import('./components/pages/purcharseOrders/forms/purcharse-orders-modify/purcharse-orders-modify.component').then(c=>c.PurcharseOrdersModifyComponent),
+            canActivate: [authGuard]
+          },
+        ]
+      },
+
       {
         path:'ventas',
         title: 'Ventas',

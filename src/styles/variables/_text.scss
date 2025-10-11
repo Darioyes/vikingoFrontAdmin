@@ -1,3 +1,4 @@
+@use 'sass:color';
 //color de texto
 //va a al archivo de variables.scc y name es el nombre de la variable y color es el valor de la variable del mapa de colores
 @each $name, $color in $colores {
@@ -10,7 +11,7 @@
     //la clase quedaria como .text-primary:hover
     .text-hover-#{"#{$name}"}:hover {
         //darken es para oscurecer el color en un 20%
-        color: darken($color, 20%);
+        color: color.scale($color, $lightness: -20%);
     }
 }
 
@@ -25,6 +26,6 @@
     //la clase quedaria como .text-gray-100:hover
     .text-gray-#{"#{$name}"}:hover {
         //darken es para oscurecer el color en un 20%
-        color: darken($color, 20%);
+        color: color.scale($color, $lightness: -20%);
     }
 }

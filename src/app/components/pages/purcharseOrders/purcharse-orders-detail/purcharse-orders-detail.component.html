@@ -1,0 +1,137 @@
+<div class="conteiner-purcharse">
+    <div class="conteiner-purcharse__search">
+
+    <div class="conteiner-purcharse__search--new">
+      <i class="fa-solid fa-circle-plus" (click)="redirectToNewPurcharseOrder()"></i>
+    </div>
+
+    <div class="conteiner-purcharse__search--item">
+
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
+
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </label>
+
+    </div>
+
+  </div>
+  @defer( ){
+  <div class="conteiner-purcharse__table">
+    <table>
+      <thead>
+        <tr>
+          <th class="column-0">Más</th>
+          <th class="column-1">Costo</th>
+          <th class="column-2">Cantidad</th>
+          <th class="column-3">Descripción</th>
+          <th class="column-4">Orden de compra</th>
+          <th class="column-5">Producto</th>
+          <th class="column-6">Proveedor</th>
+          <th class="column-7">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(item of purcharse(); track $index){
+
+          <tr>
+            <td class="column-0">
+              <button (click)="toggleDetails(item)">+</button>
+            </td>
+            <td class="column-1">${{item.purcharse | number: '1.2-2'}}</td>
+            <td class="column-2">{{item.amount| number: '1.2-2'}}</td>
+            <td class="column-3">{{item.description}}</td>
+            <td class="column-4">{{item.purcharse_order}}</td>
+            <td class="column-5">{{item.products.name}}</td>
+            <td class="column-6">{{item.suppliers.name}}</td>
+            <td class="column-7">
+              <i  class="fa-regular fa-pen-to-square text-warning" (click)="redirectToModifyPurcharseOrder(item.id)"></i>
+              <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteCost(item.id)"></i>
+            </td>
+          </tr>
+          <tr class="row">
+            @if(item.showDetails){
+              <td colspan="8">
+                 @if(!isColumnVisible('column-1')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>
+                      Costo
+                    </span>
+                    <p>${{item.purcharse | number: '1.2-2'}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-2')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>
+                      Cantidad
+                    </span>
+                    <p>{{item.amount| number: '1.2-2'}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-3')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>Descripción</span>
+                    <p>{{item.description}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-4')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>Orden de compra</span>
+                    <p>{{item.purcharse_order}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-5')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>Producto</span>
+                    <p>{{item.products.name}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-6')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>Proveedor</span>
+                    <p>{{item.suppliers.name}}</p>
+                  </div>
+                }
+                @if(!isColumnVisible('column-7')){
+                  <div class="conteiner-purcharse__table--details">
+                    <span>Acciones</span>
+                    <p>
+                      <i  class="fa-regular fa-pen-to-square text-warning" (click)="redirectToModifyPurcharseOrder(item.id)"></i>
+                      <i class="fa-regular fa-trash-can text-danger" (click)="confirmDeleteCost(item.id)"></i>
+                    </p>
+                  </div>
+                }
+
+              </td>
+            }
+
+          </tr>
+        }@empty {
+          <p class="text-danger" >No hay ordenes de compra</p>
+        }
+
+      </tbody>
+    </table>
+  </div>
+}@placeholder {
+  <app-spiner-pages/>
+}
+
+<div class="conteiner-purcharse__pagination">
+  <div class="conteiner-purcharse__pagination--links">
+    @for(links of purcharsePagination()?.data?.links; track $index){
+      @if( links.label === '&laquo; Anterior'){
+        <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(purcharsePagination()?.data.prev_page_url)" ><i class="fa-solid fa-chevron-left"></i></a>
+      }@else if(links.label ==='Siguiente &raquo;' ){
+        <a [ngStyle]="{'display':links.url ===null ?'none':'inline'}" (click)="pagination(purcharsePagination()?.data.next_page_url)"><i class="fa-solid fa-chevron-right"></i></a>
+      }@else{
+        <a [ngClass]="links.active === true? 'active':''" (click)="pagination(links.url)">{{links.label}}</a>
+      }
+    }
+  </div>
+  <div class="conteiner-purcharse__pagination--page">
+    <p>{{ purcharsePagination()?.data?.to }} / {{ purcharsePagination()?.data?.total }}</p>
+  </div>
+</div>
+</div>
+

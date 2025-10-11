@@ -1,0 +1,25 @@
+<div class="conteiner-maintenance">
+  <div class="conteiner-maintenance__filters">
+
+    @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    }
+
+  </div>
+  <div class="conteiner-maintenance__cards">
+    <app-smoll-sumary-card [name]="'Total'" [amount]="joined()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
+    <app-smoll-sumary-card [name]="'Cantidad Total'" [amount]="inProgress()" [color]="colorWarning" [gradient]="colorWarningGradient"/>
+    <app-smoll-sumary-card [name]="'Total Ordenes'" [amount]="authorization()" [color]="colorDanger" [gradient]="colorDangerGradient" />
+    <app-smoll-sumary-card [name]="'Finalizados'" [amount]="finalized()" [color]="colorSuccess" [gradient]="colorSuccessGradient"/>
+  </div>
+  <div class="conteiner-maintenance__links">
+    <a class="text-success " [routerLink]="'lista-ordenes-compra'" routerLinkActive = "selected" >Mantenimientos</a>
+    <a class="text-success" [routerLink]="'estadisticas-ordenes-compra'" routerLinkActive = "selected" >Estadisticas</a>
+  </div>
+  <div class="conteiner-maintenance__principal">
+    <router-outlet/>
+  </div>
+</div>
