@@ -12,6 +12,15 @@ export class PurcharseOrdersService {
   #url = environment.domain;
   #http = inject(HttpClient);
   #cookieService = inject(CookieService);
+
+  newPurecharseOrder(data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}purchaseorders`, data, {headers: headers});
+  }
   
   getPurcharseOrders() : Observable<any>{
     const token = this.#cookieService.get('token');
@@ -22,8 +31,34 @@ export class PurcharseOrdersService {
 
     return this.#http.get<any>(`${this.#url}purchaseorders`, { headers });
   }
+  getPurcharseOrder(id: number) : Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+    return this.#http.get<any>(`${this.#url}purchaseorders/${id}`, { headers });
+  }
 
-    searchPurchaseOrders(term: string): Observable<any>{
+  modifyPurcharseOrder(id: number, data: any): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}purchaseorders/${id}`, data, {headers: headers});
+  }
+
+  deletePurcharseOrder(id: number): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.delete<any>(`${this.#url}purchaseorders/${id}`, {headers: headers});
+  }
+
+  searchPurchaseOrders(term: string): Observable<any>{
     const token = this.#cookieService.get('token');
     const headers = {
       'Accept': 'application',

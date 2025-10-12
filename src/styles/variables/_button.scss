@@ -15,7 +15,7 @@
     background-color:  color.scale($gray-700, $lightness: 5%);
     color: $white;
     border: 1px solid  color.scale($gray-700, $lightness: 5%);
-
+    pointer-events: none;
   }
 
 }

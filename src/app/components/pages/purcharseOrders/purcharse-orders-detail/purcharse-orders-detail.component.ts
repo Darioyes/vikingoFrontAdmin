@@ -163,10 +163,24 @@ export class PurcharseOrdersDetailComponent implements  OnInit, OnDestroy {
     this.#router.navigate(['home/ordenes-compra/modificar-orden-compra'],{queryParams:{id:purcharseOrderId}});
   }
 
+  deletePurcharseOrder(id:number){
+    this.#unsubscribe = this.#purcharseOrdersService.deletePurcharseOrder(id).subscribe({
+      next:(response:any)=>{
+        console.log(response);
+        this.#alertService.showAlert('success', response.message);
+        this.purcharseOrders();
+      },
+      error:(error:any)=>{
+        console.log(error);
+        this.#alertService.showAlert('error', 'Comuniquese con el administrador');
+      }
+    });
+  }
+
   async confirmDeleteCost(id:number) {
   const confirm = await this.#alertService.openAlert('alert', '¿Esta seguro que desea eliminar el costo directo?');
   if (confirm) {
-   
+   this.deletePurcharseOrder(id);
   } else {
     //console.log('Cancelado');
   }

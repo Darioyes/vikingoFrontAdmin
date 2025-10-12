@@ -93,4 +93,14 @@ export class ProductsService {
     return this.#http.get<ApiProductDetaillResponse>(`${this.#url}products-nopaginate`, {headers: headers});
   }
 
+  //obtener el total de productos sin paginación
+  getTotalProducts(): Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+    return this.#http.get<any>(`${this.#url}totalproducts`, {headers: headers});
+  }
+
 }

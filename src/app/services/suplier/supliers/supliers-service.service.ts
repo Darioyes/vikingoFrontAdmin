@@ -74,4 +74,13 @@ export class SupliersServiceService {
     return this.#http.get(`${this.#url}basicsuppliers`, {headers: headers});
   }
 
+  getAllSuppliersNoPaginate(): Observable<any>{
+    const token = this.#cookieService.get('token');
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this.#http.get<any>(`${this.#url}totalsuppliers`, {headers: headers});
+  }
+
 }

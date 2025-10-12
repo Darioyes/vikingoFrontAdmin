@@ -1,1 +1,106 @@
-<p>purcharse-orders-modify works!</p>
+<div class="cointeinear-purcharseorders" >
+  @defer ( when success() === 'success' ) {
+    @let purcharseh = purcharseOrderOne();
+    <div class="cointeinear-purcharseorders__title">
+       <h2>Detalle orden de compra: {{purcharseh.purcharse_order}}</h2>
+
+    </div>
+
+    <form [formGroup]="purcharseFormModify"enctype = "multipart/form-data">
+
+    <div class="cointeinear-purcharseorders__content" >
+
+        <div class="cointeinear-purcharseorders__content--item">
+        <label for="name">Costo</label>
+
+            <input type="number" id="purcharse" name="purcharse" formControlName="purcharse" >
+            @if(purcharse?.errors?.['required'] && purcharse?.touched ){
+            <span class="alert text-danger" >El costo es obligatorio</span>
+            }
+            @if( purcharse?.errors?.['pattern'] ){
+                <span class="alert text-danger" >El costo debe ser un número válido (ej: 123,45)</span>
+            }
+            
+        
+        </div>
+        
+            <div class="cointeinear-purcharseorders__content--item">
+            <label for="name">Cantidad</label>
+            <input type="number" id="amount" name="amount" formControlName="amount" appThousandsSeparator>
+                @if(amount?.errors?.['required'] && amount?.touched ){
+                    <span class="alert text-danger" >La cantidad es obligatoria</span>
+                }
+                @if( amount?.errors?.['pattern'] ){
+                    <span class="alert text-danger" >La cantidad debe ser un número válido (ej: 123.45)</span>
+                }
+                @if( amount?.errors?.['min'] ){
+                    <span class="alert text-danger" >La cantidad debe ser mayor a 0</span>
+                }
+        </div>
+
+
+        <div class="cointeinear-purcharseorders__content--item">
+        <label for="name">Descripción</label>
+
+            <textarea id="description" name="description" formControlName="description" ></textarea>
+            @if(description?.errors?.['required'] && description?.touched ){
+            <span class="alert text-danger" >La descripción es obligatoria</span>
+            }
+            @if( description?.errors?.['minlength'] ){
+            <span class="alert text-danger" > La descripción debe terner mínimo 10 caracteres </span>
+            }
+            @if( description?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La descripción debe tener máximo 500 caracteres </span>
+            }
+        </div>
+
+        <div class="cointeinear-purcharseorders__content--item">
+            <label for="price">Orden de compra</label>
+            <input type="text" id="purcharse_order" name="purcharse_order" formControlName="purcharse_order" >
+            @if(purcharse_order?.errors?.['required'] && purcharse_order?.touched ){
+                <span class="alert text-danger" >La orden de compra es obligatoria</span>
+            }
+            @if( purcharse_order?.errors?.['minlength'] ){
+            <span class="alert text-danger" > La orden de compra debe terner mínimo 3 caracteres </span>
+            }
+            @if( purcharse_order?.errors?.['maxlength'] ){
+            <span class="alert text-danger" > La orden de compra debe tener máximo 255 caracteres </span>
+            }
+
+        </div>
+
+        <div class="cointeinear-purcharseorders__content--item">
+            <label for="products_id">Productos</label>
+            <select id="products_id" name="products_id" formControlName="products_id" >
+            @for (item of products(); track $index) {
+                <option [value]="item.id" [selected]="purcharseh?.products_id === item.id">{{item.name}}</option>
+            }
+            </select>
+            
+        </div>
+
+        <div class="cointeinear-purcharseorders__content--item">
+            <label for="suppliers_id">Proveedores</label>
+            <select id="suppliers_id" name="suppliers_id" formControlName="suppliers_id" >
+                @for (item of supliers(); track $index) {
+                    <option [value]="item.id" [selected]="purcharseh?.suppliers_id === item.id">{{item.name}}</option>
+                }
+            </select>
+        </div>
+
+        <div class="cointeinear-purcharseorders__btn">
+            <button type="button"  class="btn btn-success btn2" [disabled]="!purcharseFormModify.valid" (click)="purcharseOrderModify()">Modificar</button>
+            <button type="button"  class="btn btn-danger btn3" (click)="goBack()" >Cancelar</button>
+        </div>
+
+    </div>
+    
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>
+
