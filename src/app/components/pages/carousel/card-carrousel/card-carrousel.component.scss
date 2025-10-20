@@ -1,0 +1,69 @@
+@use '../../../../../styles/variables/variables' as *;
+
+.conteiner-carrousel{
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 5px;
+
+    &__image{
+        width: 100%;
+        border-radius: 5px;
+        padding-bottom: 10px;
+        img{
+            width: 100%;
+            overflow: hidden;
+            //centrar la imagen al contendor
+            object-fit: cover;
+            //se muestra el centro de la imagen
+            object-position: center;
+            //redondear bordes superiores
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            //la image no sobrepase el contendor
+
+        }
+    }
+
+    &__info{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 10px;
+
+        .conteiner-carrousel__basic{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 5px;
+            :first-child{
+                font-size: clamp(12px, 2dvw, 16px );
+                font-weight: 700;
+            }
+            span{
+                display: block;
+                padding: 2px 5px;
+                font-size: clamp(12px, 2dvw, 16px );
+                text-align: center;
+            };
+        }
+        .conteiner-carrousel__actions{
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 5px;
+            i{
+                cursor: pointer;
+                padding: 3px;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,18 @@
+<div class="conteiner-banner">
+  <div class="conteiner-banner__filters">
+
+    <!-- @for( day of days; track $index ){
+      <button class="btn btn-summary"
+       (click)="setActive(day)"
+       [ngClass]="{'active-filter': activeDay === day}"
+       >{{day.label}}</button>
+    } -->
+
+  </div>
+
+
+  <div class="conteiner-banner__principal">
+    <router-outlet/>
+    
+  </div>
+</div>

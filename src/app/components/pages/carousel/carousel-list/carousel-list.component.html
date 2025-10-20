@@ -1,0 +1,56 @@
+<div class="conteiner-carrousel" >
+    
+  <div class="conteiner-carrousel__search">
+
+    <div class="conteiner-carrousel__search--new">
+      <i class="fa-solid fa-circle-plus" ></i>
+    </div>
+
+    <div class="conteiner-carrousel__search--item">
+
+      <input #searchInput type="text" name="search" id="search" placeholder="Buscar...">
+
+      <label for="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </label>
+
+    </div>
+
+  </div>
+
+  <div class="conteiner-carrousel__description example-list" cdkDropList cdkDropListOrientation="mixed" (cdkDropListDropped)="drop($event)">
+    @defer (when success() === 'success') {
+
+        @for(carousel of carousel(); track $index){
+    
+            <app-card-carrousel class="example-box" cdkDrag
+            [id]="carousel.id"
+            [imageDesktop]=" urlImage +carousel.image.replace('public', 'storage')"
+            [nameImage]="carousel.id"
+            [order]="carousel.order"
+            [product]="carousel.product.name"
+            [state]="carousel.carousel"
+            (infoId)="infoCarousel($event)"
+            (deleteId)="confirmDeleteCarousel($event)"
+            />
+        }@empty {
+            <p class="text-danger" >No hay Carruseles registrados</p>
+        }
+    }@placeholder {
+      <app-spiner-pages/>
+    }
+  
+      
+  </div>
+
+  <div class="conteiner-carrousel__button">
+    <button class="btn btn-success" (click)="saveNewOrder(newOrder())">Establecer</button>
+    <button class="btn btn-danger" (click)="cancelChanges()">Cancelar</button>
+  </div>
+
+</div>
+
+
+
+
+

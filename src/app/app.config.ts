@@ -21,6 +21,7 @@ import { LoginService } from '@services/users/login.service';
 import { UsersService } from '@services/users/users/users.service';
 import { routes } from './app.routes';
 import { errorApiInterceptor } from './interceptors/errorInterceptor/error-api.interceptor';
+import { BannerService } from '@services/banner/banner.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     IndirectCostService,
     CategoriesProductsService,
     CitiesService,
+    BannerService,
     { provide: LOCALE_ID, useValue: 'es-CO' },//para que la aplicación se ejecute en español colombiano
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes,
@@ -49,10 +51,10 @@ export const appConfig: ApplicationConfig = {
     withComponentInputBinding() //es para que localice los id en las rutas ejemplo/:id
   ),
   //provideClientHydration(),//solo se usa con ssr
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([ errorApiInterceptor]),
+    provideHttpClient(//para usar httpClient
+      withFetch(),//para usar fetch en lugar de XMLHttpRequest
+      withInterceptors([ errorApiInterceptor]),//interceptor de errores globales
     ),
-    provideAnimationsAsync(),
+    provideAnimationsAsync(),//para las animaciones
 ]
 };

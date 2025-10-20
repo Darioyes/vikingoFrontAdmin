@@ -1,0 +1,36 @@
+<div class="conteiner-carrousel">
+    <!-- <div class="conteiner-carrousel__leftarrow" >
+        <i class="fa-solid fa-chevron-left"></i>
+    </div> -->
+
+    <div class="conteiner-carrousel__image">
+        <img [src]="imageDesktop() " [alt]="nameImage()" >
+    </div>
+
+    <!-- <div class="conteiner-carrousel__rightarrow" >
+        <i class="fa-solid fa-chevron-right"></i>
+    </div> -->
+    <div class="conteiner-carrousel__info">
+        <div class="conteiner-carrousel__basic">
+            <div class="conteiner-carrousel__basic--items">
+                <span>Orden:</span>
+                <span>{{order()}}</span>
+            </div>
+        
+            <div class="conteiner-carrousel__basic--items">
+                <span>Producto:</span>
+                <span>{{product()}}</span>
+            </div>
+            <div class="conteiner-carrousel__basic--items">
+                <span>Estado:</span>
+                <span  [ngStyle]="{'color': state() === 'active' ? colorSuccess : colorDanger}" >{{state() === 'active' ? 'Activo' : 'Inactivo'}}</span>
+            </div>
+        </div>
+        
+        <div class="conteiner-carrousel__actions">
+            <i class="fa-solid fa-info text-info text-info" (click)="carouselInformation()"></i>
+            <i class="fa-regular fa-trash-can text-danger" (click)="carouselDelete()"></i>
+        </div>
+    </div>
+
+</div>

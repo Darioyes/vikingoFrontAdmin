@@ -1,0 +1,96 @@
+@use 'sass:color';
+@use '../../../../../styles/variables/variables' as *;
+@use '../../../../../styles/variables/mediaq' as *;
+
+.conteiner-carrousel{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    &__search{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: $white;
+        
+        &--new{
+        cursor: pointer;
+         i{
+            font-size: 30px;
+            color: $success;
+            &:hover{
+                color: color.scale($success, $lightness: -20%);
+            }
+            }
+        }
+
+        &--item{
+        background-color: aqua;
+        max-width: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+            input{
+                width: 350px;
+                height: 30px;
+                border: 1px solid $secondary;
+                outline: none;
+                padding: 0 5px;
+                @include phone{
+                width: 270px;
+                }
+            }
+            label{
+                display: grid;
+                place-items: center;
+                width: 30px;
+                height: 30px;
+                background-color: $primary;
+                i{
+                color:$white
+                }
+            }
+        }
+    }
+
+    &__description{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+
+    &__button{
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:10px;
+    }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

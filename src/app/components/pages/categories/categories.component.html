@@ -1,14 +1,14 @@
 <div class="conteiner-categories">
-  <!-- <div class="conteiner-categories__filters">
+  <div class="conteiner-categories__filters">
 
-    @for( day of days; track $index ){
+    <!-- @for( day of days; track $index ){
       <button class="btn btn-summary"
        (click)="setActive(day)"
        [ngClass]="{'active-filter': activeDay === day}"
        >{{day.label}}</button>
-    }
+    } -->
 
-  </div> -->
+  </div>
   <div class="conteiner-categories__cards">
     <app-smoll-sumary-card [name]="'Productos'" [amount]="products()" [color]="colorPrimary" [gradient]="colorPrimaryGradient" />
     <app-smoll-sumary-card [name]="'Costos Directos'" [amount]="directCosts()" [color]="colorWarning" [gradient]="colorWarningGradient"/>

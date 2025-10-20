@@ -402,6 +402,44 @@ export const routes: Routes = [
           },
         ]
       },
+
+      {
+        path:'Banner',
+        title: 'Banner',
+        loadComponent: () => import('./components/pages/carousel/carousel/carousel.component').then(c=>c.CarouselComponent),
+        canActivate: [authGuard],
+        children:[
+          {
+            path:'',
+            redirectTo:'lista-banner',
+            pathMatch:'full'
+          },
+          {
+            path:'lista-banner',
+            title:'Lista de Banners',
+            loadComponent:() => import('./components/pages/carousel/carousel-list/carousel-list.component').then(c=>c.CarouselListComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'banner-info',
+            title:'Información del banner',
+            loadComponent:() => import('./components/pages/carousel/carousel-info/carousel-info.component').then(c=>c.CarouselInfoComponent),
+            canActivate:[authGuard]
+          },
+          {
+            path:'crear-banner',
+            title:'Crear Banner',
+            loadComponent:() => import('./components/pages/carousel/form/carousel-new/carousel-new.component').then(c=>c.CarouselNewComponent),
+            canActivate: [authGuard]
+          },
+          {
+            path:'modificar-banner',
+            title:'Modificar Banner',
+            loadComponent:() => import('./components/pages/carousel/form/carousel-modify/carousel-modify.component').then(c=>c.CarouselModifyComponent),
+            canActivate: [authGuard]
+          },
+        ]
+      },
     ],
   },
   {

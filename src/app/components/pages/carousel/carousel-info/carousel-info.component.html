@@ -1,0 +1,32 @@
+<div class="container-carousel">
+    @let bannerH = banner();
+    <div class="container-carousel__image" >
+        <div class="container-carousel__image--arrow" (click)="prevImage()">
+            <i class="fa-solid fa-chevron-left" ></i>
+        </div>
+        <div class="container-carousel__image--img" >
+            <img [src]="currentImage()" [alt]="'imagen ' + banner()?.id" class="fade-in" /> 
+        </div>
+        <div class="container-carousel__image--arrow" (click)="nextImage()">
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+    </div>
+    <div class="container-carousel__info">
+        <div class="container-carousel__info--item">
+            <label>Orden</label>
+            <p>{{bannerH?.order}}</p>
+        </div>
+        <div class="container-carousel__info--item">
+            <label>Producto</label>
+            <p>{{bannerH?.product?.name}}</p>
+        </div>
+        <div class="container-carousel__info--item">
+            <label>Estado</label>
+            <p>{{bannerH?.carousel === 'active' ? 'Activo' : 'Inactivo'}}</p>
+        </div>
+    </div>
+    <div class="container-carousel__btn">
+        <button class="btn btn-warning btn1" >Modificar</button>
+        <button class="btn btn-danger btn3" >Cancelar</button>
+    </div>
+</div>
