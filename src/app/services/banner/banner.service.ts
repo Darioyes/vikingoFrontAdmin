@@ -30,6 +30,15 @@ export class BannerService {
     return this.#http.get<any>(`${this.#url}carousel/${id}`, {headers: headers})
   }
 
+  modifyBanner(id: number, data: FormData):Observable<any> {
+    const token = this.#cookieService.get('token');
+    const headers = {
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+    };
+    return this.#http.post<any>(`${this.#url}carousel/${id}`, data, { headers: headers });
+  }
+
   updateBannerOrder(banners: { id: number; order: number }[]):Observable<any> {
         const token = this.#cookieService.get('token');
     const headers = {

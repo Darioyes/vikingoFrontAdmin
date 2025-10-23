@@ -1,1 +1,81 @@
-<p>carousel-modify works!</p>
+<div class="cointeinear-banner" >
+  @defer ( ) {
+    @let bannerH = banner();
+    <div class="cointeinear-banner__title">
+       <h2>Modificar banner</h2>
+    </div>
+
+    <form [formGroup]="bannerForm" enctype = "multipart/form-data">
+
+        <div class="cointeinear-banner__images">
+            <div class="cointeinear-banner__images--img">
+            <img  [src]="previewImage"
+                    [alt]="bannerH.product+1"
+                    [ngClass]="{'imageinput':modifyInput()}"
+                    (click)="triggerFileInput(1)"
+            />
+            <input #fileInput1 type="file" name="image" id="image" (change)="onFileSelected($event,1)" accept="image/*" />
+            </div>
+
+            <div class="cointeinear-banner__images--img">
+            <img  [src]="previewImage2"
+                    [alt]="bannerH.product+2"
+                    [ngClass]="{'imageinput':modifyInput()}"
+                    (click)="triggerFileInput(2)"
+                    />
+            <input #fileInput2 type="file" name="image2" id="image2" (change)="onFileSelected($event,2)" accept="image/*" />
+            </div>
+     </div>
+
+      <div class="cointeinear-banner__content" >
+
+         <div class="cointeinear-banner__content--item">
+           <label for="order">Orden</label>
+           <input type="number" name="order" id="order" formControlName="order" >
+           @if(order?.errors?.['required'] && order?.touched ){
+             <span class="alert text-danger" >El orden es obligatorio</span>
+           }
+            @if( order?.errors?.['pattern'] ){
+                <span class="alert text-danger" >El orden debe ser un número válido (ej: 123)</span>
+            }
+         </div>
+
+       <div class="cointeinear-banner__content--item">
+        <label for="product_id">Categoría</label>
+
+            <select id="product_id" name="product_id" formControlName="product_id" >
+            <option value="" disabled selected>Selecciona un producto</option>
+            @for (item of products(); track $index) {
+              <option [value]="item.id" [selected]="bannerH?.product_id === item.id  " >{{ item.name }}</option>
+            }
+            </select>
+       </div>
+              <div class="cointeinear-banner__content--item">
+        <label for="carousel">Estado</label>
+
+            <select id="carousel" name="carousel" formControlName="carousel" >
+            <option value="" disabled selected>Selecciona un producto</option>
+            @for (item of carouselStates; track $index) {
+              <option [value]="item.value" [selected]="bannerH?.product_id === item.value  " >{{ item.viewValue }}</option>
+            }
+            </select>
+       </div>
+
+    </div>
+
+      <div class="cointeinear-banner__btn">
+
+        <button type="button"  class="btn btn-success btn2" (click)="modifyBanner()" [disabled]="!bannerForm.valid">Modificar</button>
+       
+        <button type="button"  class="btn btn-danger btn3" (click)="back()" >Cancelar</button>
+      </div>
+
+    </form>
+
+
+  }@placeholder {
+    <app-spiner-pages/>
+  }
+
+</div>
+

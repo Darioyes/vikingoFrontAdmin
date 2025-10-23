@@ -7,7 +7,7 @@ import { SmollSumaryCardComponent } from '@shared/cards/smoll-sumary-card/smoll-
   selector: 'app-carousel',
   imports: [
     CommonModule,
-    SmollSumaryCardComponent,
+    //SmollSumaryCardComponent,
     RouterModule
   ],
   templateUrl: './carousel.component.html',

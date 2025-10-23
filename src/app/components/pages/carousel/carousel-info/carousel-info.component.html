@@ -1,6 +1,6 @@
 <div class="container-carousel">
     @let bannerH = banner();
-    <div class="container-carousel__image" >
+    <div class="container-carousel__image" [ngStyle]="{'width': desktop() ? '100%' : '40%'}">
         <div class="container-carousel__image--arrow" (click)="prevImage()">
             <i class="fa-solid fa-chevron-left" ></i>
         </div>
@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="container-carousel__btn">
-        <button class="btn btn-warning btn1" >Modificar</button>
-        <button class="btn btn-danger btn3" >Cancelar</button>
+        <button class="btn btn-warning btn1" (click)="editBanner()">Modificar</button>
+        <button class="btn btn-danger btn3" (click)="back()" >Cancelar</button>
     </div>
 </div>

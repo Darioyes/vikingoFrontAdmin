@@ -230,6 +230,7 @@ export class FormInformationProductComponent implements OnInit, OnDestroy {
         console.log(error)
       },
       complete:()=>{
+        //asignar las imagenes existentes a las señales correspondientes
         this.existsImage1.set(this.product()?.image1?.replace('public', 'storage'));
         this.previewImage1 = this.urlImg + this.existsImage1();
         this.existsImage2.set(this.product()?.image2?.replace('public', 'storage'));

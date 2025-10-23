@@ -48,7 +48,6 @@ export class CarouselListComponent implements OnInit, OnDestroy {
       next:(response)=>{
         this.carousel.set(response.data);
         this.success.set(response.response);
-        console.log(response);
       },
       error:(error)=>{
         console.log(error);
@@ -85,7 +84,7 @@ export class CarouselListComponent implements OnInit, OnDestroy {
         this.getBanners();
       },
       error: (err) => {
-        console.error(err);
+        console.log(err);
         this.#alertService.showAlert('error', 'Comunicarse con el administrador');
       }
     });
