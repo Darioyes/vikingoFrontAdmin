@@ -195,7 +195,7 @@ export class CarouselNewComponent implements OnInit, OnDestroy {
       if(this.image2){
         data.append('image2', this.image2);
       }
-      console.log([...((data as any).entries())]);
+      //console.log([...((data as any).entries())]);
       if(this.#cookiesService.check('token')){
         this.#unsubscribe = this.#bannerService.createBanner(data).subscribe({
           next: (response:any) => {
@@ -204,7 +204,6 @@ export class CarouselNewComponent implements OnInit, OnDestroy {
           },
           error: (error:any) => {
             console.log(error);
-            console.log(error.message.message);
             if(error.message.message == 'El campo orden ya ha sido registrado.' ){
               this.#alertService.showAlert('alert', 'El campo orden ya ha sido registrado. Por favor, elija otro valor.');
               return;
