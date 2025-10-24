@@ -110,86 +110,86 @@ export class CarouselModifyComponent implements OnInit, OnDestroy {
     }
   }
 
-//esta funcion es para manejar el archivo seleccionado
-public onFileSelected(event: Event, imageKey: number): void {
-  // Obtener el archivo seleccionado
-  const input = event.target as HTMLInputElement;
-  // Verificar si se seleccionó un archivo
-  if (input.files && input.files.length > 0) {
-    // Obtener el primer archivo (en caso de que se permitan múltiples archivos)
-    const file = input.files[0];
-    // Validar que el archivo sea una imagen
-    if (file && file.type.startsWith('image/')) {
-      //constntruir un objeto de imagen para validar las dimensiones
-      const img = new Image();
-      // Leer el archivo como una URL de datos
-      const reader = new FileReader();
-      // Cuando la lectura se complete, establecer la fuente de la imagen
-      reader.onload = (e) => {
-        // Establecer la fuente de la imagen para que se cargue
-        img.src = e.target?.result as string;
-      };
-      // Cuando la imagen se haya cargado, validar sus dimensiones
-      img.onload = () => {
-        // Obtener las dimensiones de la imagen
-        const width = img.width;
-        // Obtener las dimensiones de la imagen
-        const height = img.height;
-        // Validar las dimensiones según la imagen (1 o 2)
-        let valid = false;
-        //si la imagen es la 1 (escritorio) debe ser 1800x650
-        if (imageKey === 1 && width === 1800 && height === 650) {
-          valid = true;
-          //si la imagen es la 2 (movil) debe ser 545x800
-        } else if (imageKey === 2 && width === 545 && height === 800) {
-          valid = true;
-        }
-
-        if (!valid) {
-          this.#alertService.showAlert(
-            'alert',
-            imageKey === 1
-              ? 'La imagen para pantallas de escritorio debe tener una resolución exacta de 1800x650 píxeles.'
-              : 'La imagen para pantallas móviles debe tener una resolución exacta de 545x800 píxeles.'
-          );
-
-          // Marcar bandera como inválida
-          if (imageKey === 1) this.image1Valid.set(false);
-          if (imageKey === 2) this.image2Valid.set(false);
-          return;
-        }
-
-        // Si pasa la validación, marcamos la bandera como válida
-        if (imageKey === 1) this.image1Valid.set(true);
-        if (imageKey === 2) this.image2Valid.set(true);
-        // la constanta readerPreview es para mostrar la vista previa de la imagen seleccionada
-        const readerPreview = new FileReader();
-        // Cuando la lectura se complete, establecer la vista previa
-        readerPreview.onload = () => {
-          // Asignar la vista previa y el archivo correspondiente según la imagen
-          if (imageKey === 1) {
-            // Asignar la vista previa y el archivo correspondiente según la imagen
-            this.previewImage = readerPreview.result;
-            //  Asignar el archivo a la variable image
-            this.image = file;
-            // Marcar el control del formulario como tocado
-            this.bannerForm.get('image')?.markAsTouched();
-          } else {
-            this.previewImage2 = readerPreview.result;
-            this.image2 = file;
-            this.bannerForm.get('image2')?.markAsTouched();
-          }
+  //esta funcion es para manejar el archivo seleccionado
+  public onFileSelected(event: Event, imageKey: number): void {
+    // Obtener el archivo seleccionado
+    const input = event.target as HTMLInputElement;
+    // Verificar si se seleccionó un archivo
+    if (input.files && input.files.length > 0) {
+      // Obtener el primer archivo (en caso de que se permitan múltiples archivos)
+      const file = input.files[0];
+      // Validar que el archivo sea una imagen
+      if (file && file.type.startsWith('image/')) {
+        //constntruir un objeto de imagen para validar las dimensiones
+        const img = new Image();
+        // Leer el archivo como una URL de datos
+        const reader = new FileReader();
+        // Cuando la lectura se complete, establecer la fuente de la imagen
+        reader.onload = (e) => {
+          // Establecer la fuente de la imagen para que se cargue
+          img.src = e.target?.result as string;
         };
-        // Iniciar la lectura del archivo para la vista previa
-        readerPreview.readAsDataURL(file);
-      };
-      // Iniciar la lectura del archivo
-      reader.readAsDataURL(file);
-    } else {
-      this.#alertService.showAlert('alert', 'Solo se permiten archivos de tipo imagen (png, jpg, jpeg, webp).');
+        // Cuando la imagen se haya cargado, validar sus dimensiones
+        img.onload = () => {
+          // Obtener las dimensiones de la imagen
+          const width = img.width;
+          // Obtener las dimensiones de la imagen
+          const height = img.height;
+          // Validar las dimensiones según la imagen (1 o 2)
+          let valid = false;
+          //si la imagen es la 1 (escritorio) debe ser 1800x650
+          if (imageKey === 1 && width === 1800 && height === 650) {
+            valid = true;
+            //si la imagen es la 2 (movil) debe ser 545x800
+          } else if (imageKey === 2 && width === 545 && height === 800) {
+            valid = true;
+          }
+
+          if (!valid) {
+            this.#alertService.showAlert(
+              'alert',
+              imageKey === 1
+                ? 'La imagen para pantallas de escritorio debe tener una resolución exacta de 1800x650 píxeles.'
+                : 'La imagen para pantallas móviles debe tener una resolución exacta de 545x800 píxeles.'
+            );
+
+            // Marcar bandera como inválida
+            if (imageKey === 1) this.image1Valid.set(false);
+            if (imageKey === 2) this.image2Valid.set(false);
+            return;
+          }
+
+          // Si pasa la validación, marcamos la bandera como válida
+          if (imageKey === 1) this.image1Valid.set(true);
+          if (imageKey === 2) this.image2Valid.set(true);
+          // la constanta readerPreview es para mostrar la vista previa de la imagen seleccionada
+          const readerPreview = new FileReader();
+          // Cuando la lectura se complete, establecer la vista previa
+          readerPreview.onload = () => {
+            // Asignar la vista previa y el archivo correspondiente según la imagen
+            if (imageKey === 1) {
+              // Asignar la vista previa y el archivo correspondiente según la imagen
+              this.previewImage = readerPreview.result;
+              //  Asignar el archivo a la variable image
+              this.image = file;
+              // Marcar el control del formulario como tocado
+              this.bannerForm.get('image')?.markAsTouched();
+            } else {
+              this.previewImage2 = readerPreview.result;
+              this.image2 = file;
+              this.bannerForm.get('image2')?.markAsTouched();
+            }
+          };
+          // Iniciar la lectura del archivo para la vista previa
+          readerPreview.readAsDataURL(file);
+        };
+        // Iniciar la lectura del archivo
+        reader.readAsDataURL(file);
+      } else {
+        this.#alertService.showAlert('alert', 'Solo se permiten archivos de tipo imagen (png, jpg, jpeg, webp).');
+      }
     }
   }
-}
 
 
 

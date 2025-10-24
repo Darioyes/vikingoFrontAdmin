@@ -128,8 +128,25 @@ export class CarouselListComponent implements OnInit, OnDestroy {
    async confirmDeleteCarousel(id:any):Promise<void>{
         const confirm = await this.#alertService.openAlert('alert', '¿Seguro que desea eliminar este cliente?');
     if (confirm) {
-      //this.delelteUser(id);
+      this.deleteCarousel(id);
     }
+  }
+
+  createCarousel():void{
+    this.#router.navigate(['home/Banner/crear-banner']);
+  }
+
+  deleteCarousel(id:any):void{
+    this.#bannerService.deleteBanner(id).subscribe({
+      next:(response)=>{
+        this.#alertService.showAlert('success', 'Carrusel eliminado correctamente');
+        this.getBanners();
+      },
+      error:(error)=>{
+        console.log(error);
+        this.#alertService.showAlert('error', 'Comunicarse con el administrador');
+      }
+    });
   }
 
 }
