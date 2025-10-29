@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
     CitiesService,
     BannerService,
     { provide: LOCALE_ID, useValue: 'es-CO' },//para que la aplicación se ejecute en español colombiano
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZoneChangeDetection({ eventCoalescing: true }),// se coloca { eventCoalescing: true } para mejorar el rendimiento
     provideRouter(routes,
     //withHashLocation sirve para que en el servidor siempre vaya al index.html,
     withHashLocation(),
