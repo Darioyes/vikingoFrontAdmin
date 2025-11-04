@@ -122,7 +122,7 @@ export class FormInformationProductComponent implements OnInit, OnDestroy {
         name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(200)])],
         reference: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
         barcode: ['', Validators.compose([Validators.minLength(3), Validators.maxLength(100)])],
-        description: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(500)])],
+        description: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(1000)])],
         stock: ['', Validators.compose([Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
         sale_price: ['', Validators.compose([Validators.required, Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],
         cost_price:['', Validators.compose([Validators.pattern('^[0-9]+(\.[0-9]{1,2})?$')])],

@@ -54,10 +54,10 @@ export class NavbarComponent implements OnInit {
 
   }
 
-    // Método para actualizar activeMenu basado en el ancho de la ventana
-    private updateActiveMenu(width: number): void {
-      this.activeMenu = width > 1000;
-    }
+  // Método para actualizar activeMenu basado en el ancho de la ventana
+  private updateActiveMenu(width: number): void {
+    this.activeMenu = width > 1000;
+  }
 
   validarMenu():void {
     if(window.innerWidth <= 1000){
