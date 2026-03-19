@@ -21,6 +21,8 @@
   <div class="conteinaer-userslist__description">
     @defer ( when success().response === 'success'){
       @for(user of users(); track $index){
+        
+        @let images = user.image ? (urlImage + user.image.replace('public', 'storage')): '../../../../../assets/images/avatar.jpg';
         <app-user-card
         [id]="user.id"
         [name]="user.name"
@@ -28,7 +30,7 @@
         [userRole]="user.vikingo_roles.name_admin"
         [phone]="user.phone1"
         [email]="user.email"
-        [image]="urlImage + user.image.replace('public', 'storage')"
+        [image]="images"
         [gender]="user.gender"
         [status] ="user.status"
         (userInformationId)="userInformationId($event)"
